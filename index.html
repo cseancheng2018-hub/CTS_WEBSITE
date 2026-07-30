@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chasing the Sash — An Australian Docuseries</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #090907;
+  --cream: #F4EDE0;
+  --pink: #FF1F6E;
+  --pink-dark: #C8145A;
+  --gold: #C6993A;
+  --white: #FEFCF8;
+  --gray-mid: #888;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+}
+img { display: block; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 3.5rem;
+  transition: background 0.5s, border-color 0.5s;
+  border-bottom: 0.5px solid transparent;
+}
+nav.scrolled {
+  background: rgba(9,9,7,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom-color: rgba(255,255,255,0.07);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 2.25rem; list-style: none; }
+.nav-links a {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--pink); }
+
+/* ── HERO ── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 9rem 3.5rem 5rem;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 72% 35%, rgba(255,31,110,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 75%, rgba(198,153,58,0.08) 0%, transparent 45%),
+    var(--black);
+}
+.hero-img-panel {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 48%;
+  overflow: hidden;
+}
+.hero-img-panel img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 100%);
+}
+.hero-eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 2rem;
+  position: relative;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(4.5rem, 10.5vw, 10rem);
+  font-weight: 700;
+  line-height: 0.88;
+  position: relative;
+  max-width: 52%;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--pink);
+  display: block;
+}
+.hero-sash-accent {
+  display: inline-block;
+  width: 120px;
+  height: 3px;
+  background: var(--gold);
+  margin: 1.75rem 0;
+  position: relative;
+}
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.04em;
+  position: relative;
+}
+.hero-logline {
+  max-width: 440px;
+  font-size: 0.78rem;
+  line-height: 2;
+  color: rgba(255,255,255,0.42);
+  margin-top: 1.25rem;
+  position: relative;
+}
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.75rem;
+  position: relative;
+}
+.btn-pink {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--pink); color: var(--white);
+  padding: 0.9rem 2.1rem;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-pink:hover { background: var(--pink-dark); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent; color: var(--white);
+  padding: 0.9rem 2.1rem;
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  text-decoration: none; border: 1px solid rgba(255,255,255,0.22);
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.04); }
+.scroll-line-wrap {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  opacity: 0.25;
+}
+.scroll-line-wrap span { font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; }
+.scroll-pulse { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--white), transparent); animation: pulse 2.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:.3;transform:scaleY(.7)} 50%{opacity:1;transform:scaleY(1)} }
+
+/* ── SECTION SHARED ── */
+section { padding: 6.5rem 3.5rem; }
+.eyebrow {
+  font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--pink); margin-bottom: 1rem;
+}
+.eyebrow-gold { color: var(--gold); }
+.section-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 700; line-height: 1;
+}
+.body-copy { font-size: 0.82rem; line-height: 2; }
+
+/* ── WORLD ── */
+#world { background: var(--cream); color: var(--black); }
+#world .eyebrow { color: var(--pink); }
+#world .section-h { color: var(--black); }
+.world-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start; margin-top: 4rem;
+}
+.world-copy .body-copy { color: rgba(0,0,0,0.55); margin-top: 1.25rem; }
+.world-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.25rem; font-weight: 700; color: var(--pink); line-height: 1;
+}
+.stat-lbl { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-top: 0.25rem; line-height: 1.5; }
+.world-imgs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+}
+.world-img { width: 100%; object-fit: cover; }
+.world-img:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+.world-img:not(:first-child) { aspect-ratio: 3/4; }
+
+/* ── JOURNEY ── */
+#journey { background: var(--black); padding-bottom: 4rem; }
+.journey-head {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; margin-bottom: 3.5rem;
+}
+.journey-desc { font-size: 0.8rem; line-height: 2; color: rgba(255,255,255,0.42); margin-top: 1rem; }
+.locations-scroll {
+  display: flex; gap: 0.5rem;
+  overflow-x: auto; padding-bottom: 1rem;
+  scrollbar-width: none;
+}
+.locations-scroll::-webkit-scrollbar { display: none; }
+.loc-card {
+  flex: 0 0 240px; position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+}
+.loc-card img {
+  width: 100%; aspect-ratio: 2/3; object-fit: cover;
+  filter: grayscale(40%) brightness(0.65);
+  transition: filter 0.5s, transform 0.5s;
+}
+.loc-card:hover img { filter: grayscale(0%) brightness(0.8); transform: scale(1.04); }
+.loc-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.25rem 1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%);
+}
+.loc-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; }
+.loc-ep { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-top: 0.25rem; }
+.loc-card.finale { border-color: rgba(198,153,58,0.4); }
+.loc-card.finale .loc-ep { color: var(--gold); }
+
+/* ── WOMEN ── */
+#women { background: #0C0C0A; }
+.women-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem; margin-top: 3rem;
+}
+.woman-card { position: relative; overflow: hidden; cursor: pointer; }
+.woman-photo {
+  width: 100%; aspect-ratio: 3/4; object-fit: cover;
+  filter: grayscale(20%) brightness(0.7);
+  transition: transform 0.6s, filter 0.5s;
+}
+.woman-card:hover .woman-photo { transform: scale(1.05); filter: grayscale(0%) brightness(0.85); }
+.woman-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 3rem 1.5rem 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 40%, transparent);
+}
+.woman-role { font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.35rem; }
+.woman-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; }
+.woman-bio { font-size: 0.72rem; line-height: 1.75; color: rgba(255,255,255,0.55); margin-top: 0.5rem; }
+.woman-card.community .woman-role { color: var(--gold); }
+
+/* ── PODCAST ── */
+#podcast { background: var(--cream); color: var(--black); }
+#podcast .eyebrow { color: var(--pink); }
+.podcast-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 5rem; align-items: start; margin-top: 3rem;
+}
+.podcast-copy .body-copy { color: rgba(0,0,0,0.52); margin-top: 1.25rem; }
+.platform-pills { display: flex; gap: 0.6rem; margin-top: 2rem; flex-wrap: wrap; }
+.pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+  color: var(--black); text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.pill:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+.tab-row {
+  display: flex; border-bottom: 1px solid rgba(0,0,0,0.1);
+  margin-bottom: 1.25rem;
+}
+.tab-btn {
+  padding: 0.55rem 1.25rem;
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+  background: none; border: none; border-bottom: 2px solid transparent;
+  margin-bottom: -1px; cursor: pointer; color: rgba(0,0,0,0.35);
+  transition: color 0.2s, border-color 0.2s;
+  font-family: 'Montserrat', sans-serif;
+}
+.tab-btn.active { color: var(--pink); border-bottom-color: var(--pink); }
+.embed-area {
+  background: rgba(0,0,0,0.04);
+  border: 1px dashed rgba(0,0,0,0.12);
+  aspect-ratio: 16/5;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 0.6rem;
+}
+.embed-area iframe { width: 100%; height: 100%; border: none; }
+.embed-ph-txt { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.25); }
+.episodes { margin-top: 1.5rem; }
+.ep-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.9rem 0; border-bottom: 0.5px solid rgba(0,0,0,0.07);
+  cursor: pointer; transition: background 0.15s;
+}
+.ep-row:hover { background: rgba(0,0,0,0.02); }
+.ep-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 700;
+  color: rgba(0,0,0,0.1); min-width: 2.2rem;
+}
+.ep-title { font-size: 0.8rem; font-weight: 600; color: var(--black); }
+.ep-meta { font-size: 0.65rem; color: rgba(0,0,0,0.35); margin-top: 0.2rem; }
+.ep-play { color: var(--pink); font-size: 0.9rem; }
+
+/* ── INSTAGRAM ── */
+#instagram { background: var(--black); }
+.ig-head {
+  display: flex; align-items: flex-end;
+  justify-content: space-between; margin-bottom: 2.5rem;
+}
+.ig-handle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-style: italic; font-weight: 300;
+  color: rgba(255,255,255,0.28); margin-top: 0.5rem;
+}
+.ig-follow-link {
+  font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--pink); text-decoration: none; transition: opacity 0.2s;
+}
+.ig-follow-link:hover { opacity: 0.7; }
+.ig-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
+}
+.ig-cell { aspect-ratio: 1; overflow: hidden; position: relative; cursor: pointer; }
+.ig-cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.75) saturate(0.85);
+  transition: filter 0.35s, transform 0.45s;
+}
+.ig-cell:hover img { filter: brightness(0.9) saturate(1.1); transform: scale(1.06); }
+.ig-cell-overlay {
+  position: absolute; inset: 0;
+  background: rgba(255,31,110,0.65);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
+}
+.ig-cell:hover .ig-cell-overlay { opacity: 1; }
+.ig-notice {
+  grid-column: span 4; text-align: center;
+  padding: 1.25rem;
+  border: 1px dashed rgba(255,255,255,0.08);
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+}
+
+/* ── SIGN UP ── */
+#signup {
+  background: var(--pink);
+  text-align: center;
+  padding: 7rem 3.5rem;
+}
+#signup .eyebrow { color: rgba(255,255,255,0.55); }
+#signup .section-h { color: var(--white); font-size: clamp(2.8rem, 5vw, 5rem); }
+.signup-sub { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 1rem; }
+.signup-row {
+  display: flex; gap: 0; max-width: 460px;
+  margin: 2.5rem auto 0;
+}
+.signup-input {
+  flex: 1; padding: 1rem 1.25rem;
+  font-size: 0.8rem; font-family: 'Montserrat', sans-serif;
+  background: rgba(255,255,255,0.18); border: none; color: var(--white);
+  outline: none;
+}
+.signup-input::placeholder { color: rgba(255,255,255,0.45); }
+.signup-btn {
+  padding: 1rem 1.75rem;
+  background: #0A0A08; color: var(--white);
+  border: none; font-size: 0.6rem; font-family: 'Montserrat', sans-serif;
+  font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.signup-btn:hover { opacity: 0.82; }
+.signup-note { font-size: 0.6rem; color: rgba(255,255,255,0.35); margin-top: 1rem; }
+
+/* ── FOOTER ── */
+footer {
+  background: #060604;
+  padding: 4.5rem 3.5rem 2.5rem;
+  border-top: 0.5px solid rgba(255,255,255,0.05);
+}
+.footer-cols {
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 4rem; margin-bottom: 3rem;
+}
+.footer-brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem; font-weight: 600; margin-bottom: 0.75rem;
+}
+.footer-tagline { font-size: 0.73rem; line-height: 1.8; color: rgba(255,255,255,0.25); max-width: 320px; }
+.footer-col-hd {
+  font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.25); margin-bottom: 1.25rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.7rem; }
+.footer-col a { font-size: 0.78rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-col a:hover { color: var(--pink); }
+.footer-bottom {
+  border-top: 0.5px solid rgba(255,255,255,0.05);
+  padding-top: 1.75rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-copy, .footer-cred { font-size: 0.65rem; color: rgba(255,255,255,0.18); }
+
+/* ── ANIMATION ── */
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+.fade-up.in { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 4rem 1.5rem; }
+  #hero { padding: 7rem 1.5rem 4rem; }
+  .hero-title { max-width: 100%; font-size: clamp(3.5rem, 12vw, 6rem); }
+  .hero-img-panel { display: none; }
+  .world-grid, .journey-head, .podcast-grid, .footer-cols { grid-template-columns: 1fr; gap: 2.5rem; }
+  .women-grid { grid-template-columns: 1fr 1fr; }
+  .ig-grid { grid-template-columns: repeat(2, 1fr); }
+  .ig-notice { grid-column: span 2; }
+  .hero-ctas { flex-direction: column; }
+  .world-imgs .world-img:first-child { aspect-ratio: 16/9; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─────────── NAV ─────────── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Chasing the Sash</a>
+  <ul class="nav-links">
+    <li><a href="#world">The Show</a></li>
+    <li><a href="#women">The Women</a></li>
+    <li><a href="#podcast">Podcast</a></li>
+    <li><a href="#instagram">Follow</a></li>
+    <li><a href="#signup">Stay in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- ─────────── HERO ─────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img-panel">
+    <img src="https://picsum.photos/seed/fotf_hero/1000/1200" alt="Fashions on the Field">
+  </div>
+
+  <p class="hero-eyebrow fade-up">An Australian Docuseries</p>
+  <h1 class="hero-title fade-up">Chasing<em>the Sash</em></h1>
+  <div class="hero-sash-accent fade-up"></div>
+  <p class="hero-tagline fade-up">Hats. Horses. High Heels. High Stakes.</p>
+  <p class="hero-logline fade-up">From regional racetracks to the grand finale, everyday Australians put their creativity and courage on the line in a high-stakes fashion competition where one sash can change everything.</p>
+  <div class="hero-ctas fade-up">
+    <a href="#podcast" class="btn-pink">&#9654;&nbsp; Listen to the Podcast</a>
+    <a href="#world" class="btn-ghost">Discover the Show</a>
+  </div>
+
+  <div class="scroll-line-wrap">
+    <span>Scroll</span>
+    <div class="scroll-pulse"></div>
+  </div>
+</section>
+
+<!-- ─────────── THE WORLD ─────────── -->
+<section id="world">
+  <div class="world-grid">
+    <div class="world-copy fade-up">
+      <p class="eyebrow">Fashions on the Field</p>
+      <h2 class="section-h">Where fashion<br>is a competitive<br>sport</h2>
+      <p class="body-copy">Fashions on the Field is a passionate subculture held at Australian racetracks, where contestants showcase style, creativity, and individuality. Judged on originality, elegance, and attention to detail — the coveted winner's sash is everything.</p>
+      <p class="body-copy" style="margin-top:1rem;">More than a style contest, it's a world where women who feel unseen in everyday life become superstars on the stage. Bold characters, fierce rivalries, and moments of deep vulnerability and unexpected connection.</p>
+      <div class="world-stats">
+        <div>
+          <div class="stat-num">400+</div>
+          <div class="stat-lbl">Racetracks<br>across Australia</div>
+        </div>
+        <div>
+          <div class="stat-num">10</div>
+          <div class="stat-lbl">Episodes<br>of drama</div>
+        </div>
+        <div>
+          <div class="stat-num">1</div>
+          <div class="stat-lbl">Sash that<br>changes everything</div>
+        </div>
+      </div>
+    </div>
+    <div class="world-imgs fade-up">
+      <img src="https://picsum.photos/seed/fotf_wide/900/400" alt="Fashions on the Field" class="world-img">
+      <img src="https://picsum.photos/seed/fotf_p2/450/600" alt="Race day fashion" class="world-img">
+      <img src="https://picsum.photos/seed/fotf_p3/450/600" alt="Fashion contestant" class="world-img">
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── THE JOURNEY ─────────── -->
+<section id="journey">
+  <div class="journey-head">
+    <div class="fade-up">
+      <p class="eyebrow">Series One</p>
+      <h2 class="section-h">From red dust<br>to Royal Randwick</h2>
+    </div>
+    <div class="fade-up">
+      <p class="journey-desc">Australia is home to over 400 racetracks — many set in remote regional communities, each with its own distinct look, feel, and flair. In country towns, Cup Day is the highlight of the social calendar.</p>
+      <p class="journey-desc" style="margin-top:0.85rem;">Series one journeys from tropical Cairns to the outback dust of Birdsville, through thoroughbred country at Scone, across the wild west of Dubbo — culminating in a glittering finale at Royal Randwick on Melbourne Cup Day.</p>
+    </div>
+  </div>
+
+  <div class="locations-scroll fade-up">
+    <div class="loc-card">
+      <img src="https://picsum.photos/seed/cairns_loc/480/720" alt="Tropical Cairns">
+      <div class="loc-info"><div class="loc-name">Tropical Cairns</div><div class="loc-ep">Episode 1</div></div>
+    </div>
+    <div class="loc-card">
+      <img src="https://picsum.photos/seed/birdsville_loc/480/720" alt="Outback Birdsville">
+      <div class="loc-info"><div class="loc-name">Outback Birdsville</div><div class="loc-ep">Episode 2</div></div>
+    </div>
+    <div class="loc-card">
+      <img src="https://picsum.photos/seed/scone_loc/480/720" alt="Genteel Scone">
+      <div class="loc-info"><div class="loc-name">Genteel Scone</div><div class="loc-ep">Episode 4</div></div>
+    </div>
+    <div class="loc-card">
+      <img src="https://picsum.photos/seed/dubbo_loc/480/720" alt="Wild West Dubbo">
+      <div class="loc-info"><div class="loc-name">Wild West Dubbo</div><div class="loc-ep">Episode 7</div></div>
+    </div>
+    <div class="loc-card finale">
+      <img src="https://picsum.photos/seed/randwick_loc/480/720" alt="Royal Randwick">
+      <div class="loc-info"><div class="loc-name">Royal Randwick</div><div class="loc-ep">Finale — Melbourne Cup Day</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── THE WOMEN ─────────── -->
+<section id="women">
+  <div class="fade-up">
+    <p class="eyebrow">Bold Characters</p>
+    <h2 class="section-h">Meet the women<br>behind the sash</h2>
+  </div>
+
+  <div class="women-grid">
+    <div class="woman-card fade-up">
+      <img src="https://picsum.photos/seed/sharon_w/600/800" alt="Sharon" class="woman-photo">
+      <div class="woman-overlay">
+        <p class="woman-role">Circuit Regular</p>
+        <p class="woman-name">Sharon</p>
+        <p class="woman-bio">A veteran of the FOTF circuit with years of wins, rivalries, and friendships forged on the track. Sharon is the heart of the show.</p>
+      </div>
+    </div>
+    <div class="woman-card fade-up">
+      <img src="https://picsum.photos/seed/dee_w/600/800" alt="Dee" class="woman-photo">
+      <div class="woman-overlay">
+        <p class="woman-role">Circuit Regular</p>
+        <p class="woman-name">Dee</p>
+        <p class="woman-bio">Sharp wit, impeccable style, and an eye for competition. Dee brings the drama — and the laughs — wherever the circuit takes her.</p>
+      </div>
+    </div>
+    <div class="woman-card community fade-up">
+      <img src="https://picsum.photos/seed/emma_sco/600/800" alt="Emma Scodellaro" class="woman-photo">
+      <div class="woman-overlay">
+        <p class="woman-role">Community Leader</p>
+        <p class="woman-name">Emma Scodellaro</p>
+        <p class="woman-bio">Founder of <em>It's All About the Sash</em> — the world's most active FOTF community. Emma is the connector behind the culture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── PODCAST ─────────── -->
+<section id="podcast">
+  <div class="podcast-grid">
+    <div class="podcast-copy fade-up">
+      <p class="eyebrow">The Podcast</p>
+      <h2 class="section-h" style="color:var(--black)">All the gossip.<br>None of the filter.</h2>
+      <p class="body-copy">Sharon and Dee break down everything happening on the FOTF circuit — the looks, the politics, the victories, and the drama. New episodes every week, dropping across all major platforms.</p>
+      <p class="body-copy" style="margin-top:0.85rem;">Watch the visual podcast on Instagram, or listen on the go. Either way, pull up a chair — things are about to get interesting.</p>
+      <div class="platform-pills">
+        <a href="#" class="pill">&#9654; Spotify</a>
+        <a href="#" class="pill">&#9835; Apple Podcasts</a>
+        <a href="#" class="pill">&#9654; YouTube</a>
+        <a href="#" class="pill">&#9654; Instagram</a>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="tab-row">
+        <button class="tab-btn active" onclick="switchTab(this,'spotify')">Spotify</button>
+        <button class="tab-btn" onclick="switchTab(this,'apple')">Apple</button>
+        <button class="tab-btn" onclick="switchTab(this,'youtube')">YouTube</button>
+      </div>
+
+      <div id="tab-spotify" class="embed-area">
+        <!--
+          SPOTIFY: Replace this comment with your Spotify embed code, e.g.:
+          <iframe src="https://open.spotify.com/embed/show/SHOW_ID?utm_source=generator"
+                  width="100%" height="152" frameborder="0" allowtransparency="true"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"></iframe>
+        -->
+        <div style="font-size:1.75rem;opacity:0.3">&#9654;</div>
+        <div class="embed-ph-txt">Spotify Player — Coming Soon</div>
+      </div>
+      <div id="tab-apple" class="embed-area" style="display:none">
+        <!--
+          APPLE: Replace this comment with your Apple Podcasts embed code, e.g.:
+          <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+                  frameborder="0" height="175" style="width:100%;"
+                  sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+                  src="https://embed.podcasts.apple.com/au/podcast/PODCAST_ID"></iframe>
+        -->
+        <div style="font-size:1.75rem;opacity:0.3">&#9835;</div>
+        <div class="embed-ph-txt">Apple Podcasts Player — Coming Soon</div>
+      </div>
+      <div id="tab-youtube" class="embed-area" style="display:none">
+        <!--
+          YOUTUBE: Replace this comment with your YouTube embed code, e.g.:
+          <iframe width="100%" height="100%"
+                  src="https://www.youtube.com/embed/VIDEO_OR_PLAYLIST_ID"
+                  title="Chasing the Sash Podcast" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        -->
+        <div style="font-size:1.75rem;opacity:0.3">&#9654;</div>
+        <div class="embed-ph-txt">YouTube Player — Coming Soon</div>
+      </div>
+
+      <div class="episodes">
+        <div class="ep-row">
+          <div class="ep-num">01</div>
+          <div style="flex:1">
+            <div class="ep-title">Welcome to the Circuit</div>
+            <div class="ep-meta">Coming Soon &middot; Chasing the Sash</div>
+          </div>
+          <div class="ep-play">&#9654;</div>
+        </div>
+        <div class="ep-row">
+          <div class="ep-num">02</div>
+          <div style="flex:1">
+            <div class="ep-title">Millinery, Madness &amp; Melbourne</div>
+            <div class="ep-meta">Coming Soon &middot; Chasing the Sash</div>
+          </div>
+          <div class="ep-play">&#9654;</div>
+        </div>
+        <div class="ep-row">
+          <div class="ep-num">03</div>
+          <div style="flex:1">
+            <div class="ep-title">The Rules, the Judges &amp; the Drama</div>
+            <div class="ep-meta">Coming Soon &middot; Chasing the Sash</div>
+          </div>
+          <div class="ep-play">&#9654;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── INSTAGRAM ─────────── -->
+<section id="instagram">
+  <div class="ig-head fade-up">
+    <div>
+      <p class="eyebrow">On Instagram</p>
+      <h2 class="section-h">Follow the circuit</h2>
+      <p class="ig-handle">@chasingthesash</p>
+    </div>
+    <a href="https://instagram.com" target="_blank" class="ig-follow-link">Follow Us &rarr;</a>
+  </div>
+
+  <div class="ig-grid fade-up">
+    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_a/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
+    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_b/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
+    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_c/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
+    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_d/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
+    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_e/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
+    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_f/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
+    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_g/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
+    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_h/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
+    <div class="ig-notice">Live Instagram feed will activate once @chasingthesash account is created — connect via Instagram Basic Display API or a third-party embed widget</div>
+  </div>
+</section>
+
+<!-- ─────────── EMAIL SIGNUP ─────────── -->
+<section id="signup">
+  <p class="eyebrow fade-up">Stay in the Loop</p>
+  <h2 class="section-h fade-up">Don't miss<br>a single sash</h2>
+  <p class="signup-sub fade-up">Be the first to know when episodes drop, get behind-the-scenes access, and join the community.</p>
+  <form class="signup-row fade-up" onsubmit="handleSignup(event)">
+    <input type="email" class="signup-input" placeholder="Your email address" required>
+    <button type="submit" class="signup-btn" id="signup-btn">Subscribe</button>
+  </form>
+  <p class="signup-note fade-up">No spam. Unsubscribe anytime. Just great content.</p>
+</section>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer>
+  <div class="footer-cols">
+    <div>
+      <div class="footer-brand-name">Chasing the Sash</div>
+      <p class="footer-tagline">A 10-part docuseries following the Fashions on the Field circuit across Australia. Heart-warming, glossy, funny, and authentic — it's as much about connection and community as it is about competition.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-hd">Explore</div>
+      <ul>
+        <li><a href="#world">The Show</a></li>
+        <li><a href="#journey">The Journey</a></li>
+        <li><a href="#women">The Women</a></li>
+        <li><a href="#podcast">Podcast</a></li>
+        <li><a href="#instagram">Instagram</a></li>
+        <li><a href="#signup">Newsletter</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-hd">Contact</div>
+      <ul>
+        <li><a href="mailto:hello@chasingthesash.com.au">Press Enquiries</a></li>
+        <li><a href="mailto:hello@chasingthesash.com.au">Sponsorship</a></li>
+        <li><a href="mailto:hello@chasingthesash.com.au">General Contact</a></li>
+      </ul>
+      <div class="footer-col-hd" style="margin-top:2rem">Community</div>
+      <ul>
+        <li><a href="https://www.facebook.com/groups/itsallaboutthesash" target="_blank">It's All About the Sash</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; 2025 Chasing the Sash. All rights reserved.</p>
+    <p class="footer-cred">Produced by Freestyle TV</p>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const faders = document.querySelectorAll('.fade-up');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 90);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  faders.forEach(el => obs.observe(el));
+
+  document.querySelectorAll('#hero .fade-up').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), 200 + i * 160);
+  });
+
+  function switchTab(btn, tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    ['spotify','apple','youtube'].forEach(t => {
+      const el = document.getElementById('tab-' + t);
+      if (el) el.style.display = t === tab ? 'flex' : 'none';
+    });
+  }
+
+  function handleSignup(e) {
+    e.preventDefault();
+    const btn = document.getElementById('signup-btn');
+    btn.textContent = "You're in!";
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+  }
+</script>
+</body>
+</html>
