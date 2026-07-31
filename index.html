@@ -16,6 +16,7 @@
   --gold: #C6993A;
   --white: #FEFCF8;
   --gray-mid: #888;
+  --pink-muted: #9E4A6B;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -53,18 +54,19 @@ nav.scrolled {
   color: var(--white);
   text-decoration: none;
 }
-.nav-links { display: flex; gap: 2.25rem; list-style: none; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
 .nav-links a {
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.5);
   text-decoration: none;
   transition: color 0.2s;
+  white-space: nowrap;
 }
 .nav-links a:hover { color: var(--pink); }
 
-/* ── HERO ── */
+/* ── HERO (Container 1) ── */
 #hero {
   position: relative;
   min-height: 100vh;
@@ -190,132 +192,64 @@ section { padding: 6.5rem 3.5rem; }
 }
 .body-copy { font-size: 0.82rem; line-height: 2; }
 
-/* ── WORLD ── */
-#world { background: var(--cream); color: var(--black); }
-#world .eyebrow { color: var(--pink); }
-#world .section-h { color: var(--black); }
-.world-grid {
+/* ── ABOUT US (Container 2) ── */
+#about { background: var(--cream); color: var(--black); }
+#about .eyebrow { color: var(--pink); }
+#about .section-h { color: var(--black); }
+.about-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 5rem; align-items: start; margin-top: 4rem;
 }
-.world-copy .body-copy { color: rgba(0,0,0,0.55); margin-top: 1.25rem; }
-.world-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; }
+.about-copy .body-copy { color: rgba(0,0,0,0.55); margin-top: 1.25rem; }
+.about-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; }
 .stat-num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 3.25rem; font-weight: 700; color: var(--pink); line-height: 1;
 }
 .stat-lbl { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-top: 0.25rem; line-height: 1.5; }
-.world-imgs {
+.about-imgs {
   display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
 }
-.world-img { width: 100%; object-fit: cover; }
-.world-img:first-child { grid-column: span 2; aspect-ratio: 16/7; }
-.world-img:not(:first-child) { aspect-ratio: 3/4; }
+.about-img { width: 100%; object-fit: cover; }
+.about-img:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+.about-img:not(:first-child) { aspect-ratio: 3/4; }
 
-/* ── JOURNEY ── */
-#journey { background: var(--black); padding-bottom: 4rem; }
-.journey-head {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 4rem; margin-bottom: 3.5rem;
-}
-.journey-desc { font-size: 0.8rem; line-height: 2; color: rgba(255,255,255,0.42); margin-top: 1rem; }
-.locations-scroll {
-  display: flex; gap: 0.5rem;
-  overflow-x: auto; padding-bottom: 1rem;
-  scrollbar-width: none;
-}
-.locations-scroll::-webkit-scrollbar { display: none; }
-.loc-card {
-  flex: 0 0 240px; position: relative; overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-  cursor: pointer;
-}
-.loc-card img {
-  width: 100%; aspect-ratio: 2/3; object-fit: cover;
-  filter: grayscale(40%) brightness(0.65);
-  transition: filter 0.5s, transform 0.5s;
-}
-.loc-card:hover img { filter: grayscale(0%) brightness(0.8); transform: scale(1.04); }
-.loc-info {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 2rem 1.25rem 1.25rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%);
-}
-.loc-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; }
-.loc-ep { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-top: 0.25rem; }
-.loc-card.finale { border-color: rgba(198,153,58,0.4); }
-.loc-card.finale .loc-ep { color: var(--gold); }
-
-/* ── WOMEN ── */
-#women { background: #0C0C0A; }
-.women-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem; margin-top: 3rem;
-}
-.woman-card { position: relative; overflow: hidden; cursor: pointer; }
-.woman-photo {
-  width: 100%; aspect-ratio: 3/4; object-fit: cover;
-  filter: grayscale(20%) brightness(0.7);
-  transition: transform 0.6s, filter 0.5s;
-}
-.woman-card:hover .woman-photo { transform: scale(1.05); filter: grayscale(0%) brightness(0.85); }
-.woman-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 3rem 1.5rem 1.5rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.92) 40%, transparent);
-}
-.woman-role { font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.35rem; }
-.woman-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; }
-.woman-bio { font-size: 0.72rem; line-height: 1.75; color: rgba(255,255,255,0.55); margin-top: 0.5rem; }
-.woman-card.community .woman-role { color: var(--gold); }
-
-/* ── PODCAST ── */
-#podcast { background: var(--cream); color: var(--black); }
-#podcast .eyebrow { color: var(--pink); }
-.podcast-grid {
-  display: grid; grid-template-columns: 1fr 1.2fr;
-  gap: 5rem; align-items: start; margin-top: 3rem;
-}
-.podcast-copy .body-copy { color: rgba(0,0,0,0.52); margin-top: 1.25rem; }
-.platform-pills { display: flex; gap: 0.6rem; margin-top: 2rem; flex-wrap: wrap; }
-.pill {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.55rem 1.1rem;
-  border: 1px solid rgba(0,0,0,0.15);
-  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
-  color: var(--black); text-decoration: none;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-.pill:hover { background: var(--black); color: var(--white); border-color: var(--black); }
-.tab-row {
+/* ── SEASONS & EPISODES (Container 3) ── */
+#seasons { background: var(--cream); color: var(--black); }
+#seasons .eyebrow { color: var(--pink); }
+.seasons-head { max-width: 640px; margin-bottom: 2.5rem; }
+.season-tab-row {
   display: flex; border-bottom: 1px solid rgba(0,0,0,0.1);
-  margin-bottom: 1.25rem;
+  margin-bottom: 2rem; gap: 0.5rem;
 }
-.tab-btn {
-  padding: 0.55rem 1.25rem;
-  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+.season-tab-btn {
+  padding: 0.7rem 1.5rem;
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
   background: none; border: none; border-bottom: 2px solid transparent;
   margin-bottom: -1px; cursor: pointer; color: rgba(0,0,0,0.35);
   transition: color 0.2s, border-color 0.2s;
   font-family: 'Montserrat', sans-serif;
 }
-.tab-btn.active { color: var(--pink); border-bottom-color: var(--pink); }
-.embed-area {
-  background: rgba(0,0,0,0.04);
-  border: 1px dashed rgba(0,0,0,0.12);
-  aspect-ratio: 16/5;
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 0.6rem;
+.season-tab-btn.active { color: var(--pink); border-bottom-color: var(--pink); }
+.season-tab-btn:disabled { cursor: not-allowed; opacity: 0.4; }
+.season-panel { display: grid; grid-template-columns: 1fr 1.15fr; gap: 3.5rem; align-items: start; }
+.yt-embed-area {
+  background: #000;
+  border: 1px solid rgba(0,0,0,0.14);
+  aspect-ratio: 16/9;
+  overflow: hidden;
 }
-.embed-area iframe { width: 100%; height: 100%; border: none; }
-.embed-ph-txt { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.25); }
-.episodes { margin-top: 1.5rem; }
+.yt-embed-area iframe { width: 100%; height: 100%; border: none; }
+.episodes { max-height: 480px; overflow-y: auto; }
 .ep-row {
   display: flex; align-items: center; gap: 1rem;
   padding: 0.9rem 0; border-bottom: 0.5px solid rgba(0,0,0,0.07);
   cursor: pointer; transition: background 0.15s;
 }
 .ep-row:hover { background: rgba(0,0,0,0.02); }
+.ep-row.active { background: rgba(255,31,110,0.06); }
+.ep-row.active .ep-title { color: var(--pink); }
+.ep-row.active .ep-num { color: rgba(255,31,110,0.35); }
 .ep-num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.6rem; font-weight: 700;
@@ -324,78 +258,132 @@ section { padding: 6.5rem 3.5rem; }
 .ep-title { font-size: 0.8rem; font-weight: 600; color: var(--black); }
 .ep-meta { font-size: 0.65rem; color: rgba(0,0,0,0.35); margin-top: 0.2rem; }
 .ep-play { color: var(--pink); font-size: 0.9rem; }
+.yt-cta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  margin-top: 1.25rem;
+  font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+  color: var(--black); text-decoration: none;
+  border-bottom: 1px solid var(--black); padding-bottom: 2px;
+}
+.yt-cta:hover { color: var(--pink); border-color: var(--pink); }
 
-/* ── INSTAGRAM ── */
+/* ── HORIZONTAL SCROLL SHOWCASE (used by Interviewees + Racecourses) ── */
+.scroll-track {
+  display: flex; gap: 0.75rem;
+  overflow-x: auto; padding-bottom: 1rem;
+  scrollbar-width: none;
+}
+.scroll-track::-webkit-scrollbar { display: none; }
+.scroll-card {
+  flex: 0 0 250px; position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+}
+.scroll-card img {
+  width: 100%; aspect-ratio: 3/4; object-fit: cover;
+  filter: grayscale(35%) brightness(0.68);
+  transition: filter 0.5s, transform 0.5s;
+}
+.scroll-card:hover img { filter: grayscale(0%) brightness(0.82); transform: scale(1.04); }
+.scroll-card-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 2.25rem 1.25rem 1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.94) 0%, transparent 100%);
+}
+.scroll-card-role { font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.3rem; }
+.scroll-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; }
+.scroll-card-hint {
+  font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-top: 0.4rem;
+}
+.scroll-card.finale { border-color: rgba(198,153,58,0.4); }
+.scroll-card.finale .scroll-card-role { color: var(--gold); }
+
+/* ── MEET THE INTERVIEWEES (Container 4) ── */
+#interviewees { background: #0C0C0A; }
+
+/* ── RACECOURSES (Container 5) ── */
+#racecourses { background: var(--black); }
+
+/* ── BIO / DETAIL MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(6,6,4,0.88);
+  backdrop-filter: blur(6px);
+  display: none; align-items: center; justify-content: center;
+  padding: 2rem;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: #0F0F0C; border: 1px solid rgba(255,255,255,0.08);
+  max-width: 640px; width: 100%; max-height: 85vh; overflow-y: auto;
+  display: grid; grid-template-columns: 200px 1fr;
+}
+.modal-img { width: 100%; height: 100%; min-height: 240px; object-fit: cover; }
+.modal-body { padding: 2rem 2rem 2.25rem; position: relative; }
+.modal-role { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.4rem; }
+.modal-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.9rem; }
+.modal-bio { font-size: 0.78rem; line-height: 1.9; color: rgba(255,255,255,0.6); }
+.modal-close {
+  position: absolute; top: 1rem; right: 1.1rem;
+  background: none; border: none; color: rgba(255,255,255,0.4);
+  font-size: 1.1rem; cursor: pointer; line-height: 1; transition: color 0.2s;
+}
+.modal-close:hover { color: var(--pink); }
+
+/* ── INSTAGRAM (Container 6) ── */
 #instagram { background: var(--black); }
 .ig-head {
   display: flex; align-items: flex-end;
   justify-content: space-between; margin-bottom: 2.5rem;
 }
+.ig-handle-row { display: flex; align-items: center; gap: 0.9rem; margin-top: 0.5rem; }
 .ig-handle {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.25rem; font-style: italic; font-weight: 300;
-  color: rgba(255,255,255,0.28); margin-top: 0.5rem;
+  color: rgba(255,255,255,0.28);
 }
+.ig-socials { display: flex; gap: 0.65rem; }
+.social-icon { display: inline-flex; color: rgba(255,255,255,0.35); transition: color 0.2s; }
+.social-icon:hover { color: var(--pink); }
+.social-icon svg { width: 16px; height: 16px; fill: currentColor; }
 .ig-follow-link {
   font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--pink); text-decoration: none; transition: opacity 0.2s;
 }
 .ig-follow-link:hover { opacity: 0.7; }
-.ig-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
+.ig-embeds {
+  display: flex; gap: 1.25rem;
+  overflow-x: auto; padding-bottom: 1rem;
+  scrollbar-width: none;
 }
-.ig-cell { aspect-ratio: 1; overflow: hidden; position: relative; cursor: pointer; }
-.ig-cell img {
-  width: 100%; height: 100%; object-fit: cover;
-  filter: brightness(0.75) saturate(0.85);
-  transition: filter 0.35s, transform 0.45s;
-}
-.ig-cell:hover img { filter: brightness(0.9) saturate(1.1); transform: scale(1.06); }
-.ig-cell-overlay {
-  position: absolute; inset: 0;
-  background: rgba(255,31,110,0.65);
-  opacity: 0; transition: opacity 0.3s;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
-}
-.ig-cell:hover .ig-cell-overlay { opacity: 1; }
-.ig-notice {
-  grid-column: span 4; text-align: center;
-  padding: 1.25rem;
-  border: 1px dashed rgba(255,255,255,0.08);
-  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.15);
-}
+.ig-embeds::-webkit-scrollbar { display: none; }
+.ig-embeds blockquote.instagram-media { flex: 0 0 auto; margin: 0 !important; }
 
-/* ── SIGN UP ── */
-#signup {
-  background: var(--pink);
+/* ── CONTACT THE PRODUCERS (Container 7) ── */
+#contact {
+  background: var(--pink-muted);
   text-align: center;
   padding: 7rem 3.5rem;
 }
-#signup .eyebrow { color: rgba(255,255,255,0.55); }
-#signup .section-h { color: var(--white); font-size: clamp(2.8rem, 5vw, 5rem); }
-.signup-sub { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 1rem; }
-.signup-row {
-  display: flex; gap: 0; max-width: 460px;
-  margin: 2.5rem auto 0;
+#contact .eyebrow { color: rgba(255,255,255,0.6); }
+#contact .section-h { color: var(--white); font-size: clamp(2.8rem, 5vw, 5rem); }
+.contact-sub { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-top: 1rem; max-width: 460px; margin-left: auto; margin-right: auto; }
+.contact-cards {
+  display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap;
+  margin-top: 2.75rem;
 }
-.signup-input {
-  flex: 1; padding: 1rem 1.25rem;
-  font-size: 0.8rem; font-family: 'Montserrat', sans-serif;
-  background: rgba(255,255,255,0.18); border: none; color: var(--white);
-  outline: none;
+.contact-card {
+  background: rgba(255,255,255,0.12);
+  padding: 1.75rem 2.5rem;
+  min-width: 240px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
 }
-.signup-input::placeholder { color: rgba(255,255,255,0.45); }
-.signup-btn {
-  padding: 1rem 1.75rem;
-  background: #0A0A08; color: var(--white);
-  border: none; font-size: 0.6rem; font-family: 'Montserrat', sans-serif;
-  font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-  cursor: pointer; transition: opacity 0.2s;
-}
-.signup-btn:hover { opacity: 0.82; }
-.signup-note { font-size: 0.6rem; color: rgba(255,255,255,0.35); margin-top: 1rem; }
+.contact-card:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+.contact-card-lbl { font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 0.5rem; }
+.contact-card-val { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--white); }
+.contact-note { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 2rem; }
 
 /* ── FOOTER ── */
 footer {
@@ -411,7 +399,17 @@ footer {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.7rem; font-weight: 600; margin-bottom: 0.75rem;
 }
-.footer-tagline { font-size: 0.73rem; line-height: 1.8; color: rgba(255,255,255,0.25); max-width: 320px; }
+.footer-callout {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 600;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.7); max-width: 320px;
+}
+.footer-acknowledgement {
+  font-size: 0.68rem; line-height: 1.85;
+  color: rgba(255,255,255,0.25); max-width: 320px;
+  margin-top: 1rem;
+}
 .footer-col-hd {
   font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase;
   color: rgba(255,255,255,0.25); margin-bottom: 1.25rem;
@@ -439,12 +437,12 @@ footer {
   #hero { padding: 7rem 1.5rem 4rem; }
   .hero-title { max-width: 100%; font-size: clamp(3.5rem, 12vw, 6rem); }
   .hero-img-panel { display: none; }
-  .world-grid, .journey-head, .podcast-grid, .footer-cols { grid-template-columns: 1fr; gap: 2.5rem; }
-  .women-grid { grid-template-columns: 1fr 1fr; }
-  .ig-grid { grid-template-columns: repeat(2, 1fr); }
-  .ig-notice { grid-column: span 2; }
+  .about-grid, .season-panel, .footer-cols { grid-template-columns: 1fr; gap: 2.5rem; }
   .hero-ctas { flex-direction: column; }
-  .world-imgs .world-img:first-child { aspect-ratio: 16/9; }
+  .about-imgs .about-img:first-child { aspect-ratio: 16/9; }
+  .modal-box { grid-template-columns: 1fr; max-height: 90vh; }
+  .modal-img { max-height: 200px; }
+  .contact-cards { flex-direction: column; align-items: stretch; }
 }
 </style>
 </head>
@@ -454,15 +452,16 @@ footer {
 <nav id="nav">
   <a href="#" class="nav-logo">Chasing the Sash</a>
   <ul class="nav-links">
-    <li><a href="#world">The Show</a></li>
-    <li><a href="#women">The Women</a></li>
-    <li><a href="#podcast">Podcast</a></li>
-    <li><a href="#instagram">Follow</a></li>
-    <li><a href="#signup">Stay in Touch</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#seasons">Seasons</a></li>
+    <li><a href="#interviewees">Interviewees</a></li>
+    <li><a href="#racecourses">Racecourses</a></li>
+    <li><a href="#instagram">Instagram</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- ─────────── HERO ─────────── -->
+<!-- ═══════════ CONTAINER 1 — HERO ═══════════ -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-img-panel">
@@ -475,8 +474,8 @@ footer {
   <p class="hero-tagline fade-up">Hats. Horses. High Heels. High Stakes.</p>
   <p class="hero-logline fade-up">From regional racetracks to the grand finale, everyday Australians put their creativity and courage on the line in a high-stakes fashion competition where one sash can change everything.</p>
   <div class="hero-ctas fade-up">
-    <a href="#podcast" class="btn-pink">&#9654;&nbsp; Listen to the Podcast</a>
-    <a href="#world" class="btn-ghost">Discover the Show</a>
+    <a href="#seasons" class="btn-pink">&#9654;&nbsp; Watch on YouTube</a>
+    <a href="#about" class="btn-ghost">Discover the Show</a>
   </div>
 
   <div class="scroll-line-wrap">
@@ -485,15 +484,15 @@ footer {
   </div>
 </section>
 
-<!-- ─────────── THE WORLD ─────────── -->
-<section id="world">
-  <div class="world-grid">
-    <div class="world-copy fade-up">
-      <p class="eyebrow">Fashions on the Field</p>
+<!-- ═══════════ CONTAINER 2 — ABOUT US ═══════════ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-copy fade-up">
+      <p class="eyebrow">About Us</p>
       <h2 class="section-h">Where fashion<br>is a competitive<br>sport</h2>
-      <p class="body-copy">Fashions on the Field is a passionate subculture held at Australian racetracks, where contestants showcase style, creativity, and individuality. Judged on originality, elegance, and attention to detail — the coveted winner's sash is everything.</p>
+      <p class="body-copy">Chasing the Sash follows Fashions on the Field — a passionate subculture held at Australian racetracks, where contestants showcase style, creativity, and individuality. Judged on originality, elegance, and attention to detail — the coveted winner's sash is everything.</p>
       <p class="body-copy" style="margin-top:1rem;">More than a style contest, it's a world where women who feel unseen in everyday life become superstars on the stage. Bold characters, fierce rivalries, and moments of deep vulnerability and unexpected connection.</p>
-      <div class="world-stats">
+      <div class="about-stats">
         <div>
           <div class="stat-num">400+</div>
           <div class="stat-lbl">Racetracks<br>across Australia</div>
@@ -508,207 +507,284 @@ footer {
         </div>
       </div>
     </div>
-    <div class="world-imgs fade-up">
-      <img src="https://picsum.photos/seed/fotf_wide/900/400" alt="Fashions on the Field" class="world-img">
-      <img src="https://picsum.photos/seed/fotf_p2/450/600" alt="Race day fashion" class="world-img">
-      <img src="https://picsum.photos/seed/fotf_p3/450/600" alt="Fashion contestant" class="world-img">
+    <div class="about-imgs fade-up">
+      <img src="https://picsum.photos/seed/fotf_wide/900/400" alt="Fashions on the Field" class="about-img">
+      <img src="https://picsum.photos/seed/fotf_p2/450/600" alt="Race day fashion" class="about-img">
+      <img src="https://picsum.photos/seed/fotf_p3/450/600" alt="Fashion contestant" class="about-img">
     </div>
   </div>
 </section>
 
-<!-- ─────────── THE JOURNEY ─────────── -->
-<section id="journey">
-  <div class="journey-head">
-    <div class="fade-up">
-      <p class="eyebrow">Series One</p>
-      <h2 class="section-h">From red dust<br>to Royal Randwick</h2>
-    </div>
-    <div class="fade-up">
-      <p class="journey-desc">Australia is home to over 400 racetracks — many set in remote regional communities, each with its own distinct look, feel, and flair. In country towns, Cup Day is the highlight of the social calendar.</p>
-      <p class="journey-desc" style="margin-top:0.85rem;">Series one journeys from tropical Cairns to the outback dust of Birdsville, through thoroughbred country at Scone, across the wild west of Dubbo — culminating in a glittering finale at Royal Randwick on Melbourne Cup Day.</p>
-    </div>
+<!-- ═══════════ CONTAINER 3 — SEASONS & EPISODE BREAKDOWN (YouTube sync) ═══════════ -->
+<section id="seasons">
+  <div class="seasons-head fade-up">
+    <p class="eyebrow">Seasons &amp; Episodes</p>
+    <h2 class="section-h">Every episode.<br>Every racetrack.</h2>
+    <p class="body-copy" style="color:rgba(0,0,0,0.55); margin-top:1rem;">Watch every episode right here, straight from our YouTube channel — click an episode to play it, or head to <a href="https://www.youtube.com/@ChasingtheSash" target="_blank" style="color:inherit;">@ChasingtheSash</a> to subscribe for new drops.</p>
   </div>
 
-  <div class="locations-scroll fade-up">
-    <div class="loc-card">
-      <img src="https://picsum.photos/seed/cairns_loc/480/720" alt="Tropical Cairns">
-      <div class="loc-info"><div class="loc-name">Tropical Cairns</div><div class="loc-ep">Episode 1</div></div>
+  <div class="season-tab-row fade-up">
+    <button class="season-tab-btn active" onclick="switchSeason(this,'s1')">Season One</button>
+    <button class="season-tab-btn" onclick="switchSeason(this,'s2')" disabled>Season Two — Coming Soon</button>
+  </div>
+
+  <div id="season-s1" class="season-panel fade-up">
+    <div>
+      <div class="yt-embed-area">
+        <iframe id="yt-player" src="https://www.youtube.com/embed/_nvc8lEZfHQ" title="Chasing the Sash — Episode 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <a href="https://www.youtube.com/@ChasingtheSash" target="_blank" class="yt-cta">Visit the YouTube Channel &rarr;</a>
     </div>
-    <div class="loc-card">
-      <img src="https://picsum.photos/seed/birdsville_loc/480/720" alt="Outback Birdsville">
-      <div class="loc-info"><div class="loc-name">Outback Birdsville</div><div class="loc-ep">Episode 2</div></div>
-    </div>
-    <div class="loc-card">
-      <img src="https://picsum.photos/seed/scone_loc/480/720" alt="Genteel Scone">
-      <div class="loc-info"><div class="loc-name">Genteel Scone</div><div class="loc-ep">Episode 4</div></div>
-    </div>
-    <div class="loc-card">
-      <img src="https://picsum.photos/seed/dubbo_loc/480/720" alt="Wild West Dubbo">
-      <div class="loc-info"><div class="loc-name">Wild West Dubbo</div><div class="loc-ep">Episode 7</div></div>
-    </div>
-    <div class="loc-card finale">
-      <img src="https://picsum.photos/seed/randwick_loc/480/720" alt="Royal Randwick">
-      <div class="loc-info"><div class="loc-name">Royal Randwick</div><div class="loc-ep">Finale — Melbourne Cup Day</div></div>
+    <div class="episodes">
+      <div class="ep-row active" data-video-id="_nvc8lEZfHQ">
+        <div class="ep-num">01</div>
+        <div style="flex:1">
+          <div class="ep-title">For the Love of It</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="ipbP4HgEU8k">
+        <div class="ep-num">02</div>
+        <div style="flex:1">
+          <div class="ep-title">Winning Isn't Everything</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="pZJZB3Q21QE">
+        <div class="ep-num">03</div>
+        <div style="flex:1">
+          <div class="ep-title">Hot in the City</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="VKgMFlYcjO8">
+        <div class="ep-num">04</div>
+        <div style="flex:1">
+          <div class="ep-title">The Stories Behind The Sash &middot; Brooke Strahan</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="RMD_9JQKR_w">
+        <div class="ep-num">05</div>
+        <div style="flex:1">
+          <div class="ep-title">Tradition or Trends?</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="1YT-YiPvVt0">
+        <div class="ep-num">06</div>
+        <div style="flex:1">
+          <div class="ep-title">The Stories Behind The Sash &middot; Julie &amp; Kate Lynch</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="2QCIwQZlA9U">
+        <div class="ep-num">07</div>
+        <div style="flex:1">
+          <div class="ep-title">A Family Affair</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="EDxxoWQDe98">
+        <div class="ep-num">08</div>
+        <div style="flex:1">
+          <div class="ep-title">From Safe to Standout</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="R_BP3tZ7SIg">
+        <div class="ep-num">09</div>
+        <div style="flex:1">
+          <div class="ep-title">On Tour With Kyles Delic</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
+      <div class="ep-row" data-video-id="tHHWPakQQ5Q">
+        <div class="ep-num">10</div>
+        <div style="flex:1">
+          <div class="ep-title">Go Ahead, Judge Me</div>
+          <div class="ep-meta">Chasing the Sash</div>
+        </div>
+        <div class="ep-play">&#9654;</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────── THE WOMEN ─────────── -->
-<section id="women">
-  <div class="fade-up">
+<!-- ═══════════ CONTAINER 4 — MEET THE INTERVIEWEES ═══════════ -->
+<section id="interviewees">
+  <div class="fade-up" style="margin-bottom:2.5rem;">
     <p class="eyebrow">Bold Characters</p>
-    <h2 class="section-h">Meet the women<br>behind the sash</h2>
+    <h2 class="section-h">Meet the interviewees</h2>
+    <p class="body-copy" style="color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:520px;">Scroll sideways to browse the circuit's regulars, first-timers and community leaders. Click a card for their full story.</p>
   </div>
 
-  <div class="women-grid">
-    <div class="woman-card fade-up">
-      <img src="https://picsum.photos/seed/sharon_w/600/800" alt="Sharon" class="woman-photo">
-      <div class="woman-overlay">
-        <p class="woman-role">Circuit Regular</p>
-        <p class="woman-name">Sharon</p>
-        <p class="woman-bio">A veteran of the FOTF circuit with years of wins, rivalries, and friendships forged on the track. Sharon is the heart of the show.</p>
+  <div class="scroll-track fade-up">
+    <div class="scroll-card" data-name="Interviewee Name" data-role="Circuit Regular" data-img="https://picsum.photos/seed/interviewee_1/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+      <img src="https://picsum.photos/seed/interviewee_1/600/800" alt="Interviewee">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Circuit Regular</p>
+        <p class="scroll-card-name">Interviewee Name</p>
+        <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
-    <div class="woman-card fade-up">
-      <img src="https://picsum.photos/seed/dee_w/600/800" alt="Dee" class="woman-photo">
-      <div class="woman-overlay">
-        <p class="woman-role">Circuit Regular</p>
-        <p class="woman-name">Dee</p>
-        <p class="woman-bio">Sharp wit, impeccable style, and an eye for competition. Dee brings the drama — and the laughs — wherever the circuit takes her.</p>
+    <div class="scroll-card" data-name="Interviewee Name" data-role="Circuit Regular" data-img="https://picsum.photos/seed/interviewee_2/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+      <img src="https://picsum.photos/seed/interviewee_2/600/800" alt="Interviewee">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Circuit Regular</p>
+        <p class="scroll-card-name">Interviewee Name</p>
+        <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
-    <div class="woman-card community fade-up">
-      <img src="https://picsum.photos/seed/emma_sco/600/800" alt="Emma Scodellaro" class="woman-photo">
-      <div class="woman-overlay">
-        <p class="woman-role">Community Leader</p>
-        <p class="woman-name">Emma Scodellaro</p>
-        <p class="woman-bio">Founder of <em>It's All About the Sash</em> — the world's most active FOTF community. Emma is the connector behind the culture.</p>
+    <div class="scroll-card" data-name="Interviewee Name" data-role="Community Leader" data-img="https://picsum.photos/seed/interviewee_3/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+      <img src="https://picsum.photos/seed/interviewee_3/600/800" alt="Interviewee">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Community Leader</p>
+        <p class="scroll-card-name">Interviewee Name</p>
+        <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ─────────── PODCAST ─────────── -->
-<section id="podcast">
-  <div class="podcast-grid">
-    <div class="podcast-copy fade-up">
-      <p class="eyebrow">The Podcast</p>
-      <h2 class="section-h" style="color:var(--black)">All the gossip.<br>None of the filter.</h2>
-      <p class="body-copy">Sharon and Dee break down everything happening on the FOTF circuit — the looks, the politics, the victories, and the drama. New episodes every week, dropping across all major platforms.</p>
-      <p class="body-copy" style="margin-top:0.85rem;">Watch the visual podcast on Instagram, or listen on the go. Either way, pull up a chair — things are about to get interesting.</p>
-      <div class="platform-pills">
-        <a href="#" class="pill">&#9654; Spotify</a>
-        <a href="#" class="pill">&#9835; Apple Podcasts</a>
-        <a href="#" class="pill">&#9654; YouTube</a>
-        <a href="#" class="pill">&#9654; Instagram</a>
+    <div class="scroll-card" data-name="Interviewee Name" data-role="First-Timer" data-img="https://picsum.photos/seed/interviewee_4/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+      <img src="https://picsum.photos/seed/interviewee_4/600/800" alt="Interviewee">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">First-Timer</p>
+        <p class="scroll-card-name">Interviewee Name</p>
+        <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
-    <div class="fade-up">
-      <div class="tab-row">
-        <button class="tab-btn active" onclick="switchTab(this,'spotify')">Spotify</button>
-        <button class="tab-btn" onclick="switchTab(this,'apple')">Apple</button>
-        <button class="tab-btn" onclick="switchTab(this,'youtube')">YouTube</button>
-      </div>
-
-      <div id="tab-spotify" class="embed-area">
-        <!--
-          SPOTIFY: Replace this comment with your Spotify embed code, e.g.:
-          <iframe src="https://open.spotify.com/embed/show/SHOW_ID?utm_source=generator"
-                  width="100%" height="152" frameborder="0" allowtransparency="true"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"></iframe>
-        -->
-        <div style="font-size:1.75rem;opacity:0.3">&#9654;</div>
-        <div class="embed-ph-txt">Spotify Player — Coming Soon</div>
-      </div>
-      <div id="tab-apple" class="embed-area" style="display:none">
-        <!--
-          APPLE: Replace this comment with your Apple Podcasts embed code, e.g.:
-          <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-                  frameborder="0" height="175" style="width:100%;"
-                  sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-                  src="https://embed.podcasts.apple.com/au/podcast/PODCAST_ID"></iframe>
-        -->
-        <div style="font-size:1.75rem;opacity:0.3">&#9835;</div>
-        <div class="embed-ph-txt">Apple Podcasts Player — Coming Soon</div>
-      </div>
-      <div id="tab-youtube" class="embed-area" style="display:none">
-        <!--
-          YOUTUBE: Replace this comment with your YouTube embed code, e.g.:
-          <iframe width="100%" height="100%"
-                  src="https://www.youtube.com/embed/VIDEO_OR_PLAYLIST_ID"
-                  title="Chasing the Sash Podcast" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-        -->
-        <div style="font-size:1.75rem;opacity:0.3">&#9654;</div>
-        <div class="embed-ph-txt">YouTube Player — Coming Soon</div>
-      </div>
-
-      <div class="episodes">
-        <div class="ep-row">
-          <div class="ep-num">01</div>
-          <div style="flex:1">
-            <div class="ep-title">Welcome to the Circuit</div>
-            <div class="ep-meta">Coming Soon &middot; Chasing the Sash</div>
-          </div>
-          <div class="ep-play">&#9654;</div>
-        </div>
-        <div class="ep-row">
-          <div class="ep-num">02</div>
-          <div style="flex:1">
-            <div class="ep-title">Millinery, Madness &amp; Melbourne</div>
-            <div class="ep-meta">Coming Soon &middot; Chasing the Sash</div>
-          </div>
-          <div class="ep-play">&#9654;</div>
-        </div>
-        <div class="ep-row">
-          <div class="ep-num">03</div>
-          <div style="flex:1">
-            <div class="ep-title">The Rules, the Judges &amp; the Drama</div>
-            <div class="ep-meta">Coming Soon &middot; Chasing the Sash</div>
-          </div>
-          <div class="ep-play">&#9654;</div>
-        </div>
+    <div class="scroll-card" data-name="Interviewee Name" data-role="Judge" data-img="https://picsum.photos/seed/interviewee_5/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+      <img src="https://picsum.photos/seed/interviewee_5/600/800" alt="Interviewee">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Judge</p>
+        <p class="scroll-card-name">Interviewee Name</p>
+        <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────── INSTAGRAM ─────────── -->
+<!-- ═══════════ CONTAINER 5 — RACECOURSES ═══════════ -->
+<section id="racecourses">
+  <div class="fade-up" style="margin-bottom:2.5rem;">
+    <p class="eyebrow">Series One</p>
+    <h2 class="section-h">From red dust<br>to Royal Randwick</h2>
+    <p class="body-copy" style="color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:520px;">Australia is home to over 400 racetracks. Scroll sideways to explore the circuit and click a card for quick details on each course.</p>
+  </div>
+
+  <div class="scroll-track fade-up">
+    <div class="scroll-card" data-name="Tropical Cairns" data-role="Episode 1" data-img="https://picsum.photos/seed/cairns_loc/480/720" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
+      <img src="https://picsum.photos/seed/cairns_loc/480/720" alt="Tropical Cairns">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Episode 1</p>
+        <p class="scroll-card-name">Tropical Cairns</p>
+        <p class="scroll-card-hint">Click for details &rarr;</p>
+      </div>
+    </div>
+    <div class="scroll-card" data-name="Outback Birdsville" data-role="Episode 2" data-img="https://picsum.photos/seed/birdsville_loc/480/720" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
+      <img src="https://picsum.photos/seed/birdsville_loc/480/720" alt="Outback Birdsville">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Episode 2</p>
+        <p class="scroll-card-name">Outback Birdsville</p>
+        <p class="scroll-card-hint">Click for details &rarr;</p>
+      </div>
+    </div>
+    <div class="scroll-card" data-name="Genteel Scone" data-role="Episode 4" data-img="https://picsum.photos/seed/scone_loc/480/720" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
+      <img src="https://picsum.photos/seed/scone_loc/480/720" alt="Genteel Scone">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Episode 4</p>
+        <p class="scroll-card-name">Genteel Scone</p>
+        <p class="scroll-card-hint">Click for details &rarr;</p>
+      </div>
+    </div>
+    <div class="scroll-card" data-name="Wild West Dubbo" data-role="Episode 7" data-img="https://picsum.photos/seed/dubbo_loc/480/720" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
+      <img src="https://picsum.photos/seed/dubbo_loc/480/720" alt="Wild West Dubbo">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Episode 7</p>
+        <p class="scroll-card-name">Wild West Dubbo</p>
+        <p class="scroll-card-hint">Click for details &rarr;</p>
+      </div>
+    </div>
+    <div class="scroll-card finale" data-name="Royal Randwick" data-role="Finale — Melbourne Cup Day" data-img="https://picsum.photos/seed/randwick_loc/480/720" data-bio="Placeholder details — the grand finale racecourse. Location, race day date, and why it's the culmination of the series.">
+      <img src="https://picsum.photos/seed/randwick_loc/480/720" alt="Royal Randwick">
+      <div class="scroll-card-info">
+        <p class="scroll-card-role">Finale — Melbourne Cup Day</p>
+        <p class="scroll-card-name">Royal Randwick</p>
+        <p class="scroll-card-hint">Click for details &rarr;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Shared bio / detail modal for Containers 4 & 5 -->
+<div class="modal-overlay" id="bio-modal" onclick="if(event.target===this) closeModal()">
+  <div class="modal-box">
+    <img src="" alt="" class="modal-img" id="modal-img">
+    <div class="modal-body">
+      <button class="modal-close" onclick="closeModal()">&#10005;</button>
+      <p class="modal-role" id="modal-role"></p>
+      <h3 class="modal-name" id="modal-name"></h3>
+      <p class="modal-bio" id="modal-bio"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CONTAINER 6 — INSTAGRAM ═══════════ -->
 <section id="instagram">
   <div class="ig-head fade-up">
     <div>
-      <p class="eyebrow">On Instagram</p>
+      <p class="eyebrow">Community Driven</p>
       <h2 class="section-h">Follow the circuit</h2>
-      <p class="ig-handle">@chasingthesash</p>
+      <div class="ig-handle-row">
+        <p class="ig-handle">@chasing_the_sash</p>
+        <div class="ig-socials">
+          <a href="https://www.instagram.com/chasing_the_sash/" target="_blank" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.05.36-2.22.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.05-.41-2.22-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.39-.67.67-1.08 1.34-1.39 2.13-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13.67.67 1.34 1.08 2.13 1.39.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.39.67-.67 1.08-1.34 1.39-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.39-2.13-.67-.67-1.34-1.08-2.13-1.39-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+          </a>
+          <a href="https://www.facebook.com/backontrackthemovie" target="_blank" class="social-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.6 0 0 .6 0 1.325v21.351C0 23.4.6 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.796.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.725 0 1.325-.6 1.325-1.324V1.325C24 .6 23.4 0 22.675 0z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@ChasingtheSash" target="_blank" class="social-icon" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.391.524A2.994 2.994 0 0 0 .502 6.186 31.28 31.28 0 0 0 0 12a31.28 31.28 0 0 0 .502 5.814 2.994 2.994 0 0 0 2.107 2.117c1.886.524 9.391.524 9.391.524s7.505 0 9.391-.524a2.994 2.994 0 0 0 2.107-2.117A31.28 31.28 0 0 0 24 12a31.28 31.28 0 0 0-.502-5.814zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
-    <a href="https://instagram.com" target="_blank" class="ig-follow-link">Follow Us &rarr;</a>
+    <a href="https://www.instagram.com/chasing_the_sash/" target="_blank" class="ig-follow-link">Follow Us &rarr;</a>
   </div>
 
-  <div class="ig-grid fade-up">
-    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_a/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
-    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_b/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
-    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_c/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
-    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_d/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
-    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_e/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
-    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_f/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
-    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_g/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
-    <div class="ig-cell"><img src="https://picsum.photos/seed/ig_h/400/400" alt=""><div class="ig-cell-overlay">View Post</div></div>
-    <div class="ig-notice">Live Instagram feed will activate once @chasingthesash account is created — connect via Instagram Basic Display API or a third-party embed widget</div>
+  <div class="ig-embeds fade-up">
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chasing_the_sash/reel/DbZiuueDy1N/" data-instgrm-version="14" style="background:#FFF; max-width:340px; min-width:270px;"></blockquote>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chasing_the_sash/p/DbUbpF-IMwy/" data-instgrm-version="14" style="background:#FFF; max-width:340px; min-width:270px;"></blockquote>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chasing_the_sash/reel/DbP-1yEDANO/" data-instgrm-version="14" style="background:#FFF; max-width:340px; min-width:270px;"></blockquote>
   </div>
+  <script async src="https://www.instagram.com/embed.js"></script>
 </section>
 
-<!-- ─────────── EMAIL SIGNUP ─────────── -->
-<section id="signup">
-  <p class="eyebrow fade-up">Stay in the Loop</p>
-  <h2 class="section-h fade-up">Don't miss<br>a single sash</h2>
-  <p class="signup-sub fade-up">Be the first to know when episodes drop, get behind-the-scenes access, and join the community.</p>
-  <form class="signup-row fade-up" onsubmit="handleSignup(event)">
-    <input type="email" class="signup-input" placeholder="Your email address" required>
-    <button type="submit" class="signup-btn" id="signup-btn">Subscribe</button>
-  </form>
-  <p class="signup-note fade-up">No spam. Unsubscribe anytime. Just great content.</p>
+<!-- ═══════════ CONTAINER 7 — CONTACT THE PRODUCERS ═══════════ -->
+<section id="contact">
+  <p class="eyebrow fade-up">Get in Touch</p>
+  <h2 class="section-h fade-up">Contact the<br>producers</h2>
+  <p class="contact-sub fade-up">For press, sponsorship, or general enquiries — the team is based in Australia and happy to hear from you.</p>
+  <div class="contact-cards fade-up">
+    <a href="mailto:ask@chasingthesash.com" class="contact-card">
+      <div class="contact-card-lbl">Email</div>
+      <div class="contact-card-val">ask@chasingthesash.com</div>
+    </a>
+    <a href="tel:+61455159006" class="contact-card">
+      <div class="contact-card-lbl">Phone &middot; Australia</div>
+      <div class="contact-card-val">+61 (0) 455 159 006</div>
+    </a>
+  </div>
+  <p class="contact-note fade-up">Based in Australia &middot; AEST/AEDT</p>
 </section>
 
 <!-- ─────────── FOOTER ─────────── -->
@@ -716,25 +792,24 @@ footer {
   <div class="footer-cols">
     <div>
       <div class="footer-brand-name">Chasing the Sash</div>
-      <p class="footer-tagline">A 10-part docuseries following the Fashions on the Field circuit across Australia. Heart-warming, glossy, funny, and authentic — it's as much about connection and community as it is about competition.</p>
+      <p class="footer-callout">Hear the stories that are Chasing the Sash</p>
+      <p class="footer-acknowledgement">Chasing the Sash acknowledges the Traditional Owners of the lands and waters on which our stories are filmed and told, and pays respect to Elders past, present and emerging.</p>
     </div>
     <div class="footer-col">
       <div class="footer-col-hd">Explore</div>
       <ul>
-        <li><a href="#world">The Show</a></li>
-        <li><a href="#journey">The Journey</a></li>
-        <li><a href="#women">The Women</a></li>
-        <li><a href="#podcast">Podcast</a></li>
-        <li><a href="#instagram">Instagram</a></li>
-        <li><a href="#signup">Newsletter</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#seasons">Seasons &amp; Episodes</a></li>
+        <li><a href="#interviewees">Interviewees</a></li>
+        <li><a href="#racecourses">Racecourses</a></li>
+        <li><a href="#instagram">Social Media</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <div class="footer-col-hd">Contact</div>
       <ul>
-        <li><a href="mailto:hello@chasingthesash.com.au">Press Enquiries</a></li>
-        <li><a href="mailto:hello@chasingthesash.com.au">Sponsorship</a></li>
-        <li><a href="mailto:hello@chasingthesash.com.au">General Contact</a></li>
+        <li><a href="mailto:ask@chasingthesash.com">ask@chasingthesash.com</a></li>
+        <li><a href="tel:+61455159006">+61 (0) 455 159 006</a></li>
       </ul>
       <div class="footer-col-hd" style="margin-top:2rem">Community</div>
       <ul>
@@ -769,22 +844,41 @@ footer {
     setTimeout(() => el.classList.add('in'), 200 + i * 160);
   });
 
-  function switchTab(btn, tab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.ep-row[data-video-id]').forEach(row => {
+    row.addEventListener('click', () => {
+      const id = row.dataset.videoId;
+      if (!id) return;
+      document.getElementById('yt-player').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+      document.querySelectorAll('.ep-row').forEach(r => r.classList.remove('active'));
+      row.classList.add('active');
+    });
+  });
+
+  function switchSeason(btn, season) {
+    document.querySelectorAll('.season-tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    ['spotify','apple','youtube'].forEach(t => {
-      const el = document.getElementById('tab-' + t);
-      if (el) el.style.display = t === tab ? 'flex' : 'none';
+    ['s1','s2'].forEach(s => {
+      const el = document.getElementById('season-' + s);
+      if (el) el.style.display = s === season ? 'grid' : 'none';
     });
   }
 
-  function handleSignup(e) {
-    e.preventDefault();
-    const btn = document.getElementById('signup-btn');
-    btn.textContent = "You're in!";
-    btn.disabled = true;
-    btn.style.opacity = '0.7';
-  }
+  // Bio / detail modal — shared by "Meet the Interviewees" and "Racecourses"
+  const bioModal = document.getElementById('bio-modal');
+  document.querySelectorAll('.scroll-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.getElementById('modal-img').src = card.dataset.img;
+      document.getElementById('modal-img').alt = card.dataset.name;
+      document.getElementById('modal-role').textContent = card.dataset.role;
+      document.getElementById('modal-name').textContent = card.dataset.name;
+      document.getElementById('modal-bio').textContent = card.dataset.bio;
+      bioModal.classList.add('open');
+    });
+  });
+  function closeModal() { bioModal.classList.remove('open'); }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
 </script>
 </body>
 </html>
