@@ -85,16 +85,15 @@ nav.scrolled {
 }
 .hero-img-panel {
   position: absolute;
-  right: 0; top: 0; bottom: 0;
-  width: 48%;
+  inset: 0;
   overflow: hidden;
 }
 .hero-img-panel img {
   width: 100%; height: 100%;
   object-fit: cover;
-  opacity: 0.3;
-  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 100%);
+  opacity: 0.5;
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.95) 58%, rgba(0,0,0,0.8) 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.95) 58%, rgba(0,0,0,0.8) 100%);
 }
 .hero-eyebrow {
   font-size: 0.6rem;
@@ -465,7 +464,7 @@ footer {
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-img-panel">
-    <img src="https://picsum.photos/seed/fotf_hero/1000/1200" alt="Fashions on the Field">
+    <img src="images/hero.jpg" alt="Fashions on the Field">
   </div>
 
   <p class="hero-eyebrow fade-up">An Australian Docuseries</p>
