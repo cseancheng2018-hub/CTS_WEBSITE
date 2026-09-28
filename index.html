@@ -27,6 +27,7 @@ body {
   overflow-x: hidden;
 }
 img { display: block; }
+[hidden] { display: none !important; }
 
 /* ── NAV ── */
 nav {
@@ -329,6 +330,12 @@ section { padding: 6.5rem 3.5rem; }
   font-size: 1.1rem; cursor: pointer; line-height: 1; transition: color 0.2s;
 }
 .modal-close:hover { color: var(--pink); }
+.modal-social {
+  display: inline-block; margin-top: 1.25rem;
+  font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700;
+  color: var(--pink); text-decoration: none; border-bottom: 1px solid var(--pink); padding-bottom: 2px;
+}
+.modal-social:hover { opacity: 0.75; }
 
 /* ── INSTAGRAM (Container 6) ── */
 #instagram { background: var(--black); }
@@ -627,7 +634,7 @@ footer {
     <p class="body-copy" style="color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:520px;">Scroll sideways to browse the circuit's regulars, first-timers and community leaders. Click a card for their full story.</p>
   </div>
 
-  <div class="scroll-track fade-up">
+  <div class="scroll-track fade-up" id="interviewee-track">
     <div class="scroll-card" data-name="Interviewee Name" data-role="Circuit Regular" data-img="https://picsum.photos/seed/interviewee_1/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
       <img src="https://picsum.photos/seed/interviewee_1/600/800" alt="Interviewee">
       <div class="scroll-card-info">
@@ -732,6 +739,7 @@ footer {
       <p class="modal-role" id="modal-role"></p>
       <h3 class="modal-name" id="modal-name"></h3>
       <p class="modal-bio" id="modal-bio"></p>
+      <a class="modal-social" id="modal-social" href="#" target="_blank" rel="noopener noreferrer" hidden></a>
     </div>
   </div>
 </div>
@@ -862,18 +870,75 @@ footer {
     });
   }
 
-  // Bio / detail modal — shared by "Meet the Interviewees" and "Racecourses"
+  // Bio / detail modal — shared by "Meet the Interviewees" and "Racecourses".
+  // Delegated so cards rendered later from Supabase open it too.
   const bioModal = document.getElementById('bio-modal');
-  document.querySelectorAll('.scroll-card').forEach(card => {
-    card.addEventListener('click', () => {
-      document.getElementById('modal-img').src = card.dataset.img;
-      document.getElementById('modal-img').alt = card.dataset.name;
-      document.getElementById('modal-role').textContent = card.dataset.role;
-      document.getElementById('modal-name').textContent = card.dataset.name;
-      document.getElementById('modal-bio').textContent = card.dataset.bio;
-      bioModal.classList.add('open');
-    });
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.scroll-card');
+    if (!card) return;
+    document.getElementById('modal-img').src = card.dataset.img;
+    document.getElementById('modal-img').alt = card.dataset.name;
+    document.getElementById('modal-role').textContent = card.dataset.role;
+    document.getElementById('modal-name').textContent = card.dataset.name;
+    document.getElementById('modal-bio').textContent = card.dataset.bio;
+    const social = document.getElementById('modal-social');
+    const handle = card.dataset.handle || '';
+    if (handle) {
+      social.textContent = handle + ' on Instagram';
+      social.href = 'https://www.instagram.com/' + encodeURIComponent(handle.replace(/^@/, '')) + '/';
+      social.hidden = false;
+    } else {
+      social.hidden = true;
+    }
+    bioModal.classList.add('open');
   });
+
+  // Meet the Interviewees — approved profiles from Supabase.
+  // Public anon key only; the database only returns published, non-archived
+  // rows and never exposes contact details or invite links.
+  const SUPABASE_URL = 'https://lpgjycgsxjsachqnmegw.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZ2p5Y2dzeGpzYWNocW5tZWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MDMyNDIsImV4cCI6MjEwMzI3OTI0Mn0.vitgl1amPiSqCcuYk4Yc3jp-dsKSn7udcLwBDAIsVvk';
+  const PLACEHOLDER_IMG = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><rect width="300" height="400" fill="#161614"/>' +
+    '<circle cx="150" cy="150" r="58" fill="#2a2a26"/><path d="M40 400c0-70 50-120 110-120s110 50 110 120z" fill="#2a2a26"/></svg>');
+
+  function ivCard(iv) {
+    const card = document.createElement('div');
+    card.className = 'scroll-card';
+    const img = iv.photo_url || PLACEHOLDER_IMG;
+    const role = iv.role_tag && iv.role_tag !== 'Other' ? iv.role_tag : 'Interviewee';
+    card.dataset.name = iv.name;
+    card.dataset.role = role;
+    card.dataset.img = img;
+    card.dataset.bio = iv.bio || '';
+    card.dataset.handle = iv.social_handle || '';
+    const pic = document.createElement('img');
+    pic.src = img; pic.alt = iv.name; pic.loading = 'lazy';
+    pic.onerror = () => { pic.onerror = null; pic.src = PLACEHOLDER_IMG; card.dataset.img = PLACEHOLDER_IMG; };
+    const info = document.createElement('div');
+    info.className = 'scroll-card-info';
+    [['scroll-card-role', role], ['scroll-card-name', iv.name], ['scroll-card-hint', 'Click for bio \u2192']].forEach(([cls, text]) => {
+      const p = document.createElement('p'); p.className = cls; p.textContent = text; info.appendChild(p);
+    });
+    card.append(pic, info);
+    return card;
+  }
+
+  (async function loadInterviewees() {
+    try {
+      const url = SUPABASE_URL + '/rest/v1/interviewees' +
+        '?select=id,name,bio,photo_url,social_handle,role_tag,sort_order' +
+        '&published=eq.true&archived=eq.false&order=sort_order.asc,name.asc';
+      const res = await fetch(url, { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY } });
+      if (!res.ok) return;
+      const rows = await res.json();
+      // Keep the placeholder cards until at least one profile is approved.
+      if (!Array.isArray(rows) || !rows.length) return;
+      const track = document.getElementById('interviewee-track');
+      track.replaceChildren(...rows.map(ivCard));
+    } catch (_) { /* network issue: leave the existing cards in place */ }
+  })();
+
   function closeModal() { bioModal.classList.remove('open'); }
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();

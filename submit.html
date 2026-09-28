@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Your Profile — Chasing the Sash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #090907;
+  --cream: #F4EDE0;
+  --pink: #FF1F6E;
+  --pink-dark: #C8145A;
+  --gold: #C6993A;
+  --white: #FEFCF8;
+  --danger: #E0554F;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(255,31,110,0.14) 0%, transparent 50%),
+    var(--black);
+  color: var(--white);
+  min-height: 100vh;
+}
+img { display: block; }
+[hidden] { display: none !important; }
+
+.top {
+  padding: 1.25rem 3.5rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.07);
+}
+.top a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--white); text-decoration: none;
+}
+
+main { max-width: 720px; margin: 0 auto; padding: 4.5rem 1.5rem 6rem; }
+.eyebrow {
+  font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--pink); margin-bottom: 1rem;
+}
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 700; line-height: 1;
+}
+.sash { width: 90px; height: 3px; background: var(--gold); margin: 1.5rem 0; }
+.lede { font-size: 0.82rem; line-height: 2; color: rgba(255,255,255,0.5); max-width: 520px; }
+
+.panel { margin-top: 3rem; }
+.state { display: none; }
+.state.on { display: block; }
+
+.notice {
+  border: 1px solid rgba(198,153,58,0.4);
+  background: rgba(198,153,58,0.07);
+  padding: 1rem 1.25rem; margin-bottom: 2rem;
+  font-size: 0.75rem; line-height: 1.8; color: rgba(255,255,255,0.7);
+}
+
+.grid { display: grid; grid-template-columns: 220px 1fr; gap: 2.5rem; align-items: start; }
+
+.photo-box {
+  position: relative; width: 100%; aspect-ratio: 3/4;
+  border: 1px dashed rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.03);
+  overflow: hidden; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s;
+}
+.photo-box:hover, .photo-box.drag { border-color: var(--pink); }
+.photo-box img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.photo-empty {
+  text-align: center; padding: 1rem;
+  font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); line-height: 2;
+}
+.photo-help { font-size: 0.65rem; color: rgba(255,255,255,0.35); margin-top: 0.75rem; line-height: 1.7; }
+.photo-change {
+  margin-top: 0.75rem; background: none; border: none; cursor: pointer;
+  font-family: inherit; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--pink); padding: 0;
+}
+
+.field { display: block; margin-bottom: 1.75rem; }
+.field > span {
+  display: block; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); margin-bottom: 0.6rem;
+}
+.field input, .field textarea {
+  width: 100%; background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 0.85rem;
+  padding: 0.85rem 1rem; outline: none; border-radius: 0;
+  transition: border-color 0.2s;
+}
+.field textarea { min-height: 170px; resize: vertical; line-height: 1.8; }
+.field input:focus, .field textarea:focus { border-color: var(--pink); }
+.field.bad input, .field.bad textarea { border-color: var(--danger); }
+.meta { display: flex; justify-content: space-between; margin-top: 0.45rem; font-size: 0.62rem; color: rgba(255,255,255,0.35); }
+.meta .over { color: var(--danger); }
+.err { font-size: 0.7rem; color: var(--danger); margin-top: 0.5rem; line-height: 1.6; min-height: 1em; }
+
+.btn-pink {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--pink); color: var(--white);
+  padding: 0.95rem 2.2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-pink:hover { background: var(--pink-dark); transform: translateY(-2px); }
+.btn-pink:disabled { opacity: 0.5; cursor: wait; transform: none; }
+.btn-ghost {
+  display: inline-flex; align-items: center;
+  background: transparent; color: var(--white);
+  padding: 0.95rem 2.2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.22); cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.04); }
+.actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-top: 0.5rem; }
+.fine { font-size: 0.65rem; color: rgba(255,255,255,0.35); line-height: 1.7; margin-top: 1.5rem; }
+
+.center-msg { text-align: center; padding: 3rem 0; }
+.center-msg h2 {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem;
+}
+.center-msg p { font-size: 0.82rem; line-height: 2; color: rgba(255,255,255,0.55); max-width: 460px; margin: 0 auto 2rem; }
+.spinner {
+  width: 28px; height: 28px; margin: 0 auto;
+  border: 2px solid rgba(255,255,255,0.12); border-top-color: var(--pink);
+  border-radius: 50%; animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+footer {
+  border-top: 0.5px solid rgba(255,255,255,0.05);
+  padding: 2rem 3.5rem; font-size: 0.65rem; color: rgba(255,255,255,0.2);
+}
+
+@media (max-width: 700px) {
+  .top, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+  main { padding-top: 3rem; }
+  .grid { grid-template-columns: 1fr; gap: 2rem; }
+  .photo-col { max-width: 240px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top"><a href="./">Chasing the Sash</a></header>
+
+<main>
+  <p class="eyebrow">Stories behind the Sash</p>
+  <h1 id="title">Your profile</h1>
+  <div class="sash"></div>
+  <p class="lede">This is how you'll appear in the <em>Meet the Interviewees</em> section of our website. Add a photo, your name, a short bio and your social handle. Our producers check every profile before it goes live.</p>
+
+  <div class="panel">
+
+    <!-- Loading -->
+    <div class="state on" id="s-loading">
+      <div class="center-msg"><div class="spinner"></div></div>
+    </div>
+
+    <!-- Invalid link -->
+    <div class="state" id="s-invalid">
+      <div class="center-msg">
+        <h2>This link isn't working</h2>
+        <p>The link may be incomplete or out of date. Please check you copied the whole link, or contact the producers at <a href="mailto:ask@chasingthesash.com" style="color:var(--pink)">ask@chasingthesash.com</a> for a new one.</p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="state" id="s-form">
+      <div class="notice" id="pending-notice" hidden>You've already sent in your profile and it's waiting for approval. Changes you save now will replace it.</div>
+
+      <form id="form" novalidate>
+        <div class="grid">
+          <div class="photo-col">
+            <div class="field" style="margin-bottom:0">
+              <span>Profile photo</span>
+              <div class="photo-box" id="photo-box" role="button" tabindex="0" aria-label="Choose a profile photo">
+                <div class="photo-empty" id="photo-empty">Tap to add<br>a photo</div>
+                <img id="photo-img" alt="" hidden>
+              </div>
+              <input type="file" id="photo-input" accept="image/jpeg,image/png,image/webp" hidden>
+              <button type="button" class="photo-change" id="photo-change" hidden>Change photo</button>
+              <p class="photo-help">JPG, PNG or WebP, up to 2 MB. A portrait (tall) photo works best. Large photos are shrunk automatically.</p>
+              <p class="err" id="photo-err"></p>
+            </div>
+          </div>
+
+          <div>
+            <label class="field" id="f-name">
+              <span>Name *</span>
+              <input id="name" maxlength="120" autocomplete="name" required>
+              <p class="err" id="name-err"></p>
+            </label>
+
+            <label class="field" id="f-bio">
+              <span>Bio</span>
+              <textarea id="bio" maxlength="500" placeholder="Who you are, your connection to Fashions on the Field, and what the sash means to you."></textarea>
+              <div class="meta"><span></span><span id="bio-count">0 / 500</span></div>
+            </label>
+
+            <label class="field" id="f-handle">
+              <span>Instagram handle</span>
+              <input id="handle" maxlength="100" placeholder="@yourname" autocomplete="off" autocapitalize="off" spellcheck="false">
+              <p class="err" id="handle-err"></p>
+            </label>
+
+            <div class="actions">
+              <button class="btn-pink" type="submit" id="submit-btn">Send for approval</button>
+            </div>
+            <p class="err" id="form-err"></p>
+            <p class="fine">By sending, you agree that Chasing the Sash may show this photo, name, bio and handle on its website. You can update it any time using this same link.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Done -->
+    <div class="state" id="s-done">
+      <div class="center-msg">
+        <h2>Thank you</h2>
+        <p>Your profile has been sent and is waiting for approval. We'll add it to the website once it's been checked. You can come back to this link any time to make changes.</p>
+        <button class="btn-ghost" type="button" id="edit-again">Edit my profile</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>&copy; Chasing the Sash &middot; Produced by Freestyle TV</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+'use strict';
+
+// Public anon key only. Row Level Security plus the token-checked form
+// functions are what protect the data. Never put the service_role key here.
+const SUPABASE_URL = 'https://lpgjycgsxjsachqnmegw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZ2p5Y2dzeGpzYWNocW5tZWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MDMyNDIsImV4cCI6MjEwMzI3OTI0Mn0.vitgl1amPiSqCcuYk4Yc3jp-dsKSn7udcLwBDAIsVvk';
+const BUCKET = 'interviewee-photos';
+const MAX_BYTES = 2 * 1024 * 1024;
+const MAX_EDGE = 1400;          // longest side after resize, in px
+const OK_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+const $ = id => document.getElementById(id);
+const token = (new URLSearchParams(location.search).get('t') || '').trim().toLowerCase();
+let sb = null;
+let photoBlob = null;           // resized photo waiting to upload, or null
+let photoPreviewUrl = null;
+
+function show(state) {
+  document.querySelectorAll('.state').forEach(el => el.classList.toggle('on', el.id === 's-' + state));
+}
+
+function setPhotoPreview(src) {
+  const img = $('photo-img');
+  if (src) {
+    img.src = src; img.hidden = false;
+    $('photo-empty').hidden = true; $('photo-change').hidden = false;
+  } else {
+    img.hidden = true; img.removeAttribute('src');
+    $('photo-empty').hidden = false; $('photo-change').hidden = true;
+  }
+}
+
+function updateCount() {
+  const n = $('bio').value.length;
+  const el = $('bio-count');
+  el.textContent = n + ' / 500';
+  el.classList.toggle('over', n > 500);
+}
+
+async function load() {
+  if (!UUID_RE.test(token)) return show('invalid');
+  if (!window.supabase || !window.supabase.createClient) {
+    $('form-err').textContent = 'The page could not load. Please refresh and try again.';
+    return show('invalid');
+  }
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { persistSession: false, autoRefreshToken: false }
+  });
+  const { data, error } = await sb.rpc('get_interviewee_form', { p_token: token });
+  if (error || !data || !data.length) return show('invalid');
+
+  const row = data[0];
+  $('name').value = row.name || '';
+  $('bio').value = row.bio || '';
+  $('handle').value = row.social_handle || '';
+  $('pending-notice').hidden = !row.has_pending;
+  if (row.name) $('title').textContent = 'Hi ' + row.name.split(' ')[0];
+  setPhotoPreview(row.photo_url || null);
+  updateCount();
+  show('form');
+}
+
+/* ── Photo: validate, then shrink in the browser so uploads stay small ── */
+function loadImage(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('That file could not be read as an image.')); };
+    img.src = url;
+  });
+}
+
+function canvasToBlob(canvas, quality) {
+  return new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
+}
+
+async function shrink(file) {
+  const img = await loadImage(file);
+  const scale = Math.min(1, MAX_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+  const w = Math.max(1, Math.round(img.naturalWidth * scale));
+  const h = Math.max(1, Math.round(img.naturalHeight * scale));
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';             // flatten transparent PNGs onto white
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(img, 0, 0, w, h);
+  for (const q of [0.88, 0.8, 0.7, 0.6, 0.5]) {
+    const blob = await canvasToBlob(canvas, q);
+    if (blob && blob.size <= MAX_BYTES) return blob;
+  }
+  throw new Error('This photo is still over 2 MB after shrinking. Please choose a smaller photo.');
+}
+
+async function onPhotoChosen(file) {
+  $('photo-err').textContent = '';
+  if (!file) return;
+  if (!OK_TYPES.includes(file.type)) {
+    $('photo-err').textContent = 'Please choose a JPG, PNG or WebP photo. (' + (file.type || 'Unknown type') + ' is not supported.)';
+    return;
+  }
+  if (file.size > 25 * 1024 * 1024) {
+    $('photo-err').textContent = 'This photo is ' + (file.size / 1048576).toFixed(1) + ' MB, which is too large. Please choose one under 25 MB and we\'ll shrink it to 2 MB.';
+    return;
+  }
+  try {
+    photoBlob = await shrink(file);
+    if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
+    photoPreviewUrl = URL.createObjectURL(photoBlob);
+    setPhotoPreview(photoPreviewUrl);
+  } catch (err) {
+    photoBlob = null;
+    $('photo-err').textContent = err.message;
+  }
+}
+
+function pickPhoto() { $('photo-input').click(); }
+
+/* ── Submit ── */
+function cleanHandle(v) {
+  return v.trim().replace(/\s+/g, '');
+}
+
+function validate() {
+  let ok = true;
+  const name = $('name').value.trim();
+  $('name-err').textContent = '';
+  $('handle-err').textContent = '';
+  $('f-name').classList.remove('bad');
+  $('f-handle').classList.remove('bad');
+
+  if (!name) {
+    $('name-err').textContent = 'Please add your name.';
+    $('f-name').classList.add('bad'); ok = false;
+  }
+  if ($('bio').value.length > 500) ok = false;
+  const handle = cleanHandle($('handle').value);
+  if (handle && !/^@?[A-Za-z0-9._]{1,30}$/.test(handle) && !/^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._]{1,30}\/?$/i.test(handle)) {
+    $('handle-err').textContent = 'That doesn\'t look like an Instagram handle. Use letters, numbers, dots or underscores, e.g. @yourname.';
+    $('f-handle').classList.add('bad'); ok = false;
+  }
+  return ok;
+}
+
+function normaliseHandle(v) {
+  const h = cleanHandle(v);
+  if (!h) return '';
+  const m = h.match(/instagram\.com\/([A-Za-z0-9._]+)/i);
+  return '@' + (m ? m[1] : h.replace(/^@/, ''));
+}
+
+async function onSubmit(e) {
+  e.preventDefault();
+  $('form-err').textContent = '';
+  if (!validate()) return;
+
+  const btn = $('submit-btn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    let photoPath = '';
+    if (photoBlob) {
+      const rand = Math.random().toString(36).slice(2, 8);
+      photoPath = token + '/' + Date.now() + '-' + rand + '.jpg';
+      const up = await sb.storage.from(BUCKET).upload(photoPath, photoBlob, {
+        contentType: 'image/jpeg', upsert: false, cacheControl: '31536000'
+      });
+      if (up.error) throw new Error('Your photo could not be uploaded. Please try again, or try a different photo.');
+    }
+    const { error } = await sb.rpc('submit_interviewee_form', {
+      p_token: token,
+      p_name: $('name').value.trim(),
+      p_bio: $('bio').value.trim(),
+      p_handle: normaliseHandle($('handle').value),
+      p_photo_path: photoPath
+    });
+    if (error) throw new Error(/Invalid link/i.test(error.message)
+      ? 'This link is no longer valid. Please contact the producers.'
+      : 'Something went wrong sending your profile. Please try again.');
+
+    photoBlob = null;
+    $('handle').value = normaliseHandle($('handle').value);
+    $('pending-notice').hidden = false;
+    show('done');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    $('form-err').textContent = err.message;
+  } finally {
+    btn.disabled = false; btn.textContent = 'Send for approval';
+  }
+}
+
+/* ── Wire up ── */
+$('photo-box').addEventListener('click', pickPhoto);
+$('photo-box').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickPhoto(); } });
+$('photo-change').addEventListener('click', pickPhoto);
+$('photo-input').addEventListener('change', e => { onPhotoChosen(e.target.files[0]); e.target.value = ''; });
+['dragenter', 'dragover'].forEach(t => $('photo-box').addEventListener(t, e => { e.preventDefault(); $('photo-box').classList.add('drag'); }));
+['dragleave', 'drop'].forEach(t => $('photo-box').addEventListener(t, e => { e.preventDefault(); $('photo-box').classList.remove('drag'); }));
+$('photo-box').addEventListener('drop', e => onPhotoChosen(e.dataTransfer.files[0]));
+$('bio').addEventListener('input', updateCount);
+$('name').addEventListener('input', () => { $('name-err').textContent = ''; $('f-name').classList.remove('bad'); });
+$('handle').addEventListener('input', () => { $('handle-err').textContent = ''; $('f-handle').classList.remove('bad'); });
+$('form').addEventListener('submit', onSubmit);
+$('edit-again').addEventListener('click', () => show('form'));
+
+load();
+</script>
+</body>
+</html>
