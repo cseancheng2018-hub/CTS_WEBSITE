@@ -176,3 +176,14 @@ UPDATE 2026-10-01 b (appended)
   website_deploy: GitHub Actions run 5 succeeded 2026-10-01 (merge of self-submission + social links)
   cloudflare:     not verifiable from Claude Code (no connector; container blocks pages.dev).
                   Sean to check Cloudflare dashboard -> Workers & Pages -> project -> Deployments shows latest main commit.
+
+UPDATE 2026-10-01 c (appended)
+  form_url:       form moved to <site>/interviewee-form/?t=<invite_token> (token stays a full UUID; Sean OK'd)
+                  old <site>/submit.html?t=... forwards automatically (keeps the token)
+                  after DNS: https://chasingthesash.com/interviewee-form/?t=<token>
+  link_log:       tracker Form links table shows each person's full link
+                  copying a link writes activity_log (field "form link", new_value = full link)
+                  "New link" logs old and new full links; both show in Recent Activity + person's History
+  cloudflare:     Sean confirmed Cloudflare shows an old commit (not linked to GitHub).
+                  Fix = new Pages project via Connect to Git (repo CTS_INTERVIEWEE, branch main, no build,
+                  env BASIC_AUTH_USER/BASIC_AUTH_PASS typed by Sean). Prompt given for Claude in Chrome. Pending.
