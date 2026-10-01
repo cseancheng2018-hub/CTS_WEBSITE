@@ -143,3 +143,29 @@ CLAUDE CODE REPORTING RULES (Sean's preferences)
   - Update this file at the end of every session (keep history, add dated entries)
   - No markdown files; schema/plain text only
   - Costs in AUD; check connectors first
+
+UPDATE 2026-10-01 (appended; sections above are history as of 2026-09-28)
+  merged:         both repos merged claude/great-brahmagupta-ja6tg7 -> main (live on push)
+  socials:        interviewees + interviewee_submissions gained instagram_url, facebook_url, tiktok_url
+                  ('' or full https URL; DB check constraints enforce host + shape)
+                  migration: supabase/migrations/20261001000000_interviewee_social_links.sql
+  rpc change:     get_interviewee_form returns name, bio, instagram_url, facebook_url, tiktok_url, photo_url, has_pending
+                  submit_interviewee_form(p_token, p_name, p_bio, p_instagram_url, p_facebook_url, p_tiktok_url, p_photo_path)
+                  approve_submission copies all three links; social_handle kept as legacy (@ from Instagram)
+  form:           3 optional fields; accepts @handle or pasted link; normalised to canonical URL client side
+  website:        profile modal shows logo-only icons (Instagram/Facebook/TikTok) for links present
+  tracker:        approvals show the 3 links + change outline; edit form has 3 link fields; CSV has 3 columns
+  SITE_URL:       https://cseancheng2018-hub.github.io/cts_website (switch to https://chasingthesash.com after DNS)
+  CNAME:          removed from branch on purpose; re-add only after GoDaddy DNS points to GitHub Pages
+  test_person:    "Test Person" (role Other, status pending, note TEST ONLY) - archive after end-to-end test
+  md_rule:        Sean 2026-10-01: keep HANDOFF.md / README.md; append-only, dated entries at the bottom
+  testing:        DB role tests (links stored, javascript: and look-alike domains rejected), browser tests with mocked
+                  Supabase for form, website modal, tracker approvals - all passed
+  next:
+    1. Sean: open Test Person's form link on phone, submit, approve in tracker, check website, then archive Test Person
+    2. Sean: GoDaddy DNS (records in cts_website README) -> then Claude re-adds CNAME + switches SITE_URL
+    3. Sean: Supabase dashboard -> Authentication -> enable leaked password protection
+
+SESSION LOG (continued)
+  2026-10-01    Social links (IG/FB/TikTok) across DB, form, website, tracker (built by 3 parallel Sonnet agents,
+                reviewed + tested by Opus). Merged to main. Test Person added.

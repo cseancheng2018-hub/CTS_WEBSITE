@@ -28,3 +28,12 @@ Back in GitHub: **Settings → Pages → Custom domain** → enter `chasingthesa
 ## Ongoing updates
 
 Any push to `main` (including from Claude Code) redeploys automatically — no manual upload step.
+
+---
+
+## Update — 1 October 2026 (appended)
+
+- `submit.html` — private interviewee profile form (photo, name, bio, Instagram/Facebook/TikTok links).
+- The Interviewees section loads approved profiles from Supabase; profiles show logo links.
+- `CNAME` is intentionally not committed yet — add it after the GoDaddy DNS records above are in place.
+- Handover notes: `HANDOFF.schema`.

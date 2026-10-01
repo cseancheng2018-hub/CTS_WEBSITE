@@ -95,6 +95,7 @@ h1 {
   display: block; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
   color: rgba(255,255,255,0.5); margin-bottom: 0.6rem;
 }
+.field > span svg { width: 14px; height: 14px; margin-right: 0.5rem; vertical-align: -2px; fill: currentColor; }
 .field input, .field textarea {
   width: 100%; background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.14);
@@ -168,7 +169,7 @@ footer {
   <p class="eyebrow">Stories behind the Sash</p>
   <h1 id="title">Your profile</h1>
   <div class="sash"></div>
-  <p class="lede">This is how you'll appear in the <em>Meet the Interviewees</em> section of our website. Add a photo, your name, a short bio and your social handle. Our producers check every profile before it goes live.</p>
+  <p class="lede">This is how you'll appear in the <em>Meet the Interviewees</em> section of our website. Add a photo, your name, a short bio and your social links. Our producers check every profile before it goes live.</p>
 
   <div class="panel">
 
@@ -218,17 +219,29 @@ footer {
               <div class="meta"><span></span><span id="bio-count">0 / 500</span></div>
             </label>
 
-            <label class="field" id="f-handle">
-              <span>Instagram handle</span>
-              <input id="handle" maxlength="100" placeholder="@yourname" autocomplete="off" autocapitalize="off" spellcheck="false">
-              <p class="err" id="handle-err"></p>
+            <label class="field" id="f-instagram">
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm5.5-4a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>Instagram</span>
+              <input id="instagram" maxlength="200" placeholder="@yourname or profile link" autocomplete="off" autocapitalize="off" spellcheck="false">
+              <p class="err" id="instagram-err"></p>
+            </label>
+
+            <label class="field" id="f-facebook">
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8V6.5c0-.8.2-1.2 1.300-1.2H17V2h-2.7C11.4 2 10 3.700 10 6v2H7.5v3.3H10V22h4V11.3h2.7L17 8h-3z"/></svg>Facebook</span>
+              <input id="facebook" maxlength="200" placeholder="@yourname or profile link" autocomplete="off" autocapitalize="off" spellcheck="false">
+              <p class="err" id="facebook-err"></p>
+            </label>
+
+            <label class="field" id="f-tiktok">
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.3a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .8.1V9.2a6.1 6.1 0 1 0 5.3 6.1V8.8a7.3 7.3 0 0 0 4.1 1.300V6.8A4.2 4.2 0 0 1 16.6 2z"/></svg>TikTok</span>
+              <input id="tiktok" maxlength="200" placeholder="@yourname or profile link" autocomplete="off" autocapitalize="off" spellcheck="false">
+              <p class="err" id="tiktok-err"></p>
             </label>
 
             <div class="actions">
               <button class="btn-pink" type="submit" id="submit-btn">Send for approval</button>
             </div>
             <p class="err" id="form-err"></p>
-            <p class="fine">By sending, you agree that Chasing the Sash may show this photo, name, bio and handle on its website. You can update it any time using this same link.</p>
+            <p class="fine">By sending, you agree that Chasing the Sash may show this photo, name, bio and social links on its website. You can update it any time using this same link.</p>
           </div>
         </div>
       </form>
@@ -305,7 +318,9 @@ async function load() {
   const row = data[0];
   $('name').value = row.name || '';
   $('bio').value = row.bio || '';
-  $('handle').value = row.social_handle || '';
+  $('instagram').value = row.instagram_url || '';
+  $('facebook').value = row.facebook_url || '';
+  $('tiktok').value = row.tiktok_url || '';
   $('pending-notice').hidden = !row.has_pending;
   if (row.name) $('title').textContent = 'Hi ' + row.name.split(' ')[0];
   setPhotoPreview(row.photo_url || null);
@@ -371,36 +386,78 @@ async function onPhotoChosen(file) {
 function pickPhoto() { $('photo-input').click(); }
 
 /* ── Submit ── */
-function cleanHandle(v) {
+/* Turn a typed handle or pasted link into the exact URL shape the database
+   accepts. Anything unrecognised is returned as typed so validation rejects it. */
+function cleanInput(v) {
   return v.trim().replace(/\s+/g, '');
 }
+
+function normaliseInstagram(v) {
+  const s = cleanInput(v);
+  if (!s) return '';
+  const link = s.match(/^(?:https?:\/\/)?(?:www\.|m\.)?instagram\.com\/([^\/?#]+)\/?(?:[?#].*)?$/i);
+  if (link) return 'https://www.instagram.com/' + link[1] + '/';
+  if (/^@?[A-Za-z0-9._]+$/.test(s)) return 'https://www.instagram.com/' + s.replace(/^@/, '') + '/';
+  return s;
+}
+
+function normaliseTikTok(v) {
+  const s = cleanInput(v);
+  if (!s) return '';
+  const link = s.match(/^(?:https?:\/\/)?(?:www\.|m\.)?tiktok\.com\/(@[^\/?#]+)\/?(?:[?#].*)?$/i);
+  if (link) return 'https://www.tiktok.com/' + link[1];
+  if (/^@?[A-Za-z0-9._]+$/.test(s)) return 'https://www.tiktok.com/@' + s.replace(/^@/, '');
+  return s;
+}
+
+function normaliseFacebook(v) {
+  const s = cleanInput(v);
+  if (!s) return '';
+  const link = s.match(/^(?:https?:\/\/)?(?:www\.|m\.)?(?:facebook|fb)\.com\/([^#]*)/i);
+  if (link) {
+    const parts = link[1].split('?');
+    const path = parts[0].replace(/\/+$/, '');
+    const id = path.toLowerCase() === 'profile.php' && (parts[1] || '').match(/(?:^|&)id=(\d+)/);
+    if (!path) return s;
+    return 'https://www.facebook.com/' + path + (id ? '?id=' + id[1] : '');
+  }
+  if (/^@?[A-Za-z0-9._]+$/.test(s)) return 'https://www.facebook.com/' + s.replace(/^@/, '');
+  return s;
+}
+
+// Must match the database checks exactly. Max 200 characters each.
+const SOCIALS = [
+  { key: 'instagram', label: 'an Instagram', normalise: normaliseInstagram,
+    re: /^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._]{1,30}\/?$/ },
+  { key: 'facebook', label: 'a Facebook', normalise: normaliseFacebook,
+    re: /^https:\/\/(www\.|m\.)?facebook\.com\/[A-Za-z0-9._\/?=&%-]+$/ },
+  { key: 'tiktok', label: 'a TikTok', normalise: normaliseTikTok,
+    re: /^https:\/\/(www\.)?tiktok\.com\/@[A-Za-z0-9._]{1,30}\/?$/ }
+];
 
 function validate() {
   let ok = true;
   const name = $('name').value.trim();
   $('name-err').textContent = '';
-  $('handle-err').textContent = '';
   $('f-name').classList.remove('bad');
-  $('f-handle').classList.remove('bad');
+  SOCIALS.forEach(s => {
+    $(s.key + '-err').textContent = '';
+    $('f-' + s.key).classList.remove('bad');
+  });
 
   if (!name) {
     $('name-err').textContent = 'Please add your name.';
     $('f-name').classList.add('bad'); ok = false;
   }
   if ($('bio').value.length > 500) ok = false;
-  const handle = cleanHandle($('handle').value);
-  if (handle && !/^@?[A-Za-z0-9._]{1,30}$/.test(handle) && !/^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._]{1,30}\/?$/i.test(handle)) {
-    $('handle-err').textContent = 'That doesn\'t look like an Instagram handle. Use letters, numbers, dots or underscores, e.g. @yourname.';
-    $('f-handle').classList.add('bad'); ok = false;
-  }
+  SOCIALS.forEach(s => {
+    const url = s.normalise($(s.key).value);
+    if (url && (url.length > 200 || !s.re.test(url))) {
+      $(s.key + '-err').textContent = 'That doesn\'t look like ' + s.label + ' profile. Type your @handle or paste the link to your profile.';
+      $('f-' + s.key).classList.add('bad'); ok = false;
+    }
+  });
   return ok;
-}
-
-function normaliseHandle(v) {
-  const h = cleanHandle(v);
-  if (!h) return '';
-  const m = h.match(/instagram\.com\/([A-Za-z0-9._]+)/i);
-  return '@' + (m ? m[1] : h.replace(/^@/, ''));
 }
 
 async function onSubmit(e) {
@@ -424,7 +481,9 @@ async function onSubmit(e) {
       p_token: token,
       p_name: $('name').value.trim(),
       p_bio: $('bio').value.trim(),
-      p_handle: normaliseHandle($('handle').value),
+      p_instagram_url: normaliseInstagram($('instagram').value),
+      p_facebook_url: normaliseFacebook($('facebook').value),
+      p_tiktok_url: normaliseTikTok($('tiktok').value),
       p_photo_path: photoPath
     });
     if (error) throw new Error(/Invalid link/i.test(error.message)
@@ -432,7 +491,7 @@ async function onSubmit(e) {
       : 'Something went wrong sending your profile. Please try again.');
 
     photoBlob = null;
-    $('handle').value = normaliseHandle($('handle').value);
+    SOCIALS.forEach(s => { $(s.key).value = s.normalise($(s.key).value); });
     $('pending-notice').hidden = false;
     show('done');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -453,7 +512,7 @@ $('photo-input').addEventListener('change', e => { onPhotoChosen(e.target.files[
 $('photo-box').addEventListener('drop', e => onPhotoChosen(e.dataTransfer.files[0]));
 $('bio').addEventListener('input', updateCount);
 $('name').addEventListener('input', () => { $('name-err').textContent = ''; $('f-name').classList.remove('bad'); });
-$('handle').addEventListener('input', () => { $('handle-err').textContent = ''; $('f-handle').classList.remove('bad'); });
+SOCIALS.forEach(s => $(s.key).addEventListener('input', () => { $(s.key + '-err').textContent = ''; $('f-' + s.key).classList.remove('bad'); }));
 $('form').addEventListener('submit', onSubmit);
 $('edit-again').addEventListener('click', () => show('form'));
 
