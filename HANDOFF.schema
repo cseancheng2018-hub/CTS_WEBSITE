@@ -1,0 +1,171 @@
+HANDOFF
+project:        Chasing the Sash (CTS) - interviewee self-submission
+updated:        2026-09-28
+owner:          Sean
+format_rule:    no markdown in repo docs; schema/plain text only
+scope_rule:     Chasing the Sash ONLY (ignore Chilli Badminton)
+currency:       AUD
+copies:         identical file in cts_interviewee and cts_website repos; keep both in sync
+
+GOAL
+  Interviewees fill in their own profile via a private link.
+  Fields: profile picture, name, bio, Instagram handle.
+  Sean/Hannah approve each submission inside the CTS tracker.
+  Approved entries appear on the Interviewees section of the CTS website automatically.
+
+SYSTEMS
+  website_repo:     cseancheng2018-hub/cts_website (private, GitHub Pages, deploys from main)
+  website_live:     cseancheng2018-hub.github.io/cts_website  ->  chasingthesash.com once DNS set
+  domain:           chasingthesash.com (GoDaddy = registrar only). CNAME file now ADDED on work branch.
+  tracker_repo:     cseancheng2018-hub/cts_interviewee  (tracker.html = "CTS software")
+  tracker_live:     cts-interviewee.pages.dev/tracker.html (Cloudflare Pages, basic auth + Supabase login)
+                    NOT obsolete: this is the team tool; approval section lives here (Sean confirmed 2026-09-28)
+  backend:          Supabase project "Chasing the Sash"
+  supabase_ref:     lpgjycgsxjsachqnmegw   (region ap-northeast-1)
+  supabase_url:     https://lpgjycgsxjsachqnmegw.supabase.co
+  supabase_plan:    free (auto-pauses after ~1 week idle). Sean confirmed keep-alive ping covers this project.
+  auth_users:       Sean, Hannah (+ Sharon, Neil per tracker README). No public sign-up.
+  work_branch:      claude/great-brahmagupta-ja6tg7 (both repos). NOT yet merged to main = NOT live.
+
+BRAND (website as built)
+  pages use the live website style: black #090907, cream #F4EDE0, pink #FF1F6E, gold #C6993A
+  fonts:       Cormorant Garamond (headings), Montserrat (body)
+  tagline:     Stories behind the Sash
+  note:        handoff v1 said blush #F7E1E5 / ink #1A1A1A; Sean chose to match current website instead
+
+FILES
+  cts_website/submit.html          interviewee form (private link target)
+  cts_website/index.html           Interviewees section now loads approved rows from Supabase
+  cts_website/CNAME                chasingthesash.com
+  cts_website/deploy.yml           DELETED (dead file at repo root, never ran)
+  cts_interviewee/tracker.html     new tab "Website Approvals" + form link / on-website controls on cards
+  cts_interviewee/supabase/migrations/20260928041731_interviewee_self_submission.sql
+  cts_interviewee/supabase/migrations/20260928042822_interviewee_approval_hardening.sql
+  cts_interviewee/HANDOFF.md       older tracker handover (markdown). Left untouched; ask Sean before removing.
+
+DATABASE SCHEMA (live)
+  table interviewees (existing, extended)
+    id, name, bio, contact (PRIVATE), status, role_tag, instagram_followers, facebook_followers,
+    last_contacted, returning_guest, note, archived, sort_order, created_at
+    + photo_url     text          full public URL, set on approval
+    + social_handle text          stored as @handle
+    + invite_token  uuid unique   the private form link secret
+    + published     bool default false   controls website visibility
+  table interviewee_submissions
+    id, interviewee_id -> interviewees.id (cascade), name 1-120, bio <=500, social_handle <=100,
+    photo_path, review_status pending|approved|rejected, reviewer_note, submitted_at, reviewed_at
+  storage bucket interviewee-photos
+    public read yes, 2 MB max, jpeg/png/webp, upload path <invite_token>/<timestamp>-<rand>.jpg
+  functions
+    get_interviewee_form(p_token)                        [anon, authenticated]  security definer
+    submit_interviewee_form(p_token,name,bio,handle,photo_path)  [anon, authenticated]  security definer
+    is_valid_invite_folder(p_folder)                     [anon, authenticated]  used by storage policy
+    approve_submission(p_submission_id, p_note)          [authenticated ONLY]   security invoker
+
+ACCESS RULES (verified 2026-09-28 by role-switch tests)
+  anon:
+    - interviewees: SELECT only safe columns, only published=true AND archived=false
+    - denied: contact, invite_token, updates, interviewee_submissions (all), approve_submission
+    - photo_path in submit must start with caller's own token (else "Invalid photo")
+    - storage upload only into a valid token folder
+  authenticated: full access (RLS "authenticated full access")
+
+FLOWS (built)
+  form:      <site>/submit.html?t=<invite_token>
+             load -> get_interviewee_form; bad/missing token -> "This link isn't working"
+             photo resized in browser (max 1400px, JPEG, stepped quality to fit 2 MB; input cap 25 MB)
+             upload -> submit_interviewee_form -> "Thank you" state; same link re-editable (replaces pending)
+             handle accepts @name, name, or instagram.com/name; saved as @name
+  website:   fetch published rows (anon REST), order sort_order then name
+             keeps existing placeholder cards until at least 1 approved profile exists
+             placeholder silhouette if no photo; modal shows "@handle on Instagram" link
+  tracker:   tab "Website Approvals" (pink badge = pending count)
+               - Waiting for approval: live vs submitted side by side, changes outlined
+               - Approve & publish (approve_submission) | Reject (note, internal)
+               - Form links table: Copy form link | Show/Hide on website | New link (rotates token)
+               - Recently reviewed (last 15)
+             Interviewee board cards: "On website" / "Profile to approve" tags + "Form link" button
+             every action writes activity_log (entity interviewee, field "website profile"/"on website"/"form link")
+  links:     built as https://chasingthesash.com/submit.html?t=<token>  (SITE_URL const in tracker.html)
+
+TESTING DONE 2026-09-28
+  - DB: anon get/submit/resubmit, pending replaced (1 row), approve as authenticated -> published row visible to anon (rolled back, no data left)
+  - DB security negatives: 6/6 denied as expected
+  - Browser (Chromium, mocked Supabase since container network blocks supabase.co):
+    submit.html bad token, prefill, 7.2 MB photo -> 0.4 MB upload, gif rejected, empty name, handle URL normalised, done state, mobile 390px
+    index.html card rendered from data, modal + Instagram link, racecourse modal unaffected
+    tracker.html login, badge, board tags, copy link, approve -> RPC + activity log
+  - NOT yet tested against live Supabase from a real browser (do after merge)
+
+CURRENT PROGRESS
+  done:
+    - Supabase project resumed; migrations applied and saved in repo
+    - Hardening migration (anon locked out of submissions + approve)
+    - Form page, website section, tracker approval section, CNAME, dead deploy.yml removed
+  not_done:
+    - Merge branch claude/great-brahmagupta-ja6tg7 to main in BOTH repos (makes it live)
+    - GoDaddy DNS for chasingthesash.com + GitHub Pages custom domain setting
+    - Interviewee rows (Sean has none yet; add via tracker "+ Add interviewee")
+    - Live end-to-end test with one real/test person
+
+NEXT STEPS (in order)
+  1. Review + merge both branches to main
+  2. GoDaddy DNS: A records @ -> 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153;
+     CNAME www -> cseancheng2018-hub.github.io. Then GitHub repo Settings -> Pages -> custom domain chasingthesash.com, tick Enforce HTTPS
+  3. Until DNS works, form links will not open (they use chasingthesash.com). Temporary option: change SITE_URL in tracker.html to the github.io URL
+  4. Add a test interviewee in tracker -> copy form link -> submit on phone -> approve -> check website -> archive test person
+  5. Supabase dashboard: Auth -> enable leaked password protection (advisor warning)
+  6. Optional later: clean up photos from rejected/replaced submissions in the bucket (not deleted automatically)
+
+OPEN QUESTIONS FOR SEAN
+  - Remove old HANDOFF.md / README.md (markdown) from cts_interviewee, or keep?
+  - Social field is Instagram only. Need Facebook/TikTok too?
+
+WHAT WORKED
+  - Reading live DB (functions, policies, grants) before changing anything
+  - Additive migrations; tests wrapped in transactions and rolled back
+  - Mocked-network browser tests when container cannot reach Supabase
+
+WHAT DID NOT WORK
+  - Container egress blocks supabase.co and cdn.jsdelivr.net, so no live browser test from Claude Code
+  - Earlier: Supabase connector writes needed manual approval; project auto-paused when idle
+
+SESSION LOG
+  2026-09-28 a  DB migration interviewee_self_submission applied and verified (previous session)
+  2026-09-28 b  Built submit.html, website Supabase wiring, tracker Website Approvals tab, hardening migration,
+                CNAME, removed dead deploy.yml. Tests above. Pushed to claude/great-brahmagupta-ja6tg7.
+
+CLAUDE CODE REPORTING RULES (Sean's preferences)
+  - Before starting: repeat back the tasks, assess complexity, recommend a Claude model
+  - Ask questions before starting work
+  - Keep answers short, plain English
+  - After each session report: progress in simple English + recommended next steps
+  - Update this file at the end of every session (keep history, add dated entries)
+  - No markdown files; schema/plain text only
+  - Costs in AUD; check connectors first
+
+UPDATE 2026-10-01 (appended; sections above are history as of 2026-09-28)
+  merged:         both repos merged claude/great-brahmagupta-ja6tg7 -> main (live on push)
+  socials:        interviewees + interviewee_submissions gained instagram_url, facebook_url, tiktok_url
+                  ('' or full https URL; DB check constraints enforce host + shape)
+                  migration: supabase/migrations/20261001000000_interviewee_social_links.sql
+  rpc change:     get_interviewee_form returns name, bio, instagram_url, facebook_url, tiktok_url, photo_url, has_pending
+                  submit_interviewee_form(p_token, p_name, p_bio, p_instagram_url, p_facebook_url, p_tiktok_url, p_photo_path)
+                  approve_submission copies all three links; social_handle kept as legacy (@ from Instagram)
+  form:           3 optional fields; accepts @handle or pasted link; normalised to canonical URL client side
+  website:        profile modal shows logo-only icons (Instagram/Facebook/TikTok) for links present
+  tracker:        approvals show the 3 links + change outline; edit form has 3 link fields; CSV has 3 columns
+  SITE_URL:       https://cseancheng2018-hub.github.io/cts_website (switch to https://chasingthesash.com after DNS)
+  CNAME:          removed from branch on purpose; re-add only after GoDaddy DNS points to GitHub Pages
+  test_person:    "Test Person" (role Other, status pending, note TEST ONLY) - archive after end-to-end test
+  md_rule:        Sean 2026-10-01: keep HANDOFF.md / README.md; append-only, dated entries at the bottom
+  testing:        DB role tests (links stored, javascript: and look-alike domains rejected), browser tests with mocked
+                  Supabase for form, website modal, tracker approvals - all passed
+  next:
+    1. Sean: open Test Person's form link on phone, submit, approve in tracker, check website, then archive Test Person
+    2. Sean: GoDaddy DNS (records in cts_website README) -> then Claude re-adds CNAME + switches SITE_URL
+    3. Sean: Supabase dashboard -> Authentication -> enable leaked password protection
+
+SESSION LOG (continued)
+  2026-10-01    Social links (IG/FB/TikTok) across DB, form, website, tracker (built by 3 parallel Sonnet agents,
+                reviewed + tested by Opus). Merged to main. Test Person added.
