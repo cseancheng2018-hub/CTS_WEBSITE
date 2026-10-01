@@ -169,3 +169,10 @@ UPDATE 2026-10-01 (appended; sections above are history as of 2026-09-28)
 SESSION LOG (continued)
   2026-10-01    Social links (IG/FB/TikTok) across DB, form, website, tracker (built by 3 parallel Sonnet agents,
                 reviewed + tested by Opus). Merged to main. Test Person added.
+
+UPDATE 2026-10-01 b (appended)
+  tracker_deploy: removed .github/workflows/deploy.yml (GitHub Pages never enabled -> failed every push;
+                  a Pages copy would also bypass the Cloudflare Basic Auth gate). Host = Cloudflare Pages only.
+  website_deploy: GitHub Actions run 5 succeeded 2026-10-01 (merge of self-submission + social links)
+  cloudflare:     not verifiable from Claude Code (no connector; container blocks pages.dev).
+                  Sean to check Cloudflare dashboard -> Workers & Pages -> project -> Deployments shows latest main commit.
