@@ -187,3 +187,11 @@ UPDATE 2026-10-01 c (appended)
   cloudflare:     Sean confirmed Cloudflare shows an old commit (not linked to GitHub).
                   Fix = new Pages project via Connect to Git (repo CTS_INTERVIEWEE, branch main, no build,
                   env BASIC_AUTH_USER/BASIC_AUTH_PASS typed by Sean). Prompt given for Claude in Chrome. Pending.
+
+UPDATE 2026-10-05 (appended)
+  cloudflare:     GitHub check runs on main 5526714 show TWO Cloudflare Pages projects, both deploying OK:
+                    cts-interviewee (cts-interviewee.pages.dev)  deployed 2026-10-01 - was already Git-linked
+                    cts-guest       (new, created by Sean via Claude in Chrome 2026-10-05)
+                  earlier "old commit" was likely viewed before the 2026-10-01 build finished.
+                  Decision pending: keep one; recommended keep cts-interviewee, delete cts-guest.
+  basic_auth:     Sean set new BASIC_AUTH_USER/PASS on the new project (values never shared with Claude).
