@@ -238,3 +238,54 @@ UPDATE 2026-10-06 f (appended)
                   Notice shown when person is published: edits to name/bio/photo/role/socials go live on save.
                   Photo changes logged in activity_log (field "photo"). Browser-tested with mocked Supabase.
   test_profile:   Sean archiving the "C.Sean Cheng" test profile himself.
+
+UPDATE 2026-10-06 g (appended)
+  feature:        ANALYTICS + WEEKLY/MONTHLY PDF REPORTS for CTS. Replaces the manual Google Sheet + Word report
+                  (cts-weekly-analytics skill). Sean's rule: CTS and CB are separate businesses; the engine was COPIED
+                  from miltonschilli-collab/CB_SCHEDULER backend/metrics (not shared, no CB data, no CB accounts).
+  where:          cts_interviewee/reports-engine/          Node 20 engine (own package.json; NOT at repo root so
+                                                           Cloudflare Pages does not try to build it)
+                  cts_interviewee/.github/workflows/cts-reports.yml   nightly run, 16:15 UTC (~02:15 Sydney) + manual
+                  cts_interviewee/tracker.html             new "Reports" tab (read only)
+                  supabase/migrations/20261006000000_cts_metrics_bucket.sql   APPLIED LIVE 2026-10-06
+  host:           no server. GitHub Actions runs `node cli.js nightly` (free tier). No Render, no R2, no pinger.
+  storage:        Supabase bucket cts-metrics (PRIVATE). Service role key writes; signed-in team reads (policy
+                  "authenticated read cts metrics"). anon: nothing.
+  data_design:    identical to CB schema.json (reports-engine/metrics/schema.json):
+                    metrics/snapshots/{YYYY-MM-DD}.json   per-post lifetime stats, one per night
+                    metrics/daily/{instagram|facebook|youtube|website}.json   exact account daily totals
+                    metrics/reports/{week|month}/{key}.json + .pdf   e.g. week/2026-W40, month/2026-10
+                    metrics/reports/index.json            list shown in tracker
+                    metrics/status.json                   CTS only: connected platforms + last errors for tracker
+  nightly_does:   1 snapshot under yesterday  2 history backfill for any newly connected source (from
+                  ANALYTICS_HISTORY_FROM, default 2026-01-01)  3 refresh last 7 days  4 build last finished week and
+                  month if missing (self-heals after a missed run)  5 write status.json
+  manual_run:     GitHub -> cts_interviewee -> Actions -> CTS reports -> Run workflow
+                    command nightly  args --rebuild          rebuild last week + month
+                    command report   args "week 2026-W40"     rebuild one report
+                    command backfill args 2026-01-01          reload history
+                    command collect                           snapshot now
+  removed_vs_cb:  video library matching, CB series (Court Autopsy/Heat Check), CRM leads/students, link page,
+                  "Collect now"/custom range buttons (need a server), 1M monthly view target (now optional var).
+  pdf:            3 pages A4, CTS colours (pink #FF1F6E, gold #C6993A, cream #F4EDE0, black #090907), Helvetica.
+  tests:          cd reports-engine && npm ci && npm test   -> 104 pass (99 ported from CB + 5 CTS).
+                  Tracker tab browser-tested with mocked Supabase (desktop + 390px, no overflow, no JS errors).
+  NOT LIVE YET:   needs GitHub Actions secrets on cseancheng2018-hub/cts_interviewee (Settings -> Secrets and
+                  variables -> Actions):
+                    SUPABASE_SERVICE_ROLE_KEY   (Supabase -> Project settings -> API keys; never in the browser)
+                    META_ACCESS_TOKEN           System User token for the CTS Business portfolio with
+                                                instagram_basic, instagram_manage_insights, pages_read_engagement,
+                                                read_insights
+                    META_FB_PAGE_ID             CTS Facebook Page id
+                    META_IG_ACCOUNT_ID          CTS Instagram Business account id
+                    YOUTUBE_CLIENT_ID / YOUTUBE_CLIENT_SECRET / YOUTUBE_REFRESH_TOKEN   CTS channel; refresh token
+                                                with yt-analytics.readonly, youtube.readonly, analytics.readonly
+                    GA4_PROPERTY_ID             numeric id of a GA4 property for chasingthesash.com
+                  optional variables: ANALYTICS_MONTHLY_VIEW_TARGET, ANALYTICS_HISTORY_FROM
+                  SUPABASE_URL secret optional (defaults to this project).
+  website_ga4:    chasingthesash.com has no GA4 tag yet. Create GA4 property + add gtag to cts_website index.html
+                  (needs measurement id G-xxxx) before Website numbers appear.
+  then:           merge branch to main (workflow only runs scheduled jobs from the default branch), Run workflow once
+                  with command nightly, check Reports tab.
+  skill:          cts-weekly-analytics skill should be updated to point at the Reports tab (Sean to edit; Claude
+                  cannot edit account skills from Claude Code).
