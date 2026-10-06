@@ -211,3 +211,10 @@ UPDATE 2026-10-06 b (appended)
   fix:            tracker SITE_URL -> https://chasingthesash.com ; links now chasingthesash.com/interviewee-form/?t=<token>
   check:          if https fails, GitHub repo Settings -> Pages -> tick "Enforce HTTPS" (cert may take up to 24h).
   note:           CNAME file not needed: site deploys via GitHub Actions, custom domain is held in Pages settings.
+
+UPDATE 2026-10-06 c (appended)
+  decisions:      KEEP 3 social fields (Instagram/Facebook/TikTok) - each needs its own URL. Single-link idea dropped
+                  (migration interviewee_single_social_link was never applied; DB unchanged).
+                  NO email alerts (Resend dropped). NO Turnstile bot check: each interviewee has a private
+                  unguessable link, invalid links are rejected, and nothing goes public without approval.
+  if_spam_later:  rotate that person's link in tracker ("New link"); revisit Turnstile only if abuse appears.
