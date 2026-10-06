@@ -289,3 +289,27 @@ UPDATE 2026-10-06 g (appended)
                   with command nightly, check Reports tab.
   skill:          cts-weekly-analytics skill should be updated to point at the Reports tab (Sean to edit; Claude
                   cannot edit account skills from Claude Code).
+
+UPDATE 2026-10-06 h (appended)
+  update_now:     Reports tab "Update now" button (Sean asked: CB has instant Collect now).
+                  flow: tracker -> Supabase edge function cts-reports-run (POST) -> GitHub workflow_dispatch
+                        command=update on ref main -> engine `node cli.js update` -> tracker polls the function
+                        (GET, every 10s, gives up after 10 min) -> reloads reports. Typical 1-2 min, not instant.
+                  update does: collect now + history for new sources + last 7 days + this week and month SO FAR
+                        (+ last finished week/month if missing). Index entries carry partial:true -> tracker shows
+                        a "so far" tag. Nightly rebuilds any finished period whose report was only partial.
+                  one run at a time: POST returns 409 while a run is queued/in progress; tracker then follows it.
+  function:       supabase/functions/cts-reports-run/index.ts  DEPLOYED LIVE v1 (verify_jwt on).
+                  auth: caller's session checked via /auth/v1/user (anon key alone refused). CORS limited to
+                  cts-interviewee.pages.dev (+ preview subdomains) and localhost.
+                  secrets: CTS_GITHUB_TOKEN (required, NOT SET YET), optional CTS_GITHUB_REF (default main),
+                  CTS_GITHUB_REPO (default cseancheng2018-hub/cts_interviewee).
+                  without the token the button shows "Update now is not set up yet".
+  not_verified:   sandbox cannot reach *.supabase.co, so the live function was not called from here.
+                  First real press = live test; check Supabase -> Edge Functions -> cts-reports-run -> Logs.
+  tests:          106 engine tests pass (+2 for update/partial). Button flow browser-tested with mocked
+                  Supabase at 390px (running state, polling, reload, no overflow, no JS errors).
+  account_setup:  step-by-step for Claude in Chrome: cts_interviewee/setup/chrome-brief.txt
+                  (GitHub token -> Supabase secret, service key, Meta app + system user, GA4, Google OAuth).
+  order:          1 Chrome brief  2 merge branch claude/kind-brown-th7l1d to main (cts_interviewee)
+                  3 press Update now in tracker  4 send Claude the GA4 G-XXXX id to add the site tag.
