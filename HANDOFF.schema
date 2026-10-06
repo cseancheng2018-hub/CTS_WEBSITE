@@ -230,3 +230,11 @@ UPDATE 2026-10-06 e (appended)
                   role_tag = Other (set role on the tracker card to change the label).
   status:         Feature complete and live. Remaining optional: Supabase leaked password protection;
                   run app-security-check before sending real links; decide keep/archive the test profile.
+
+UPDATE 2026-10-06 f (appended)
+  team_edit:      Website Approvals -> Form links now has an "Edit" button per person (same modal as board "Edit").
+                  Edit modal gained photo controls (editing only): upload new photo (resized in browser to <=1400px JPEG
+                  <=2 MB, stored at interviewee-photos/<invite_token>/<ts>-team.jpg) or "Remove photo".
+                  Notice shown when person is published: edits to name/bio/photo/role/socials go live on save.
+                  Photo changes logged in activity_log (field "photo"). Browser-tested with mocked Supabase.
+  test_profile:   Sean archiving the "C.Sean Cheng" test profile himself.
