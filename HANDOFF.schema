@@ -195,3 +195,10 @@ UPDATE 2026-10-05 (appended)
                   earlier "old commit" was likely viewed before the 2026-10-01 build finished.
                   Decision pending: keep one; recommended keep cts-interviewee, delete cts-guest.
   basic_auth:     Sean set new BASIC_AUTH_USER/PASS on the new project (values never shared with Claude).
+
+UPDATE 2026-10-06 (appended)
+  cloudflare:     cts-guest DELETED by Sean (via Claude in Chrome). Only Pages project for tracker = cts-interviewee
+                  (Git-linked, deploys main). Sean set new BASIC_AUTH_USER/PASS on cts-interviewee, redeployed,
+                  login confirmed working. Values held by Sean only.
+                  Other unrelated Cloudflare projects untouched: strip-board, tcn-finance-dashboard, winn-schedule.
+  next:           Test Person end-to-end on phone; GoDaddy DNS; Supabase leaked password protection.
