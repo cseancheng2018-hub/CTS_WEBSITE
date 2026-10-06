@@ -313,3 +313,31 @@ UPDATE 2026-10-06 h (appended)
                   (GitHub token -> Supabase secret, service key, Meta app + system user, GA4, Google OAuth).
   order:          1 Chrome brief  2 merge branch claude/kind-brown-th7l1d to main (cts_interviewee)
                   3 press Update now in tracker  4 send Claude the GA4 G-XXXX id to add the site tag.
+
+UPDATE 2026-10-06 i (appended) - START HERE FOR THE LOCAL SESSION
+  goal:           CTS analytics live: nightly stats from CTS Instagram, Facebook, YouTube, website (GA4) into
+                  weekly/monthly PDF reports, viewed in the tracker Reports tab, with an "Update now" button.
+                  Replaces the manual Google Sheet + Word report. CTS only; never touch Chilli Badminton.
+  current:        CODE DONE, NOT LIVE. All work on branch claude/kind-brown-th7l1d in cts_interviewee
+                  (handover copy also in cts_website). Details: UPDATE g (engine) and UPDATE h (Update now).
+                  Live in Supabase already: bucket cts-metrics + read policy, edge function cts-reports-run.
+                  Not done: account secrets, merge to main, first real run, GA4 tag on the website.
+  what_worked:    copying CB_SCHEDULER backend/metrics nearly unchanged (99 CB tests still pass);
+                  GitHub Actions instead of a server; Supabase Storage instead of R2; mocked-Supabase browser tests.
+  what_failed:    the cloud sandbox cannot reach *.supabase.co or graph.facebook.com, so nothing was tested
+                  against live APIs. The local session can (that is its main advantage).
+  next_steps (in order):
+    1  Claude in Chrome runs cts_interviewee/setup/chrome-brief.txt (GitHub token -> Supabase secret
+       CTS_GITHUB_TOKEN; GitHub Actions secrets: SUPABASE_SERVICE_ROLE_KEY, META_ACCESS_TOKEN, META_FB_PAGE_ID,
+       META_IG_ACCOUNT_ID, YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN, GA4_PROPERTY_ID).
+    2  Merge claude/kind-brown-th7l1d -> main in cts_interviewee (Cloudflare Pages redeploys tracker;
+       scheduled + Update-now runs only work from main). Merge cts_website branch too (handover file only).
+    3  Optional local smoke test before merge: cd reports-engine && npm ci && npm test (expect 106 pass);
+       then with a local .env holding the same secrets: node cli.js status, node cli.js update
+       (writes to the real cts-metrics bucket). Check Meta metric names work on v21 (unverified in CB too).
+    4  Tracker -> Reports -> Update now. If it fails: Supabase -> Edge Functions -> cts-reports-run -> Logs,
+       and GitHub -> Actions -> CTS reports run log. Error chips in the tab name the platform.
+    5  Sean gives the GA4 G-XXXX id -> add gtag snippet to cts_website index.html (+ interviewee-form pages).
+    6  Sean to update the cts-weekly-analytics skill to point at the Reports tab (sheet process retired).
+  rules:          no markdown in repo docs (append to this file, keep both copies identical); AUD only;
+                  never paste secrets into chat or files; end commits with the Claude attribution lines.
