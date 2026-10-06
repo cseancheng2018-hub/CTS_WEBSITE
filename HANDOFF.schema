@@ -218,3 +218,8 @@ UPDATE 2026-10-06 c (appended)
                   NO email alerts (Resend dropped). NO Turnstile bot check: each interviewee has a private
                   unguessable link, invalid links are rejected, and nothing goes public without approval.
   if_spam_later:  rotate that person's link in tracker ("New link"); revisit Turnstile only if abuse appears.
+
+UPDATE 2026-10-06 d (appended)
+  live_test:      Sean submitted Test Person form on phone via chasingthesash.com link: WORKED (with photo upload).
+                  Sean accidentally clicked Reject in tracker -> review_status rejected, Test Person not published.
+                  Approve path not yet confirmed live. To retest: resubmit same link -> Approve -> check site -> archive.
