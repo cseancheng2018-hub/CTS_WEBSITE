@@ -202,3 +202,12 @@ UPDATE 2026-10-06 (appended)
                   login confirmed working. Values held by Sean only.
                   Other unrelated Cloudflare projects untouched: strip-board, tcn-finance-dashboard, winn-schedule.
   next:           Test Person end-to-end on phone; GoDaddy DNS; Supabase leaked password protection.
+
+UPDATE 2026-10-06 b (appended)
+  domain:         DNS ALREADY LIVE: chasingthesash.com A -> 185.199.108-111.153, www -> cseancheng2018-hub.github.io.
+                  GitHub Pages custom domain already set (deploy log: environment url http://chasingthesash.com/).
+                  So github.io/cts_website/... redirects to chasingthesash.com/... (repo path dropped).
+  issue:          Sean reported Test Person link "can't be found" (github.io address).
+  fix:            tracker SITE_URL -> https://chasingthesash.com ; links now chasingthesash.com/interviewee-form/?t=<token>
+  check:          if https fails, GitHub repo Settings -> Pages -> tick "Enforce HTTPS" (cert may take up to 24h).
+  note:           CNAME file not needed: site deploys via GitHub Actions, custom domain is held in Pages settings.
