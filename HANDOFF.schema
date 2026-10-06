@@ -223,3 +223,10 @@ UPDATE 2026-10-06 d (appended)
   live_test:      Sean submitted Test Person form on phone via chasingthesash.com link: WORKED (with photo upload).
                   Sean accidentally clicked Reject in tracker -> review_status rejected, Test Person not published.
                   Approve path not yet confirmed live. To retest: resubmit same link -> Approve -> check site -> archive.
+
+UPDATE 2026-10-06 e (appended)
+  live_test:      END-TO-END PASSED. Resubmitted via phone (as "C.Sean Cheng"), approved in tracker, profile live on
+                  chasingthesash.com Interviewees with photo, bio and 3 social logos. Role shows "Interviewee" because
+                  role_tag = Other (set role on the tracker card to change the label).
+  status:         Feature complete and live. Remaining optional: Supabase leaked password protection;
+                  run app-security-check before sending real links; decide keep/archive the test profile.
