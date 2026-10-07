@@ -341,3 +341,30 @@ UPDATE 2026-10-06 i (appended) - START HERE FOR THE LOCAL SESSION
     6  Sean to update the cts-weekly-analytics skill to point at the Reports tab (sheet process retired).
   rules:          no markdown in repo docs (append to this file, keep both copies identical); AUD only;
                   never paste secrets into chat or files; end commits with the Claude attribution lines.
+
+UPDATE 2026-10-07 j (appended)
+  session:        local Claude Code on Sean's PC (Claude in Chrome for accounts). gh login cseancheng2018-hub owns
+                  cts_interviewee (private; other gh logins get "repository not found").
+  tests:          reports-engine npm ci && npm test -> 106 pass locally (Node 24).
+  ga4:            DONE. GA account + property "Chasing the Sash" under c.seancheng2018@gmail.com, Australia/Sydney, AUD,
+                  data sharing all off. Web stream chasingthesash.com.
+                    Measurement ID  G-BN0351WGW6   (public)
+                    Property ID     557846453      -> GitHub secret GA4_PROPERTY_ID (Sean to add)
+  website:        cts_website branch claude/kind-brown-th7l1d: gtag on index.html, interviewee-form/index.html (sends
+                  page_location WITHOUT the query so the private ?t= code never reaches Google; verified locally),
+                  privacy.html (new; needed by GA terms and the Google OAuth consent screen), footer Privacy link.
+                  NOT LIVE until merged to main (GitHub Pages deploys from main).
+  google_cloud:   project "CTS Reports" id cts-reports-510821 (NOT the Chilli Tagger project the console defaults to).
+                  Enabled: YouTube Data API v3, YouTube Analytics API, Google Analytics Data API.
+                  OAuth consent: External, app "CTS Reports", home https://chasingthesash.com, privacy
+                  https://chasingthesash.com/privacy.html, authorised domain chasingthesash.com. Status still TESTING.
+  claude_limits:  Claude may not create/copy tokens or keys, save secrets, or press "Publish app" (blocked by Claude's
+                  safety rules even with Sean's OK). Sean does those clicks himself.
+  sean_to_do:     1 Google Auth Platform -> Audience -> Publish app (In production)
+                  2 Google Auth Platform -> Clients -> Create client (Web, redirect https://developers.google.com/oauthplayground)
+                    -> YOUTUBE_CLIENT_ID / YOUTUBE_CLIENT_SECRET; then OAuth Playground -> YOUTUBE_REFRESH_TOKEN
+                  3 GitHub fine-grained token cts-reports-update-now -> Supabase secret CTS_GITHUB_TOKEN
+                  4 Supabase legacy service_role key -> GitHub secret SUPABASE_SERVICE_ROLE_KEY
+                  5 557846453 -> GitHub secret GA4_PROPERTY_ID
+                  6 Meta app + system user token + page/IG ids (chrome-brief STEP 4)
+  then:           merge both branches to main, Tracker -> Reports -> Update now.
