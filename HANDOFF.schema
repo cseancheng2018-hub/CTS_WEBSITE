@@ -368,3 +368,14 @@ UPDATE 2026-10-07 j (appended)
                   5 557846453 -> GitHub secret GA4_PROPERTY_ID
                   6 Meta app + system user token + page/IG ids (chrome-brief STEP 4)
   then:           merge both branches to main, Tracker -> Reports -> Update now.
+
+UPDATE 2026-10-07 k (appended)
+  website_live:   CTS_WEBSITE PR #1 merged by Sean (only the GA tag + privacy.html commits; HANDOFF.schema kept off main
+                  because GitHub Pages publishes every file). Verified live: chasingthesash.com and /privacy.html carry
+                  G-BN0351WGW6. Repo renamed to cseancheng2018-hub/CTS_WEBSITE (old URL redirects).
+  meta:           new business portfolio "Chasing the Sash" (business_id 4441618839422569, only Sean). Request to add
+                  the CTS Page + @chasing_the_sash started but needs the Instagram login, which Sean does not have yet.
+                  Do NOT use "Assorted film projects": two other people have full access there.
+                  Sean also has to click the confirm email Meta sent to c.seancheng2018@gmail.com.
+  claude_limits:  Claude cannot push to main / deploy (blocked); open a PR and let Sean merge.
+  waiting_on:     Sean: Instagram login, Meta confirm email, Google "Publish app", all secrets (see UPDATE j sean_to_do).
