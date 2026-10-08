@@ -398,3 +398,10 @@ UPDATE 2026-10-08 l (appended)
                   should appear; YouTube + Website show "not connected" until the Google secrets exist.
   note:           engine hints in metrics/collectors/instagram.js still say "Render" / "System User token" (copied from
                   CB); wording only.
+
+UPDATE 2026-10-08 m (appended)
+  live:           cts_interviewee PR #2 merged by Sean. First run OK (Actions run 37774145415, command nightly):
+                  232 items for 2026-10-07, Instagram + Facebook daily history 2026-01-01..2026-10-07, reports
+                  week/2026-W40 and month/2026-09 (JSON + PDF) in bucket cts-metrics. No errors. Nightly cron now active.
+  pending:        Google secrets (YouTube + website), Google "Publish app", Supabase CTS_GITHUB_TOKEN (Update now button).
+  claude_limits:  Claude cannot merge PRs either ("Merge Without Review"); Sean merges.
