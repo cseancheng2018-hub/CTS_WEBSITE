@@ -418,3 +418,25 @@ UPDATE 2026-10-09 n (appended)
                   not ChaiTimes_). Owner signs in once at OAuth Playground with the CTS Reports client and scopes
                   youtube.readonly + yt-analytics.readonly, picks the Chasing the Sash channel, and the refresh token
                   goes into GitHub secret YOUTUBE_REFRESH_TOKEN. Or the owner makes Sean an Owner of the channel.
+
+UPDATE 2026-10-09 o (appended)
+  reports_ui:     Sean asked for the tracker Reports tab to replicate the CB scheduler's Reports screen exactly,
+                  except UI colours. Branch claude/cts-reports-ui (PR in CTS_PRODUCTION-DASH):
+                    reports/reports-ui.js    port of CB_SCHEDULER frontend/index.html "reports" section
+                    reports/reports-ui.css   CB styles scoped to #panel-reports, CB tokens mapped to CTS tokens
+                                             (day + night mode), IBM Plex Mono for numbers like CB
+                    reports/cts-reports-engine.js   the reports engine built for the browser (window.CTSReports):
+                                             answers CB's GET /api/reports/... routes in the page (range, trends,
+                                             videos, groups, saved + any-range PDFs) with the signed-in session
+                    reports-engine/browser/  entry, supabase-js storage adapter, shims, build.mjs
+                                             (npm run build:browser; output is COMMITTED, Pages has no build step)
+  differences:    no CRM cards (leads/check-ins/paid students), no link page, no series/"Type" (Sean: a CTS video
+                  type system comes later), video groups VIEW ONLY, no "Load history" (history loads from 1 Jan
+                  2026 automatically), "Collect now" = tracker Update now (Connections card at the foot of the tab).
+  engine_change:  runner.readSnapshots reads 8 files at a time (a year in the browser would otherwise be minutes).
+  tests:          112 pass (tests/browser-bundle.test.js builds the bundle, loads it in a vm, compares with Node).
+                  UI checked against an engine-built fixture (60 days of posts) at desktop + 375px, night + day,
+                  every control clicked, no JS errors; PDFs build in the browser in ~0.2s.
+  not_verified:   live bucket data with a real login (needs Sean). Try the Cloudflare preview of the branch first.
+  perf_note:      "This year"/"Last year" read every nightly snapshot (~130 KB each) in the browser; cached per page.
+                  Fine now; if it gets slow later, store a compact per-day item index in the nightly run.
