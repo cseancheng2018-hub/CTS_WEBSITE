@@ -405,3 +405,16 @@ UPDATE 2026-10-08 m (appended)
                   week/2026-W40 and month/2026-09 (JSON + PDF) in bucket cts-metrics. No errors. Nightly cron now active.
   pending:        Google secrets (YouTube + website), Google "Publish app", Supabase CTS_GITHUB_TOKEN (Update now button).
   claude_limits:  Claude cannot merge PRs either ("Merge Without Review"); Sean merges.
+
+UPDATE 2026-10-09 n (appended)
+  repo_renamed:   cts_interviewee is now cseancheng2018-hub/CTS_PRODUCTION-DASH (old name redirects).
+  website:        LIVE. GOOGLE_ANALYTICS_REFRESH_TOKEN = Sean's own Google login (analytics.readonly only).
+                  PR #3 merged: YouTube now uses ONLY YOUTUBE_REFRESH_TOKEN (the website token belongs to a different
+                  account; channels.list mine:true would otherwise read Sean's personal channel).
+  update_now:     LIVE. Supabase function secrets CTS_GITHUB_TOKEN + CTS_GITHUB_REPO=cseancheng2018-hub/CTS_PRODUCTION-DASH.
+                  Sean pressed it 2026-10-09: run 37876041055 (command update) OK, week 2026-W41 + month 2026-10 so far.
+  nightly:        scheduled run 2026-10-08 21:19 UTC OK (GitHub runs cron late; fine).
+  youtube:        ONLY thing left. The CTS channel is owned by someone else's Google account (not c.seancheng2018,
+                  not ChaiTimes_). Owner signs in once at OAuth Playground with the CTS Reports client and scopes
+                  youtube.readonly + yt-analytics.readonly, picks the Chasing the Sash channel, and the refresh token
+                  goes into GitHub secret YOUTUBE_REFRESH_TOKEN. Or the owner makes Sean an Owner of the channel.
