@@ -238,3 +238,19 @@ UPDATE 2026-10-06 f (appended)
                   Notice shown when person is published: edits to name/bio/photo/role/socials go live on save.
                   Photo changes logged in activity_log (field "photo"). Browser-tested with mocked Supabase.
   test_profile:   Sean archiving the "C.Sean Cheng" test profile himself.
+
+UPDATE 2026-10-11 (appended)
+  task:           on-screen graphics prototypes for CTS videos: person lower thirds, key-term lower thirds, logo intro.
+                  Both formats: 16:9 (1920x1080) and 9:16 (1080x1920).
+  file:           cts_website/graphics-lab.html  (single HTML page, uses images/hero.jpg as sample footage)
+  preview:        https://claude.ai/artifact/CQbAba6eUxinovVMseFz65  (private to Sean until shared)
+  styles:         A Editorial    serif name, gold hairline, letter-tracked gold title
+                  B The Sash     pink skewed ribbon with gold edge + cream strip; logo = diagonal pink band
+                  C Entrant Card cream card + black entrant number; terms as dictionary entry; logo = rosette
+  controls:       graphic type, format, style, Compare all 3, editable text, term presets, logo upload (browser only),
+                  background (footage/black/green), loop, safe zones (9:16 keeps clear of bottom 420px + right 150px)
+  sample_text:    Brooke Strahan / "Fashions on the Field Entrant" / "Season 1" / entrant 07 are PLACEHOLDERS, not verified.
+  waiting_on:     Sean to upload real logo file (PNG/SVG) and pick a style A/B/C.
+  next:           1 pick style  2 confirm real names/titles  3 rebuild chosen style as .mogrt (Premiere/After Effects)
+                  4 export ProRes 4444 with alpha, both formats
+  note:           page sits at site root; it becomes public at chasingthesash.com/graphics-lab.html only if merged to main.

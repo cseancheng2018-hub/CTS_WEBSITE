@@ -1,0 +1,494 @@
+<title>CTS Graphics Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap">
+<style>
+/* Layout: broadcast-monitor stage on the left, operator panel on the right; stacks on phones. Single dark look (edit-suite). */
+:root {
+  --ink: #090907;
+  --panel: #12120f;
+  --raise: #1b1b17;
+  --line: #2c2b26;
+  --text: #F4EDE0;
+  --muted: #a49e91;
+  --pink: #FF1F6E;
+  --pink-dark: #C8145A;
+  --gold: #C6993A;
+  --cream: #F4EDE0;
+  --serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --sans: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: dark;
+}
+html, body { background: var(--ink); color: var(--text); }
+body { font-family: var(--sans); font-size: 14px; padding-inline: 20px; padding-block: 24px 48px; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; max-width: 1500px; margin: 0 auto 20px; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); }
+h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(34px, 5vw, 52px); line-height: 1; margin: 6px 0 0; text-wrap: balance; }
+h1 em { color: var(--pink); font-weight: 600; }
+.lede { color: var(--muted); max-width: 60ch; margin: 0; line-height: 1.55; }
+
+.app { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; max-width: 1500px; margin: 0 auto; align-items: start; }
+@media (max-width: 960px) { .app { grid-template-columns: minmax(0, 1fr); } }
+
+.monitor { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px; min-width: 0; }
+.monitor-bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.tc { font-variant-numeric: tabular-nums; font-size: 12px; color: var(--muted); letter-spacing: .08em; display: flex; gap: 14px; align-items: center; }
+.rec { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); display: inline-block; margin-right: 6px; }
+.stages { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); }
+.stages.compare { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.stages.compare.h { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1300px) { .stages.compare.h { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.stage { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.box { position: relative; overflow: hidden; background: #000; box-shadow: 0 0 0 1px var(--line); max-width: 100%; }
+.stage-label { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.stage-label b { color: var(--text); font-weight: 600; }
+
+.panel { display: flex; flex-direction: column; gap: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 18px; min-width: 0; }
+.group { display: flex; flex-direction: column; gap: 8px; }
+.group > .lbl { font-size: 11px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 3px; gap: 3px; }
+.seg button { background: transparent; border: 0; border-radius: 3px; padding: 8px 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--raise); color: var(--text); box-shadow: inset 0 -2px 0 var(--pink); }
+.styles { display: flex; flex-direction: column; gap: 6px; }
+.style-opt { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; text-align: left; background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; cursor: pointer; }
+.style-opt[aria-pressed="true"] { border-color: var(--gold); background: var(--raise); }
+.style-opt .key { font-family: var(--serif); font-size: 24px; font-weight: 700; line-height: 1; color: var(--gold); }
+.style-opt .nm { font-weight: 700; font-size: 13px; }
+.style-opt .ds { color: var(--muted); font-size: 12px; line-height: 1.4; margin-top: 2px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: 12px; color: var(--muted); }
+.field input, .field textarea, .field select { background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; width: 100%; }
+.field textarea { resize: vertical; min-height: 64px; line-height: 1.4; }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) 90px; gap: 8px; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { background: var(--raise); border: 1px solid var(--line); border-radius: 4px; padding: 8px 12px; cursor: pointer; font-weight: 600; font-size: 12px; }
+.btn.primary { background: var(--pink); border-color: var(--pink); color: #fff; }
+.checks { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.checks label { display: flex; gap: 6px; align-items: center; font-size: 12px; cursor: pointer; }
+.hint { color: var(--muted); font-size: 12px; line-height: 1.45; margin: 0; }
+.logo-thumb { display: flex; gap: 10px; align-items: center; }
+.logo-thumb img { height: 36px; max-width: 120px; object-fit: contain; background: repeating-conic-gradient(#222 0 25%, #333 0 50%) 0 0 / 12px 12px; padding: 2px; }
+
+.notes { max-width: 1500px; margin: 24px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.note { border-top: 1px solid var(--line); padding-top: 12px; }
+.note h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; margin: 0 0 6px; }
+.note p, .note li { color: var(--muted); line-height: 1.55; margin: 0; }
+.note ul { margin: 0; padding-left: 18px; }
+
+/* ===== GRAPHICS (design pixels: 1920x1080 or 1080x1920) ===== */
+.frame { position: absolute; top: 0; left: 0; transform-origin: 0 0; overflow: hidden; background: #000; }
+.bg { position: absolute; inset: 0; }
+.bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; }
+.frame.v .bg img { object-position: 22% 40%; }
+.bg.black { background: #000; } .bg.green { background: #00B140; }
+.gfx { position: absolute; inset: 0; }
+.safe { position: absolute; inset: 0; pointer-events: none; display: none; z-index: 5; }
+.safe.on { display: block; }
+.safe .ts { position: absolute; inset: 5%; border: 3px dashed rgba(255,255,255,.55); }
+.safe .ui { position: absolute; background: rgba(255,31,110,.18); border: 2px solid rgba(255,31,110,.6); }
+.safe .ui span { position: absolute; left: 20px; top: 14px; font: 600 26px var(--sans); color: #fff; letter-spacing: .1em; text-transform: uppercase; }
+.frame.h .safe .ui { display: none; }
+.frame.v .safe .ts { display: none; }
+.L-black { position: absolute; inset: 0; background: #090907; }
+
+.frame.static *, .frame.static { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .frame *, .frame { animation: none !important; } }
+
+@keyframes fadeIn { from { opacity: 0; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } }
+@keyframes riseIn { from { transform: translateY(108%); } }
+@keyframes drawX { from { transform: scaleX(0); } }
+@keyframes trackIn { from { opacity: 0; letter-spacing: .8em; } }
+@keyframes wipeIn { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes wipeOut { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-40px); } }
+@keyframes fadeOut { to { opacity: 0; transform: translateY(14px); } }
+@keyframes blurIn { from { opacity: 0; filter: blur(18px); transform: translateY(20px); } }
+@keyframes swingIn { 0% { opacity: 0; transform: perspective(1400px) rotateX(-95deg); } 60% { opacity: 1; transform: perspective(1400px) rotateX(10deg); } 80% { transform: perspective(1400px) rotateX(-4deg); } 100% { transform: perspective(1400px) rotateX(0); } }
+@keyframes swingOut { to { opacity: 0; transform: perspective(1400px) rotateX(90deg); } }
+@keyframes popIn { 0% { opacity: 0; transform: scale(.6); } 70% { opacity: 1; transform: scale(1.06); } 100% { transform: scale(1); } }
+@keyframes punch { 0% { opacity: 0; transform: scale(1.25); filter: blur(10px); } 100% { opacity: 1; transform: scale(1); filter: blur(0); } }
+@keyframes sheen { from { transform: translateX(-120%) skewX(-20deg); } to { transform: translateX(260%) skewX(-20deg); } }
+@keyframes ring { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+@keyframes pleat { from { opacity: 0; transform: scale(.2) rotate(-120deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+@keyframes drop { from { opacity: 0; transform: translateY(-80px) rotate(var(--r)); } to { opacity: 1; transform: translateY(0) rotate(var(--r)); } }
+@keyframes bandIn { from { transform: translate(-50%, -50%) rotate(-16deg) scaleX(0); } to { transform: translate(-50%, -50%) rotate(-16deg) scaleX(1); } }
+
+/* --- A: Editorial --- */
+.A-shade { position: absolute; left: 0; right: 0; bottom: 0; height: 640px; background: linear-gradient(to top, rgba(9,9,7,.92), rgba(9,9,7,.78) 50%, rgba(9,9,7,0)); }
+.frame.v .A-shade { height: 1250px; background: linear-gradient(to top, rgba(9,9,7,.6), rgba(9,9,7,.88) 30%, rgba(9,9,7,.8) 60%, rgba(9,9,7,0)); }
+.A-block { text-shadow: 0 2px 18px rgba(0,0,0,.5); }
+.A-block { position: absolute; left: 150px; bottom: 140px; max-width: 1200px; display: flex; flex-direction: column; align-items: flex-start; }
+.frame.v .A-block { left: 90px; right: 150px; bottom: 470px; }
+.A-eyebrow { font: 600 20px var(--sans); letter-spacing: .42em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.A-name { overflow: hidden; padding-bottom: 8px; }
+.A-name span { display: block; font: 600 108px/1 var(--serif); color: var(--cream); text-wrap: balance; }
+.A-name em { font-style: italic; font-weight: 400; }
+.frame.v .A-name span { font-size: 124px; }
+.A-rule { height: 3px; width: 440px; background: var(--gold); margin: 26px 0 22px; transform-origin: left; }
+.A-role { font: 500 24px var(--sans); letter-spacing: .34em; text-transform: uppercase; color: var(--gold); }
+.frame.v .A-role { font-size: 30px; letter-spacing: .26em; line-height: 1.5; }
+.A-detail { font: italic 400 34px var(--serif); color: rgba(244,237,224,.75); margin-top: 10px; }
+.A-def { font: 300 32px/1.45 var(--sans); color: var(--cream); max-width: 1000px; }
+.frame.v .A-def { font-size: 40px; }
+.play .A-shade { animation: fadeIn .8s ease both; }
+.play .A-eyebrow { animation: fadeUp .6s ease .05s both; }
+.play .A-name span { animation: riseIn 1s cubic-bezier(.2,.7,.1,1) .15s both; }
+.play .A-rule { animation: drawX .9s cubic-bezier(.6,0,.2,1) .45s both; }
+.play .A-role { animation: trackIn 1.2s cubic-bezier(.2,.7,.1,1) .7s both; }
+.play .A-detail, .play .A-def { animation: fadeUp .8s ease 1s both; }
+.out .A.lt { animation: fadeOut .6s ease both; }
+
+.A-logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.A-wm { font: 700 210px/.86 var(--serif); color: var(--cream); }
+.A-wm .ch { display: inline-block; }
+.A-wm em { display: block; color: var(--pink); font-style: italic; }
+.frame.v .A-wm { font-size: 190px; }
+.A-lrule { width: 160px; height: 4px; background: var(--gold); margin: 48px 0 30px; }
+.A-tag { font: italic 300 46px var(--serif); color: rgba(244,237,224,.7); letter-spacing: .04em; }
+.L-img { display: block; max-width: 1100px; max-height: 520px; object-fit: contain; }
+.frame.v .L-img { max-width: 860px; max-height: 760px; }
+.play .A-wm .ch { animation: blurIn .9s cubic-bezier(.2,.7,.1,1) calc(.2s + var(--i) * 70ms) both; }
+.play .A-wm em { animation: blurIn 1.1s cubic-bezier(.2,.7,.1,1) 1s both; }
+.play .A .L-img { animation: blurIn 1.4s cubic-bezier(.2,.7,.1,1) .3s both; }
+.play .A-lrule { animation: drawX .9s cubic-bezier(.6,0,.2,1) 1.6s both; }
+.play .A-tag { animation: trackIn 1.4s cubic-bezier(.2,.7,.1,1) 1.9s both; }
+.out .A.logo { animation: fadeIn .8s ease reverse both; }
+
+/* --- B: The Sash --- */
+.B-wrap { position: absolute; left: 130px; bottom: 150px; display: flex; flex-direction: column; align-items: flex-start; }
+.frame.v .B-wrap { left: 80px; right: 150px; bottom: 480px; }
+.B-sash { position: relative; overflow: hidden; background: linear-gradient(var(--gold) 0 7px, var(--pink) 7px); padding: 26px 64px 20px 54px; transform: skewX(-12deg); }
+.B-sash::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent); transform: translateX(-120%) skewX(-20deg); }
+.B-sash > span { display: inline-block; transform: skewX(12deg); font: 900 68px/1 var(--sans); text-transform: uppercase; letter-spacing: .01em; color: #fff; }
+.frame.v .B-sash > span { font-size: 76px; }
+.B-strip { margin-left: 30px; background: var(--cream); padding: 14px 40px; transform: skewX(-12deg); display: flex; flex-wrap: wrap; gap: 0 14px; }
+.B-strip span, .B-strip b { display: inline-block; transform: skewX(12deg); font: 700 22px/1.3 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #090907; }
+.B-strip b { color: var(--pink-dark); }
+.frame.v .B-strip span, .frame.v .B-strip b { font-size: 28px; }
+.B-tag2 { background: var(--pink); padding: 10px 26px; transform: skewX(-12deg); margin-left: 14px; }
+.B-tag2 span { display: inline-block; transform: skewX(12deg); font: 800 20px var(--sans); letter-spacing: .3em; text-transform: uppercase; color: #fff; }
+.B-box { background: rgba(9,9,7,.9); border-left: 10px solid var(--pink); box-shadow: inset 0 -5px 0 var(--gold); padding: 30px 48px 36px; max-width: 1060px; }
+.B-term { font: 900 60px/1.05 var(--sans); text-transform: uppercase; color: #fff; }
+.B-def { font: 400 28px/1.45 var(--sans); color: rgba(244,237,224,.88); margin-top: 14px; }
+.frame.v .B-term { font-size: 70px; } .frame.v .B-def { font-size: 38px; }
+.play .B-sash { animation: wipeIn .55s cubic-bezier(.7,0,.2,1) both; }
+.play .B-sash::after { animation: sheen 1s ease .55s both; }
+.play .B-sash > span { animation: slideIn .6s cubic-bezier(.2,.7,.1,1) .2s both; }
+.play .B-strip { animation: wipeIn .5s cubic-bezier(.7,0,.2,1) .4s both; }
+.play .B-tag2 { animation: wipeIn .4s cubic-bezier(.7,0,.2,1) both; }
+.play .B-box { animation: wipeIn .6s cubic-bezier(.7,0,.2,1) .2s both; }
+.play .B-term { animation: slideIn .6s cubic-bezier(.2,.7,.1,1) .5s both; }
+.play .B-def { animation: fadeUp .6s ease .75s both; }
+.out .B.lt .B-wrap { animation: wipeOut .5s cubic-bezier(.7,0,.2,1) both; }
+
+.B-band { position: absolute; left: 50%; top: 50%; width: 3000px; height: 420px; transform: translate(-50%, -50%) rotate(-16deg); transform-origin: 0 50%; background: linear-gradient(var(--gold) 0 10px, var(--pink) 10px calc(100% - 10px), var(--gold) calc(100% - 10px)); }
+.frame.v .B-band { height: 560px; transform: translate(-50%, -50%) rotate(-28deg); }
+.B-logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; }
+.B-wm { color: #fff; font-family: var(--sans); text-transform: uppercase; line-height: .9; }
+.B-wm small { display: block; font-size: 64px; font-weight: 800; letter-spacing: .5em; margin-right: -.5em; }
+.B-wm strong { display: block; font-size: 250px; font-weight: 900; letter-spacing: -.01em; }
+.frame.v .B-wm strong { font-size: 200px; }
+.B-ltag { position: absolute; left: 0; right: 0; bottom: 140px; text-align: center; font: 700 30px var(--sans); letter-spacing: .5em; text-transform: uppercase; color: var(--gold); }
+.frame.v .B-ltag { bottom: 360px; font-size: 32px; letter-spacing: .3em; }
+.play .B-band { animation: bandIn .7s cubic-bezier(.8,0,.2,1) both; }
+.frame.v.play .B-band { animation-name: bandInV; }
+@keyframes bandInV { from { transform: translate(-50%, -50%) rotate(-28deg) scaleX(0); } to { transform: translate(-50%, -50%) rotate(-28deg) scaleX(1); } }
+.play .B-wm small { animation: slideIn .6s cubic-bezier(.2,.7,.1,1) .65s both; }
+.play .B-wm strong, .play .B .L-img { animation: punch .55s cubic-bezier(.2,.7,.1,1) .5s both; }
+.play .B-ltag { animation: trackIn 1.2s cubic-bezier(.2,.7,.1,1) 1.1s both; }
+.out .B.logo { animation: fadeIn .7s ease reverse both; }
+
+/* --- C: Entrant Card --- */
+.C-pos { position: absolute; left: 140px; bottom: 130px; }
+.frame.v .C-pos { left: 80px; right: 150px; bottom: 470px; }
+.C-card { display: inline-flex; align-items: stretch; background: var(--cream); box-shadow: 0 24px 60px rgba(0,0,0,.4); outline: 2px solid var(--gold); outline-offset: -12px; transform-origin: 50% 0; max-width: 1240px; }
+.C-no { background: #090907; color: var(--gold); min-width: 170px; padding: 24px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.C-no small { font: 600 16px var(--sans); letter-spacing: .3em; text-transform: uppercase; color: rgba(198,153,58,.8); }
+.C-no strong { font: 700 96px/1 var(--serif); font-variant-numeric: lining-nums; }
+.C-body { padding: 34px 54px 34px 44px; min-width: 0; }
+.C-name { font: 700 74px/1 var(--serif); color: #090907; }
+.C-role { font: 700 20px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--pink-dark); margin-top: 14px; }
+.C-detail { font: italic 500 30px var(--serif); color: #5d574c; margin-top: 4px; }
+.frame.v .C-name { font-size: 84px; } .frame.v .C-role { font-size: 24px; } .frame.v .C-detail { font-size: 36px; }
+.C-hw { font: 700 76px/1 var(--serif); color: #090907; }
+.C-pr { font: italic 400 34px var(--serif); color: #6b6457; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 0 18px; }
+.C-pr i { color: var(--pink-dark); font-weight: 600; }
+.C-rule { width: 120px; height: 3px; background: var(--gold); margin: 22px 0 18px; transform-origin: left; }
+.C-def { font: 400 26px/1.5 var(--sans); color: #2a2a26; max-width: 860px; }
+.frame.v .C-hw { font-size: 88px; } .frame.v .C-def { font-size: 34px; }
+.play .C-card { animation: swingIn 1.1s cubic-bezier(.3,.7,.3,1) both; }
+.play .C-no strong { animation: popIn .6s cubic-bezier(.2,.7,.1,1) .6s both; }
+.play .C-name, .play .C-hw { animation: fadeUp .6s ease .45s both; }
+.play .C-role, .play .C-pr { animation: fadeUp .6s ease .65s both; }
+.play .C-rule { animation: drawX .7s cubic-bezier(.6,0,.2,1) .8s both; }
+.play .C-detail, .play .C-def { animation: fadeUp .6s ease .9s both; }
+.out .C.lt .C-card { animation: swingOut .5s cubic-bezier(.6,0,.8,.4) both; }
+
+.C-ros { position: absolute; left: 50%; top: 44%; width: 680px; height: 680px; transform: translate(-50%, -50%); }
+.frame.v .C-ros { width: 820px; height: 820px; top: 42%; }
+.C-tails { position: absolute; left: 50%; top: 55%; width: 0; height: 0; }
+.C-tails i { --r: 0deg; position: absolute; top: 0; width: 150px; height: 520px; background: linear-gradient(90deg, var(--pink-dark), var(--pink) 30%, var(--pink) 70%, var(--pink-dark)); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 88%, 0 100%); transform-origin: 50% 0; transform: rotate(var(--r)); }
+.C-tails i:nth-child(1) { --r: 14deg; left: -160px; }
+.C-tails i:nth-child(2) { --r: -14deg; left: 10px; }
+.frame.v .C-tails i { height: 620px; width: 170px; }
+.C-pleat { position: absolute; inset: 0; border-radius: 50%; background: repeating-conic-gradient(var(--pink) 0 4deg, var(--pink-dark) 4deg 8deg); }
+.C-disc { position: absolute; inset: 9%; border-radius: 50%; background: #0f0f0c; }
+.C-ros svg { position: absolute; inset: 9%; width: 82%; height: 82%; overflow: visible; }
+.C-ros circle { fill: none; stroke: var(--gold); }
+.C-ring { stroke-width: 6; --len: 1760; stroke-dasharray: 1760; }
+.C-ring2 { stroke-width: 2; --len: 1508; stroke-dasharray: 1508; }
+.C-center { position: absolute; inset: 9%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px; }
+.C-wm { font: 700 104px/.86 var(--serif); color: var(--cream); }
+.C-wm em { display: block; color: var(--pink); font-style: italic; }
+.frame.v .C-wm { font-size: 124px; }
+.C-sub { font: 600 15px var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-top: 26px; }
+.frame.v .C-sub { font-size: 18px; }
+.C-center .L-img { max-width: 100%; max-height: 300px; }
+.C-ltag { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; font: italic 300 44px var(--serif); color: rgba(244,237,224,.7); }
+.frame.v .C-ltag { bottom: 260px; font-size: 52px; }
+.play .C-pleat { animation: pleat 1s cubic-bezier(.2,.7,.1,1) both; }
+.play .C-disc { animation: popIn .7s cubic-bezier(.2,.7,.1,1) .25s both; }
+.play .C-ring { animation: ring 1.2s cubic-bezier(.6,0,.2,1) .5s both; }
+.play .C-ring2 { animation: ring 1.2s cubic-bezier(.6,0,.2,1) .7s both; }
+.play .C-tails i { animation: drop .8s cubic-bezier(.3,.7,.3,1.2) .9s both; }
+.play .C-center > * { animation: blurIn 1s cubic-bezier(.2,.7,.1,1) 1.1s both; }
+.play .C-center > .C-sub { animation-delay: 1.5s; }
+.play .C-ltag { animation: fadeUp .9s ease 1.9s both; }
+.out .C.logo { animation: fadeIn .8s ease reverse both; }
+</style>
+
+<header class="top">
+  <div>
+    <div class="eyebrow">Chasing the Sash &middot; On-screen graphics</div>
+    <h1>Graphics <em>Lab</em></h1>
+  </div>
+  <p class="lede">Three style directions for lower thirds and the logo intro, shown in 16:9 and 9:16. Edit the text, switch the format, then replay the animation. All names and terms shown are example text.</p>
+</header>
+
+<div class="app">
+  <section class="monitor" aria-label="Preview">
+    <div class="monitor-bar">
+      <div class="tc"><span><span class="rec" aria-hidden="true"></span>PREVIEW</span><span id="specLine">1920 &times; 1080 &middot; 16:9</span></div>
+      <div class="btns">
+        <button class="btn primary" id="replayBtn" type="button">Replay</button>
+        <button class="btn" id="outBtn" type="button">Play out</button>
+        <button class="btn" id="compareBtn" type="button" aria-pressed="false">Compare all 3</button>
+      </div>
+    </div>
+    <div class="stages" id="stages"></div>
+  </section>
+
+  <aside class="panel" aria-label="Controls">
+    <div class="group">
+      <span class="lbl">Graphic</span>
+      <div class="seg" id="typeSeg">
+        <button type="button" data-v="person" aria-pressed="true">Person</button>
+        <button type="button" data-v="term" aria-pressed="false">Key term</button>
+        <button type="button" data-v="logo" aria-pressed="false">Logo intro</button>
+      </div>
+    </div>
+    <div class="group">
+      <span class="lbl">Format</span>
+      <div class="seg" id="fmtSeg">
+        <button type="button" data-v="h" aria-pressed="true">16:9 Horizontal</button>
+        <button type="button" data-v="v" aria-pressed="false">9:16 Vertical</button>
+      </div>
+    </div>
+    <div class="group">
+      <span class="lbl">Style direction</span>
+      <div class="styles" id="styleList">
+        <button type="button" class="style-opt" data-v="A" aria-pressed="true"><span class="key">A</span><span><span class="nm">Editorial</span><span class="ds" style="display:block">Serif name, gold hairline that draws in. Quiet and premium, like a fashion magazine.</span></span></button>
+        <button type="button" class="style-opt" data-v="B" aria-pressed="false"><span class="key">B</span><span><span class="nm">The Sash</span><span class="ds" style="display:block">A pink ribbon sweeps across with a gold edge. Bold and made for Reels.</span></span></button>
+        <button type="button" class="style-opt" data-v="C" aria-pressed="false"><span class="key">C</span><span><span class="nm">Entrant Card</span><span class="ds" style="display:block">A cream judging card with the entrant number, and a rosette for the logo.</span></span></button>
+      </div>
+    </div>
+
+    <div class="group" id="personFields">
+      <span class="lbl">Person</span>
+      <div class="row2">
+        <div class="field"><label for="pName">Name</label><input id="pName" value="Brooke Strahan"></div>
+        <div class="field"><label for="pNo">Entrant no.</label><input id="pNo" value="07" maxlength="4"></div>
+      </div>
+      <div class="field"><label for="pRole">Title</label><input id="pRole" value="Fashions on the Field Entrant"></div>
+      <div class="field"><label for="pDetail">Second line (optional)</label><input id="pDetail" value="Season 1"></div>
+    </div>
+
+    <div class="group" id="termFields" hidden>
+      <span class="lbl">Key term</span>
+      <div class="field"><label for="tPreset">Example terms</label>
+        <select id="tPreset">
+          <option value="0">Millinery</option>
+          <option value="1">Fascinator</option>
+          <option value="2">Fashions on the Field</option>
+          <option value="3">The Sash</option>
+        </select>
+      </div>
+      <div class="field"><label for="tTerm">Term</label><input id="tTerm"></div>
+      <div class="row2">
+        <div class="field"><label for="tPron">Pronunciation</label><input id="tPron"></div>
+        <div class="field"><label for="tPos">Word type</label><input id="tPos"></div>
+      </div>
+      <div class="field"><label for="tDef">Definition</label><textarea id="tDef"></textarea></div>
+      <p class="hint">Pronunciation and word type only show in style C.</p>
+    </div>
+
+    <div class="group" id="logoFields" hidden>
+      <span class="lbl">Logo</span>
+      <div class="field"><label for="logoFile">Upload your logo (PNG or SVG, transparent background works best)</label><input id="logoFile" type="file" accept="image/png,image/svg+xml,image/webp,image/jpeg"></div>
+      <div class="logo-thumb" id="logoThumb" hidden><img id="logoThumbImg" alt="Uploaded logo"><button class="btn" id="logoClear" type="button">Use wordmark</button></div>
+      <p class="hint">Until a logo is uploaded, the intro uses the typeset wordmark from the website. The file stays in your browser and isn't uploaded anywhere.</p>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Preview options</span>
+      <div class="field"><label for="bgSel">Background</label>
+        <select id="bgSel"><option value="footage">Sample footage</option><option value="black">Black</option><option value="green">Green screen</option></select>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox" id="loopChk"> Loop</label>
+        <label><input type="checkbox" id="safeChk"> Safe zones</label>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<section class="notes" aria-label="Production notes">
+  <div class="note"><h3>Timing</h3><p>Lower thirds animate in over about 1.2 seconds, hold for 4 to 5 seconds, then animate out in 0.5 seconds. The logo intro runs about 4 seconds before the cut.</p></div>
+  <div class="note"><h3>Vertical safe zones</h3><p>In 9:16, every lower third sits above the bottom 420 px and clear of the right 150 px, where Instagram and TikTok draw captions and buttons. Tick Safe zones to see them.</p></div>
+  <div class="note"><h3>Brand</h3><p>Colours and type match chasingthesash.com: black, cream, pink #FF1F6E and gold #C6993A, with Cormorant Garamond and Montserrat.</p></div>
+  <div class="note"><h3>After you pick a style</h3><ul><li>Rebuild it as a Premiere Pro or After Effects template (.mogrt) with editable text</li><li>Export ProRes 4444 with alpha for both formats</li><li>Swap in the final logo</li></ul></div>
+</section>
+
+<script>
+(function () {
+  var TERMS = [
+    { term: 'Millinery', pron: '/ˈmɪl.ɪ.nər.i/', pos: 'noun', def: 'The craft of designing and making hats and headpieces.' },
+    { term: 'Fascinator', pron: '/ˈfæs.ɪ.neɪ.tə/', pos: 'noun', def: 'A small decorative headpiece worn instead of a hat, held on with a clip, comb or band.' },
+    { term: 'Fashions on the Field', pron: '', pos: 'noun phrase', def: 'Style competitions held at Australian racetracks, judged on originality, elegance and attention to detail.' },
+    { term: 'The Sash', pron: '/sæʃ/', pos: 'noun', def: "The winner's ribbon. One sash can change everything." }
+  ];
+  var STYLE_NAMES = { A: 'Editorial', B: 'The Sash', C: 'Entrant Card' };
+  var state = { type: 'person', fmt: 'h', style: 'A', compare: false, loop: false, safe: false, bg: 'footage', logo: null };
+  var $ = function (id) { return document.getElementById(id); };
+  var stagesEl = $('stages');
+  var frames = [];
+  var timers = [];
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function val(id) { return $(id).value.trim(); }
+  function letters(word, start) { return word.split('').map(function (ch, i) { return '<span class="ch" style="--i:' + (i + (start || 0)) + '">' + esc(ch) + '</span>'; }).join(''); }
+
+  function person(s) {
+    var name = esc(val('pName')) || 'Name', role = esc(val('pRole')), detail = esc(val('pDetail')), no = esc(val('pNo'));
+    if (s === 'A') return '<div class="A lt"><div class="A-shade"></div><div class="A-block"><div class="A-name"><span>' + name + '</span></div><div class="A-rule"></div><div class="A-role">' + role + '</div>' + (detail ? '<div class="A-detail">' + detail + '</div>' : '') + '</div></div>';
+    if (s === 'B') return '<div class="B lt"><div class="B-wrap"><div class="B-sash"><span>' + name + '</span></div><div class="B-strip"><span>' + role + '</span>' + (detail ? '<b>&middot;</b><span>' + detail + '</span>' : '') + '</div></div></div>';
+    return '<div class="C lt"><div class="C-pos"><div class="C-card">' + (no ? '<div class="C-no"><small>Entrant</small><strong>' + no + '</strong></div>' : '') + '<div class="C-body"><div class="C-name">' + name + '</div><div class="C-role">' + role + '</div>' + (detail ? '<div class="C-detail">' + detail + '</div>' : '') + '</div></div></div></div>';
+  }
+  function term(s) {
+    var t = esc(val('tTerm')) || 'Term', d = esc(val('tDef')), p = esc(val('tPron')), pos = esc(val('tPos'));
+    if (s === 'A') return '<div class="A lt"><div class="A-shade"></div><div class="A-block"><div class="A-eyebrow">Key term</div><div class="A-name"><span><em>' + t + '</em></span></div><div class="A-rule"></div><div class="A-def">' + d + '</div></div></div>';
+    if (s === 'B') return '<div class="B lt"><div class="B-wrap"><div class="B-tag2"><span>Key term</span></div><div class="B-box"><div class="B-term">' + t + '</div><div class="B-def">' + d + '</div></div></div></div>';
+    return '<div class="C lt"><div class="C-pos"><div class="C-card"><div class="C-body"><div class="C-hw">' + t + '</div><div class="C-pr">' + (p ? '<span>' + p + '</span>' : '') + (pos ? '<i>' + pos + '</i>' : '') + '</div><div class="C-rule"></div><div class="C-def">' + d + '</div></div></div></div></div>';
+  }
+  function logo(s) {
+    var img = state.logo ? '<img class="L-img" src="' + state.logo + '" alt="Chasing the Sash logo">' : '';
+    if (s === 'A') return '<div class="A logo"><div class="L-black"></div><div class="A-logo">' + (img || '<div class="A-wm">' + letters('Chasing') + '<em>the Sash</em></div>') + '<div class="A-lrule"></div><div class="A-tag">Stories behind the Sash</div></div></div>';
+    if (s === 'B') return '<div class="B logo"><div class="L-black"></div><div class="B-band"></div><div class="B-logo">' + (img || '<div class="B-wm"><small>Chasing the</small><strong>Sash</strong></div>') + '</div><div class="B-ltag">Stories behind the Sash</div></div>';
+    return '<div class="C logo"><div class="L-black"></div><div class="C-ros"><div class="C-tails"><i></i><i></i></div><div class="C-pleat"></div><div class="C-disc"></div><svg viewBox="0 0 600 600" aria-hidden="true"><circle class="C-ring" cx="300" cy="300" r="280"></circle><circle class="C-ring2" cx="300" cy="300" r="240"></circle></svg><div class="C-center">' + (img || '<div class="C-wm">Chasing<em>the Sash</em></div>') + '<div class="C-sub">An Australian docuseries</div></div></div><div class="C-ltag">Stories behind the Sash</div></div>';
+  }
+  function gfxFor(s) { return state.type === 'person' ? person(s) : state.type === 'term' ? term(s) : logo(s); }
+
+  function buildStages() {
+    var W = state.fmt === 'h' ? 1920 : 1080, H = state.fmt === 'h' ? 1080 : 1920;
+    var list = state.compare ? ['A', 'B', 'C'] : [state.style];
+    stagesEl.className = 'stages' + (state.compare ? ' compare ' + state.fmt : '');
+    stagesEl.innerHTML = list.map(function (s) {
+      return '<div class="stage"><div class="box"><div class="frame ' + state.fmt + '" data-style="' + s + '" style="width:' + W + 'px;height:' + H + 'px">' +
+        '<div class="bg ' + state.bg + '">' + (state.bg === 'footage' ? '<img src="images/hero.jpg" alt="">' : '') + '</div>' +
+        '<div class="gfx"></div>' +
+        '<div class="safe' + (state.safe ? ' on' : '') + '"><div class="ts"></div><div class="ui" style="left:0;right:0;bottom:0;height:420px"><span>Caption + buttons</span></div><div class="ui" style="right:0;top:0;bottom:420px;width:150px"></div><div class="ui" style="left:0;right:0;top:0;height:220px"><span>Header</span></div></div>' +
+        '</div></div>' + (state.compare ? '<div class="stage-label"><b>' + s + '</b> &middot; ' + STYLE_NAMES[s] + '</div>' : '') + '</div>';
+    }).join('');
+    frames = Array.prototype.slice.call(stagesEl.querySelectorAll('.frame'));
+    $('specLine').textContent = W + ' × ' + H + ' · ' + (state.fmt === 'h' ? '16:9' : '9:16');
+    fill(true);
+    fit();
+    play();
+  }
+
+  function fill(animate) {
+    frames.forEach(function (f) { f.querySelector('.gfx').innerHTML = gfxFor(f.dataset.style); });
+    if (!animate) { clearTimers(); frames.forEach(function (f) { f.classList.remove('out'); f.classList.add('static'); }); }
+  }
+
+  function fit() {
+    var maxH = window.innerHeight * (state.compare ? (state.fmt === 'v' ? .62 : .5) : .74);
+    frames.forEach(function (f) {
+      var W = parseFloat(f.style.width), H = parseFloat(f.style.height);
+      var stage = f.parentNode.parentNode, box = f.parentNode;
+      var s = Math.min(stage.clientWidth / W, Math.max(maxH, 220) / H);
+      box.style.width = Math.floor(W * s) + 'px';
+      box.style.height = Math.floor(H * s) + 'px';
+      f.style.transform = 'scale(' + s + ')';
+    });
+  }
+
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+  function play() {
+    clearTimers();
+    frames.forEach(function (f) { f.classList.remove('play', 'out', 'static'); void f.offsetWidth; f.classList.add('play'); });
+    if (state.loop) {
+      var hold = state.type === 'logo' ? 4400 : 5200;
+      timers.push(setTimeout(playOut, hold));
+      timers.push(setTimeout(play, hold + 1300));
+    }
+  }
+  function playOut() { frames.forEach(function (f) { f.classList.remove('static'); f.classList.add('out'); }); }
+
+  function seg(id, key) {
+    $(id).addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      state[key] = b.dataset.v;
+      Array.prototype.forEach.call(this.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      if (key === 'type') {
+        $('personFields').hidden = state.type !== 'person';
+        $('termFields').hidden = state.type !== 'term';
+        $('logoFields').hidden = state.type !== 'logo';
+      }
+      if (key === 'style' && state.compare) setCompare(false);
+      buildStages();
+    });
+  }
+  seg('typeSeg', 'type'); seg('fmtSeg', 'fmt'); seg('styleList', 'style');
+
+  function setCompare(on) { state.compare = on; $('compareBtn').setAttribute('aria-pressed', String(on)); $('compareBtn').textContent = on ? 'Show one style' : 'Compare all 3'; }
+  $('compareBtn').addEventListener('click', function () { setCompare(!state.compare); buildStages(); });
+  $('replayBtn').addEventListener('click', play);
+  $('outBtn').addEventListener('click', function () { clearTimers(); playOut(); });
+  $('loopChk').addEventListener('change', function () { state.loop = this.checked; play(); });
+  $('safeChk').addEventListener('change', function () { state.safe = this.checked; frames.forEach(function (f) { f.querySelector('.safe').classList.toggle('on', state.safe); }); });
+  $('bgSel').addEventListener('change', function () { state.bg = this.value; buildStages(); });
+
+  ['pName', 'pRole', 'pDetail', 'pNo', 'tTerm', 'tPron', 'tPos', 'tDef'].forEach(function (id) { $(id).addEventListener('input', function () { fill(false); }); });
+  function loadTerm(i) { var t = TERMS[i]; $('tTerm').value = t.term; $('tPron').value = t.pron; $('tPos').value = t.pos; $('tDef').value = t.def; }
+  $('tPreset').addEventListener('change', function () { loadTerm(+this.value); fill(true); play(); });
+  loadTerm(0);
+
+  $('logoFile').addEventListener('change', function () {
+    var file = this.files && this.files[0]; if (!file) return;
+    var r = new FileReader();
+    r.onload = function () { state.logo = r.result; $('logoThumbImg').src = r.result; $('logoThumb').hidden = false; buildStages(); };
+    r.readAsDataURL(file);
+  });
+  $('logoClear').addEventListener('click', function () { state.logo = null; $('logoThumb').hidden = true; $('logoFile').value = ''; buildStages(); });
+
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fit, 80); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(); });
+  buildStages();
+})();
+</script>
