@@ -254,3 +254,14 @@ UPDATE 2026-10-11 (appended)
   next:           1 pick style  2 confirm real names/titles  3 rebuild chosen style as .mogrt (Premiere/After Effects)
                   4 export ProRes 4444 with alpha, both formats
   note:           page sits at site root; it becomes public at chasingthesash.com/graphics-lab.html only if merged to main.
+
+UPDATE 2026-10-11 b (appended)
+  change:         graphics-lab.html expanded from 3 to 12 style directions, each a full set (person LT, term LT, logo intro).
+  styles:         A Editorial  B The Sash  C Entrant Card  D Race Book (jockey silks form guide)  E Photo Finish (finish post)
+                  F Hatbox (candy stripe)  G Frosted (glass)  H Night Meet (neon)  I Swing Tag  J Monogram  K Catwalk
+                  L Trophy Plaque (engraved gold)
+  position:       lower thirds sit in .place > .scaler. Presets bottom-left/centre/right, top-left/right; sliders for size
+                  (50-160%), left/right (+-500px) and up/down (+-700px) in video pixels. Shared across formats.
+                  Default margins 16:9 t110 r140 b130 l140; 9:16 t260 r150 b470 l80 (clears Reels/TikTok UI).
+  compare:        "Compare all 12" grid; click a style label to open it.
+  waiting_on:     Sean to pick favourite style(s), upload logo, confirm real names/titles.
