@@ -271,3 +271,13 @@ UPDATE 2026-10-11 c (appended)
                   Now the default logo in all 12 intros. Logo switcher: CTS badge / Typeset wordmark / Uploaded file.
   fix:            format classes renamed .frame.h/.v -> .frame.fh/.fv (avoid quirks-mode clash with style class .H).
   note:           the logo SVG keeps its embedded C2PA provenance metadata block (harmless, adds ~8 KB).
+
+UPDATE 2026-10-11 d (appended)
+  decision:       Sean: logo intros = the badge ONLY, varied by animation. No surrounding elements or taglines.
+  change:         logo intros decoupled from lower-third styles. 12 badge animations (list shows when Graphic = Logo intro):
+                  1 Soft Focus  2 Ring Draw  3 Ink Outline  4 Letter Drop  5 Stamp  6 Coin Flip  7 Iris
+                  8 Diagonal Wipe  9 Pop  10 Light Sweep  11 Pull Back  12 Split Slide
+  how:            badge SVG inlined in a <template id="logoTpl">, path split into 14 letter paths (CHASING r1, THE SASH r2)
+                  converted to absolute 1880x1880 coordinates so each letter can animate (pathLength=1 for stroke draws).
+  removed:        logo upload/typeset switcher and per-style logo intros (old logo CSS left in place, unused).
+  background:     logo intros play on brand black; Background = Green screen gives a green key plate.
