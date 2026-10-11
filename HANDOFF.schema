@@ -265,3 +265,9 @@ UPDATE 2026-10-11 b (appended)
                   Default margins 16:9 t110 r140 b130 l140; 9:16 t260 r150 b470 l80 (clears Reels/TikTok UI).
   compare:        "Compare all 12" grid; click a style label to open it.
   waiting_on:     Sean to pick favourite style(s), upload logo, confirm real names/titles.
+
+UPDATE 2026-10-11 c (appended)
+  logo:           official badge added at images/cts-logo-badge.svg (blush circle #F2D9D9, ink #2A2420, "CHASING / THE SASH").
+                  Now the default logo in all 12 intros. Logo switcher: CTS badge / Typeset wordmark / Uploaded file.
+  fix:            format classes renamed .frame.h/.v -> .frame.fh/.fv (avoid quirks-mode clash with style class .H).
+  note:           the logo SVG keeps its embedded C2PA provenance metadata block (harmless, adds ~8 KB).
