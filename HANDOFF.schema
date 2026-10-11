@@ -281,3 +281,14 @@ UPDATE 2026-10-11 d (appended)
                   converted to absolute 1880x1880 coordinates so each letter can animate (pathLength=1 for stroke draws).
   removed:        logo upload/typeset switcher and per-style logo intros (old logo CSS left in place, unused).
   background:     logo intros play on brand black; Background = Green screen gives a green key plate.
+
+UPDATE 2026-10-11 e (appended)
+  task:           thumbnail designs added as 4th Graphic type "Thumbnail" in graphics-lab.html.
+  formats:        YouTube 1280x720 (16:9) and vertical cover 1080x1920 (9:16).
+  designs:        T1 Big Type  T2 Sash Band  T3 Cover Story  T4 Blush Circle  T5 Spotlight  T6 Race Book  T7 Night Meet
+                  T8 Polaroid  T9 Big Number  T10 Duotone  T11 Quote  T12 Sticker
+  fields:         headline (*stars* colour words pink), name, episode (digits feed T9 big number), photo upload
+                  (browser only, default images/hero.jpg), photo focus slider (object-position x).
+  safe_zones:     16:9 = YouTube length badge bottom-right; 9:16 = top/bottom 240px cut by Instagram 3:4 grid crop.
+  sample_text:    "One sash changes everything" adapted from website logline; not an approved headline.
+  export:         artifact viewer blocks downloads; final PNGs to be rendered from repo (Playwright) once designs chosen.
