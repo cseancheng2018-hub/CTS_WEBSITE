@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js). page_location drops the query so the private ?t= code never reaches Google. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BN0351WGW6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BN0351WGW6', { page_location: location.origin + location.pathname });
+</script>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#090907">
+<title>Participant Release — Chasing the Sash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Brand-dark, single theme. Tokens follow the approved release prototype. */
+:root {
+  --bg: #090907;
+  --panel: #101010;
+  --card: #161614;
+  --card-up: #1D1D1A;
+  --fg: #FEFCF8;
+  --cream: #F4EDE0;
+  --muted: rgba(254,252,248,0.58);
+  --faint: rgba(254,252,248,0.42);
+  --line: rgba(255,255,255,0.09);
+  --line-str: rgba(255,255,255,0.2);
+  --pink: #FF1F6E;
+  --pink-dark: #C8145A;
+  --gold: #C6993A;
+  --gold-bg: rgba(198,153,58,0.14);
+  --ok: #5FBF7E; --ok-bg: rgba(95,191,126,0.13);
+  --stop: #E0554F; --stop-bg: rgba(224,85,79,0.13);
+  --f-display: 'Cormorant Garamond', Georgia, serif;
+  --f-body: 'Montserrat', -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--f-body); font-size: 14px; line-height: 1.5;
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(255,31,110,0.14) 0%, transparent 50%),
+    var(--bg);
+  color: var(--fg);
+  min-height: 100vh;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+img { display: block; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.top {
+  padding: 1.25rem 3.5rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.07);
+}
+.top a {
+  font-family: var(--f-display);
+  font-size: 1.05rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--fg); text-decoration: none;
+}
+main { padding: 2rem 16px 4rem; }
+footer {
+  border-top: 0.5px solid rgba(255,255,255,0.05);
+  padding: 2rem 3.5rem; font-size: 0.65rem; color: rgba(255,255,255,0.3);
+}
+footer a { color: inherit; }
+
+.state { display: none; }
+.state.on { display: block; }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line-str); background: var(--card); padding: 11px 18px; border-radius: 6px; font-family: var(--f-body); font-weight: 600; font-size: 13px; white-space: nowrap; color: var(--fg); }
+.btn:hover { background: var(--card-up); }
+.btn.primary { background: var(--pink); border-color: var(--pink); color: #fff; letter-spacing: .04em; }
+.btn.primary:hover { background: var(--pink-dark); }
+.btn.ghost { background: none; border-color: transparent; color: var(--muted); padding: 8px 10px; }
+.btn.ghost:hover { color: var(--fg); background: rgba(255,255,255,0.05); }
+.btn[disabled] { opacity: .55; cursor: wait; }
+
+/* form shell */
+.form-shell { max-width: 640px; margin: 0 auto; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.handover { padding: 10px 18px; background: var(--gold-bg); color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: .02em; text-align: center; }
+.f-hero { padding: 28px 24px 18px; text-align: center; border-bottom: 1px solid var(--line); }
+.f-hero .eyebrow { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--pink); font-weight: 600; }
+.f-hero h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(28px, 6vw, 38px); line-height: 1.05; margin: 8px 0 6px; text-wrap: balance; overflow-wrap: anywhere; }
+.f-hero p { margin: 0 auto; max-width: 44ch; font-size: 13px; color: var(--muted); }
+.f-hero .f-ep { margin-top: 10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 600; font-variant: small-caps; }
+.steps { display: flex; gap: 6px; padding: 16px 24px 0; }
+.steps span { flex: 1; height: 3px; border-radius: 2px; background: var(--line-str); transition: background .3s; }
+.steps span.done { background: var(--pink); }
+.step-lbl { padding: 8px 24px 0; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; }
+.f-body { padding: 18px 24px 8px; }
+.f-body h2 { font-family: var(--f-display); font-size: 26px; font-weight: 600; margin: 0 0 4px; line-height: 1.15; }
+.f-body .sub { font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+.f-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 14px; }
+.f-grid .full { grid-column: 1 / -1; }
+.ff { display: grid; gap: 6px; margin-bottom: 14px; min-width: 0; }
+.ff label { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.ff label i, .check i { font-style: normal; color: var(--pink); }
+.ff .help { font-size: 11.5px; color: var(--faint); }
+.ff input, .ff select, .ff textarea { font-family: var(--f-body); font-size: 16px; padding: 11px 12px; border: 1px solid var(--line-str); background: var(--card); border-radius: 6px; width: 100%; min-width: 0; outline: none; transition: border-color .2s; }
+.ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--pink); }
+.ff textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+.ff .err, .ff input.err, .ff select.err, .ff textarea.err { border-color: var(--stop); }
+.ff .count { text-align: right; font-size: 11px; color: var(--faint); font-variant-numeric: tabular-nums; }
+.ff .count.over { color: var(--stop); }
+.privacy-tag { display: inline-flex; gap: 6px; align-items: center; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-bottom: 12px; }
+.privacy-tag.pub { color: var(--ok); background: var(--ok-bg); }
+.privacy-tag.priv { color: var(--gold); background: var(--gold-bg); }
+.label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+
+/* photo */
+.upload { display: flex; gap: 14px; align-items: center; padding: 12px; border: 1px dashed var(--line-str); border-radius: 10px; margin-bottom: 6px; }
+.upload.err { border-color: var(--stop); }
+.upload img, .upload .ph { width: 76px; height: 96px; border-radius: 6px; object-fit: cover; flex: none; background: var(--card-up); display: grid; place-items: center; color: var(--faint); font-size: 11px; text-align: center; line-height: 1.3; }
+.upload .u-txt { flex: 1; min-width: 0; font-size: 12.5px; color: var(--muted); }
+.upload .u-txt b { display: block; color: var(--fg); font-size: 13.5px; margin-bottom: 2px; }
+.upload .u-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.upload input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.photo-err { font-size: 12px; color: var(--stop); min-height: 1em; margin: 0 0 12px; }
+.socials { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 14px; }
+.ff .ferr { font-size: 11.5px; color: var(--stop); }
+
+/* previews */
+.pv-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; align-items: start; margin-bottom: 8px; }
+.pv-cap { font-size: 11px; color: var(--faint); margin: 6px 0 0; }
+.noimg { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255,255,255,0.3); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  background: linear-gradient(160deg, #3a2a30, #141210); }
+.lt { position: relative; aspect-ratio: 16/9; max-width: 100%; border-radius: 8px; overflow: hidden; background: #222; margin-top: 4px; }
+.lt img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.8); }
+.lt .bar { position: absolute; left: 6%; bottom: 12%; max-width: 88%; background: rgba(9,9,7,0.85); border-left: 3px solid #FF1F6E; padding: 6px 12px; color: #FEFCF8; }
+.lt .bar b { display: block; font-family: var(--f-display); font-size: clamp(14px, 3.4vw, 20px); font-weight: 600; line-height: 1.1; overflow-wrap: anywhere; }
+.lt .bar span { display: block; font-family: var(--f-body); font-size: clamp(8px, 1.8vw, 10px); letter-spacing: .18em; text-transform: uppercase; color: #FF1F6E; overflow-wrap: anywhere; }
+.lt .bar span:empty { display: none; }
+.lt .safe { position: absolute; inset: 5%; border: 1px dashed rgba(255,255,255,0.25); pointer-events: none; }
+.lt .tc { position: absolute; top: 6px; right: 8px; font-family: ui-monospace, Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.7); }
+.scard { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); background: #161614; color: #FEFCF8; width: 100%; }
+.scard .pic { position: relative; aspect-ratio: 3/4; }
+.scard img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(35%) brightness(.68); }
+.scard .info { position: absolute; left: 0; right: 0; bottom: 0; padding: 36px 14px 14px; background: linear-gradient(to top, rgba(0,0,0,.94), transparent); }
+.scard .role { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #FF1F6E; margin: 0 0 4px; }
+.scard .nm { font-family: var(--f-display); font-size: 20px; font-weight: 600; margin: 0; line-height: 1.1; overflow-wrap: anywhere; }
+
+/* release */
+.legal { max-height: 260px; overflow: auto; border: 1px solid var(--line-str); border-radius: 8px; padding: 14px 16px; background: var(--card); font-size: 12.5px; line-height: 1.6; color: var(--muted); overflow-wrap: anywhere; }
+.legal h1, .legal h2, .legal h3, .legal h4, .legal h5, .legal h6 { margin: 12px 0 4px; font-family: var(--f-body); font-size: 12px; color: var(--fg); letter-spacing: .04em; text-transform: uppercase; }
+.legal > :first-child { margin-top: 0; }
+.legal p { margin: 0 0 8px; }
+.legal ul, .legal ol { margin: 0 0 8px 1.2em; }
+.legal a { color: var(--pink); }
+.checks { margin-top: 12px; }
+.check { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; cursor: pointer; }
+.check:last-child { border-bottom: 0; }
+.check input { width: 18px; height: 18px; margin-top: 1px; accent-color: #FF1F6E; flex: none; }
+.check.err span { color: var(--stop); }
+.check small { display: block; color: var(--faint); font-size: 11.5px; }
+
+/* signature */
+.sigpad { position: relative; border: 1px solid var(--line-str); border-radius: 10px; background: #FEFCF8; touch-action: none; overflow: hidden; }
+.sigpad.err { border-color: var(--stop); box-shadow: 0 0 0 1px var(--stop); }
+.sigpad canvas { display: block; width: 100%; height: 170px; cursor: crosshair; touch-action: none; }
+.sigpad .base { position: absolute; left: 20px; right: 20px; bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.25); pointer-events: none; }
+.sigpad .x { position: absolute; left: 22px; bottom: 44px; font-family: var(--f-display); font-size: 22px; color: rgba(0,0,0,0.35); pointer-events: none; }
+.sigpad .hint { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-size: 11px; color: rgba(0,0,0,0.45); pointer-events: none; }
+.sig-tools { display: flex; justify-content: flex-end; margin-top: 6px; }
+.sig-meta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin-top: 12px; font-size: 12px; }
+.sig-meta div { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
+.sig-meta span { display: block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+
+.f-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 16px 24px 22px; }
+.f-foot .err-msg { order: -1; flex: 1 0 100%; font-size: 12.5px; color: var(--stop); line-height: 1.5; }
+.f-foot .err-msg:empty { display: none; }
+.f-foot .progress { flex: 1 0 100%; order: -1; font-size: 12.5px; color: var(--gold); }
+.f-foot .progress:empty { display: none; }
+.f-foot .btn.primary { margin-left: auto; }
+
+/* messages */
+.msg { max-width: 640px; margin: 0 auto; text-align: center; padding: 3rem 24px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+.msg .eyebrow { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--pink); font-weight: 600; }
+.msg h1 { font-family: var(--f-display); font-size: clamp(28px, 6vw, 38px); font-weight: 600; line-height: 1.1; margin: 8px 0 12px; overflow-wrap: anywhere; }
+.msg p { font-size: 13.5px; line-height: 1.8; color: var(--muted); max-width: 46ch; margin: 0 auto; overflow-wrap: anywhere; }
+.msg p + p { margin-top: 10px; }
+.msg a { color: var(--pink); }
+.msg .sash { width: 70px; height: 3px; background: var(--gold); margin: 0 auto 18px; }
+.msg .handback { display: inline-block; margin-top: 20px; padding: 10px 16px; background: var(--gold-bg); color: var(--gold); border-radius: 6px; font-weight: 600; font-size: 13px; }
+.spinner { width: 28px; height: 28px; margin: 3rem auto; border: 2px solid rgba(255,255,255,0.12); border-top-color: var(--pink); border-radius: 50%; animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 700px) {
+  .top, footer { padding-left: 16px; padding-right: 16px; }
+  main { padding-top: 1rem; }
+}
+@media (max-width: 520px) {
+  .f-hero { padding: 24px 18px 16px; }
+  .steps { padding: 16px 18px 0; }
+  .step-lbl { padding: 8px 18px 0; }
+  .f-body { padding: 16px 18px 8px; }
+  .f-foot { padding: 14px 18px 20px; }
+  .f-grid, .pv-grid, .socials { grid-template-columns: minmax(0, 1fr); }
+  .pv-grid > div:last-child { max-width: 220px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top"><a href="../">Chasing the Sash</a></header>
+
+<main>
+
+  <!-- Loading -->
+  <div class="state on" id="s-loading"><div class="spinner" aria-label="Loading"></div></div>
+
+  <!-- Invalid link -->
+  <div class="state" id="s-invalid">
+    <div class="msg">
+      <p class="eyebrow">Chasing the Sash</p>
+      <h1>This link isn't working</h1>
+      <p>The link may be incomplete or out of date. Please check you copied the whole link, or contact the producers at <a href="mailto:ask@chasingthesash.com">ask@chasingthesash.com</a> for a new one.</p>
+    </div>
+  </div>
+
+  <!-- Could not reach the server -->
+  <div class="state" id="s-offline">
+    <div class="msg">
+      <p class="eyebrow">Chasing the Sash</p>
+      <h1>We couldn't load your form</h1>
+      <p>Please check your internet connection and refresh the page. If it keeps happening, contact the producers at <a href="mailto:ask@chasingthesash.com">ask@chasingthesash.com</a>.</p>
+    </div>
+  </div>
+
+  <!-- Already signed -->
+  <div class="state" id="s-signed">
+    <div class="msg">
+      <p class="eyebrow">Chasing the Sash</p>
+      <h1 id="signed-title">Already signed</h1>
+      <div class="sash"></div>
+      <p id="signed-text">This release has already been signed. Thank you!</p>
+      <p>Need to change something? Email <a href="mailto:ask@chasingthesash.com">ask@chasingthesash.com</a>.</p>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="state" id="s-form">
+    <form class="form-shell" id="form" novalidate>
+      <div class="handover" id="handover" hidden>In-person interview &middot; hand this device to the interviewee</div>
+      <div class="f-hero">
+        <div class="eyebrow">Chasing the Sash</div>
+        <h1 id="hero-title">Welcome to the interview</h1>
+        <p>Four quick steps: your details, your photo and profile, then your participant release.</p>
+        <p class="f-ep" id="hero-eps" hidden></p>
+      </div>
+      <div class="steps" id="steps" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="step-lbl" id="step-lbl" aria-live="polite">Step 1 of 4 &middot; About you</div>
+
+      <div class="f-body">
+
+        <!-- Step 1: About you -->
+        <section class="step" data-step="0">
+          <h2>About you</h2>
+          <p class="sub">This goes on your release. It stays private to the production team.</p>
+          <span class="privacy-tag priv">Private</span>
+          <div class="f-grid">
+            <div class="ff full"><label for="legalName">Full legal name <i>*</i></label><input id="legalName" maxlength="120" autocomplete="name"><span class="help">As it appears on your ID</span></div>
+            <div class="ff"><label for="preferredName">What should we call you?</label><input id="preferredName" maxlength="80" autocomplete="nickname"></div>
+            <div class="ff"><label for="suburb">Suburb and state</label><input id="suburb" maxlength="80" autocomplete="address-level2"></div>
+            <div class="ff"><label for="email">Email <i>*</i></label><input id="email" type="email" maxlength="200" autocomplete="email" autocapitalize="off" spellcheck="false"><span class="help">Your signed release is emailed here</span></div>
+            <div class="ff"><label for="phone">Mobile <i>*</i></label><input id="phone" type="tel" maxlength="30" autocomplete="tel"></div>
+            <div class="ff full"><label for="adult">Are you 18 or over? <i>*</i></label>
+              <select id="adult">
+                <option value="">Please choose</option>
+                <option value="yes">Yes, I'm 18 or over</option>
+                <option value="no">No, I'm under 18</option>
+              </select></div>
+            <div class="ff full" id="guardian-wrap" hidden><label for="guardian">Parent or guardian's full name <i>*</i></label><input id="guardian" maxlength="120"><span class="help">They will sign the release at the last step</span></div>
+          </div>
+        </section>
+
+        <!-- Step 2: Photo & profile -->
+        <section class="step" data-step="1" hidden>
+          <h2>Your photo &amp; profile</h2>
+          <p class="sub">One clear photo, taken now. Our crew use it to know who's who in the edit, and it goes on your card on chasingthesash.com. Want a nicer one on the website later? Just reply to your release email with it.</p>
+          <span class="privacy-tag priv">Crew</span> <span class="privacy-tag pub">Website</span>
+          <div class="upload" id="upload">
+            <div class="ph" id="ph-empty">No photo yet</div>
+            <img id="ph-prev" alt="Your headshot" hidden>
+            <div class="u-txt"><b>Headshot <i style="font-style:normal;color:var(--pink)">*</i></b><span id="photo-tip">A recent selfie is fine. Face the camera, good light, no sunglasses.</span>
+              <div class="u-btns"><label class="btn" for="photo-file" id="photo-btn">Upload photo</label><input type="file" id="photo-file" accept="image/*" capture="user"></div></div>
+          </div>
+          <p class="photo-err" id="photo-err" role="alert"></p>
+          <div class="f-grid">
+            <div class="ff"><label for="displayName">Your name as it should appear <i>*</i></label><input id="displayName" maxlength="80"><span class="help">On screen and on the website. Check the spelling.</span></div>
+            <div class="ff"><label for="onScreenTitle">Title under your name on screen</label><input id="onScreenTitle" maxlength="40" placeholder="e.g. Racewear designer"><span class="help">Up to 40 characters</span></div>
+            <div class="ff full"><label for="role">How would you describe yourself? <i>*</i></label>
+              <select id="role">
+                <option value="">Please choose</option>
+                <option>Circuit Regular</option>
+                <option>First-Timer</option>
+                <option>Community Leader</option>
+                <option>Judge</option>
+                <option>Milliner</option>
+                <option>Designer</option>
+                <option>Stylist</option>
+                <option>Trainer or Jockey</option>
+                <option>Other</option>
+              </select></div>
+          </div>
+          <div class="socials">
+            <div class="ff"><label for="instagram">Instagram</label><input id="instagram" maxlength="200" placeholder="@yourhandle" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="instagram-err"></span></div>
+            <div class="ff"><label for="facebook">Facebook</label><input id="facebook" maxlength="200" placeholder="@name or link" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="facebook-err"></span></div>
+            <div class="ff"><label for="tiktok">TikTok</label><input id="tiktok" maxlength="200" placeholder="@yourhandle" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="tiktok-err"></span></div>
+          </div>
+          <div class="ff"><label for="bio">Short bio for the website <i>*</i></label><textarea id="bio" maxlength="500" placeholder="Who you are, your connection to Fashions on the Field, and what the sash means to you."></textarea><span class="count" id="bio-ct">0/500</span></div>
+          <p class="label" style="margin:4px 0 8px">Preview</p>
+          <div class="pv-grid">
+            <div>
+              <div class="lt"><div class="noimg" id="lt-noimg">Your photo</div><img id="lt-img" alt="" hidden><div class="safe"></div><span class="tc">01:04:22:13</span><div class="bar"><b id="lt-name"></b><span id="lt-role"></span></div></div>
+              <p class="pv-cap">In the episode</p>
+            </div>
+            <div>
+              <div class="scard"><div class="pic"><div class="noimg" id="card-noimg">Your photo</div><img id="card-img" alt="" hidden></div><div class="info"><p class="role" id="pv-role"></p><p class="nm" id="pv-name"></p></div></div>
+              <p class="pv-cap">On the website</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 3: Release & privacy -->
+        <section class="step" data-step="2" hidden>
+          <h2>Release &amp; privacy</h2>
+          <p class="sub">Please read before you sign. A copy is emailed to you straight after.</p>
+          <div class="legal" id="legal" tabindex="0" aria-label="Participant release, privacy notice and terms"></div>
+          <div class="checks">
+            <label class="check" id="c-agreeRelease"><input type="checkbox" id="agreeRelease"><span>I have read and agree to the participant release and terms <i>*</i></span></label>
+            <label class="check" id="c-agreePrivacy"><input type="checkbox" id="agreePrivacy"><span>I have read the privacy notice <i>*</i></span></label>
+            <label class="check"><input type="checkbox" id="consentPublic" checked><span>Show my public profile on chasingthesash.com<small>Optional. Our team checks it before it goes live. Untick to keep your profile off the website.</small></span></label>
+            <label class="check"><input type="checkbox" id="consentContact"><span>You can contact me about future seasons<small>Optional</small></span></label>
+          </div>
+        </section>
+
+        <!-- Step 4: Sign -->
+        <section class="step" data-step="3" hidden>
+          <h2>Sign</h2>
+          <p class="sub" id="sign-sub">Sign with your finger, stylus or mouse.</p>
+          <div class="sigpad" id="sigpad"><canvas id="sig" aria-label="Signature pad" role="img"></canvas><span class="base"></span><span class="x">&times;</span><span class="hint" id="sig-hint">Sign above the line</span></div>
+          <div class="sig-tools"><button class="btn ghost" type="button" id="sig-clear">Clear signature</button></div>
+          <div class="ff" style="margin-top:6px"><label for="sigName" id="sigName-lbl">Type your full name to confirm <i>*</i></label><input id="sigName" maxlength="120" autocomplete="off"><span class="help" id="sigName-help">Exactly as you wrote your full legal name</span></div>
+          <div class="sig-meta">
+            <div><span>Date</span><b id="sig-date" style="font-weight:500"></b></div>
+            <div><span>Signed via</span><b id="sig-via" style="font-weight:500"></b></div>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="f-foot">
+        <button class="btn" type="button" id="f-back" hidden>Back</button>
+        <span class="err-msg" id="f-err" role="alert"></span>
+        <span class="progress" id="f-progress" aria-live="polite"></span>
+        <button class="btn primary" type="submit" id="f-next">Continue</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Done -->
+  <div class="state" id="s-done">
+    <div class="msg">
+      <p class="eyebrow">Signed &amp; filed</p>
+      <h1 id="done-title">Thank you</h1>
+      <div class="sash"></div>
+      <p id="done-text"></p>
+      <span class="handback" id="done-handback" hidden>Please hand the device back to Hannah</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>&copy; Chasing the Sash &middot; Produced by Freestyle TV &middot; <a href="../privacy.html">Privacy</a></footer>
+
+<script>
+'use strict';
+
+// Public anon key only. Row Level Security, the storage policies and the
+// token-checked release functions are what protect the data. Never put the
+// service_role key here.
+const SUPABASE_URL = 'https://lpgjycgsxjsachqnmegw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZ2p5Y2dzeGpzYWNocW5tZWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MDMyNDIsImV4cCI6MjEwMzI3OTI0Mn0.vitgl1amPiSqCcuYk4Yc3jp-dsKSn7udcLwBDAIsVvk';
+const PRIVATE_BUCKET = 'interviewee-releases';   // headshot + signature, team only
+const PUBLIC_BUCKET = 'interviewee-photos';      // website photo, only with consent
+const MAX_BYTES = 2 * 1024 * 1024;
+const MAX_INPUT_BYTES = 25 * 1024 * 1024;
+const MAX_EDGE = 1400;          // longest side after resize, in px
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const TOKEN_RE = /^[A-Za-z0-9_-]{8,128}$/;      // keeps the token safe to use as a storage folder
+const STEPS = ['About you', 'Photo & profile', 'Release & privacy', 'Sign'];
+
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+const rawToken = (params.get('t') || '').trim();
+const token = UUID_RE.test(rawToken) ? rawToken.toLowerCase() : rawToken;
+const MODE = params.get('mode') === 'in_person' ? 'in_person' : 'link';
+
+let form = null;                // row from get_release_form
+let step = 0;
+let photoBlob = null;           // resized JPEG waiting to upload, or null
+let photoPreviewUrl = null;
+let busy = false;
+// Paths already uploaded for the current photo / signature, so a retry after a
+// failed filing doesn't upload the same files again.
+let uploaded = { photo: '', pub: '', sig: '' };
+
+function show(state) {
+  document.querySelectorAll('.state').forEach(el => el.classList.toggle('on', el.id === 's-' + state));
+}
+
+function fmtDate(d) {
+  return new Date(d).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Australia/Melbourne' });
+}
+
+/* ── Supabase REST helpers (plain fetch, anon key) ── */
+function authHeaders(extra) {
+  return Object.assign({ apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY }, extra || {});
+}
+
+async function readJson(res) {
+  const text = await res.text();
+  try { return text ? JSON.parse(text) : null; } catch (e) { return null; }
+}
+
+function serverMessage(body, fallback) {
+  if (body && typeof body === 'object') {
+    const m = body.message || body.error_description || body.msg || (typeof body.error === 'string' ? body.error : '');
+    if (m) return String(m);
+  }
+  return fallback;
+}
+
+async function rpc(name, body) {
+  const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/' + name, {
+    method: 'POST',
+    headers: authHeaders({ 'Content-Type': 'application/json', Accept: 'application/json' }),
+    body: JSON.stringify(body)
+  });
+  const data = await readJson(res);
+  if (!res.ok) {
+    const err = new Error(serverMessage(data, 'Something went wrong (error ' + res.status + '). Please try again.'));
+    err.status = res.status;
+    throw err;
+  }
+  return data;
+}
+
+async function uploadObject(bucket, path, blob, contentType) {
+  const res = await fetch(SUPABASE_URL + '/storage/v1/object/' + bucket + '/' + path, {
+    method: 'POST',
+    headers: authHeaders({ 'Content-Type': contentType, 'x-upsert': 'false', 'cache-control': 'max-age=31536000' }),
+    body: blob
+  });
+  if (!res.ok) {
+    const data = await readJson(res);
+    throw new Error(serverMessage(data, 'error ' + res.status));
+  }
+  return path;
+}
+
+// 8 characters of [a-z0-9]; the storage policy wants 4 to 12.
+function randId() {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const buf = new Uint8Array(8);
+  crypto.getRandomValues(buf);
+  return Array.from(buf, b => chars[b % chars.length]).join('');
+}
+
+/* ── Load ── */
+async function load() {
+  if (!TOKEN_RE.test(token)) return show('invalid');
+  let rows;
+  try {
+    rows = await rpc('get_release_form', { p_token: token });
+  } catch (err) {
+    return show(err.status ? 'invalid' : 'offline');
+  }
+  if (!Array.isArray(rows) || !rows.length) return show('invalid');
+  form = rows[0];
+
+  if (form.already_signed) {
+    $('signed-title').textContent = 'Already signed';
+    $('signed-text').textContent = form.signed_at
+      ? 'Already signed on ' + fmtDate(form.signed_at) + '. Thank you!'
+      : 'This release has already been signed. Thank you!';
+    return show('signed');
+  }
+
+  const first = String(form.display_name || '').trim().split(/\s+/)[0];
+  $('hero-title').textContent = MODE === 'in_person' || !first ? 'Welcome to the interview' : 'Hi ' + first + ', thanks for joining us';
+  const eps = (form.episode_labels || []).filter(Boolean);
+  if (eps.length) { $('hero-eps').textContent = eps.join(' · '); $('hero-eps').hidden = false; }
+  $('handover').hidden = MODE !== 'in_person';
+  // On Hannah's device, don't offer her own saved name/email/phone to the interviewee.
+  if (MODE === 'in_person') ['legalName', 'preferredName', 'suburb', 'email', 'phone'].forEach(id => $(id).setAttribute('autocomplete', 'off'));
+  $('photo-btn').textContent = MODE === 'in_person' ? 'Take photo' : 'Upload photo';
+  $('photo-tip').textContent = MODE === 'in_person'
+    ? 'Hannah can take this now. Face the camera, no sunglasses. Hat on is fine if you\'ll wear it on camera.'
+    : 'A recent selfie is fine. Face the camera, good light, no sunglasses.';
+  $('sig-via').textContent = MODE === 'in_person' ? 'In person · Hannah\'s device' : 'Private link';
+
+  $('displayName').value = form.display_name || '';
+  $('email').value = form.email || '';
+  // Written by the production team in the dashboard; the only field set as HTML.
+  $('legal').innerHTML = form.terms_html || '';
+
+  updatePreview();
+  updateCount();
+  goTo(0);
+  show('form');
+}
+
+/* ── Steps ── */
+function goTo(n) {
+  step = n;
+  document.querySelectorAll('.step').forEach(el => { el.hidden = Number(el.dataset.step) !== n; });
+  document.querySelectorAll('#steps span').forEach((el, i) => el.classList.toggle('done', i <= n));
+  $('step-lbl').textContent = 'Step ' + (n + 1) + ' of ' + STEPS.length + ' · ' + STEPS[n];
+  $('f-back').hidden = n === 0;
+  $('f-next').textContent = n === STEPS.length - 1 ? 'Sign and submit' : 'Continue';
+  setError('');
+  if (n === 3) prepareSignStep();
+}
+
+function scrollToForm() {
+  const top = $('form').getBoundingClientRect().top + window.scrollY - 8;
+  if (window.scrollY > top) window.scrollTo({ top: Math.max(0, top) });
+}
+
+function setError(msg) { $('f-err').textContent = msg; }
+
+/* ── Photo: validate, then shrink in the browser so uploads stay small ── */
+function loadImage(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('That file could not be read as an image. Please try a JPG or PNG photo.')); };
+    img.src = url;
+  });
+}
+
+function canvasToBlob(canvas, type, quality) {
+  return new Promise(resolve => canvas.toBlob(resolve, type, quality));
+}
+
+async function shrink(file) {
+  const img = await loadImage(file);
+  const scale = Math.min(1, MAX_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+  const w = Math.max(1, Math.round(img.naturalWidth * scale));
+  const h = Math.max(1, Math.round(img.naturalHeight * scale));
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';             // flatten transparent PNGs onto white
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(img, 0, 0, w, h);
+  for (const q of [0.88, 0.8, 0.7, 0.6, 0.5]) {
+    const blob = await canvasToBlob(canvas, 'image/jpeg', q);
+    if (blob && blob.size <= MAX_BYTES) return blob;
+  }
+  throw new Error('This photo is still over 2 MB after shrinking. Please choose a smaller photo.');
+}
+
+function setPhoto(url) {
+  [['ph-prev', 'ph-empty'], ['lt-img', 'lt-noimg'], ['card-img', 'card-noimg']].forEach(([img, empty]) => {
+    if (url) { $(img).src = url; $(img).hidden = false; $(empty).hidden = true; }
+    else { $(img).hidden = true; $(img).removeAttribute('src'); $(empty).hidden = false; }
+  });
+}
+
+async function onPhotoChosen(file) {
+  $('photo-err').textContent = '';
+  $('upload').classList.remove('err');
+  if (!file) return;
+  if (file.type && !/^image\//i.test(file.type)) {
+    $('photo-err').textContent = 'Please choose a photo. (' + file.type + ' is not an image.)';
+    return;
+  }
+  if (file.size > MAX_INPUT_BYTES) {
+    $('photo-err').textContent = 'This photo is ' + (file.size / 1048576).toFixed(1) + ' MB, which is too large. Please choose one under 25 MB and we\'ll shrink it to 2 MB.';
+    return;
+  }
+  try {
+    const blob = await shrink(file);
+    photoBlob = blob;
+    uploaded.photo = ''; uploaded.pub = '';
+    if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
+    photoPreviewUrl = URL.createObjectURL(blob);
+    setPhoto(photoPreviewUrl);
+    $('photo-btn').textContent = 'Retake photo';
+  } catch (err) {
+    $('photo-err').textContent = err.message;
+  }
+}
+
+/* ── Live previews ── */
+function updatePreview() {
+  $('lt-name').textContent = $('displayName').value.trim() || 'Your name';
+  $('pv-name').textContent = $('displayName').value.trim() || 'Your name';
+  $('lt-role').textContent = $('onScreenTitle').value.trim();
+  $('pv-role').textContent = $('role').value || 'Your role';
+}
+
+function updateCount() {
+  const n = $('bio').value.length;
+  $('bio-ct').textContent = n + '/500';
+  $('bio-ct').classList.toggle('over', n > 500);
+}
+
+/* ── Social links: turn a typed handle or pasted link into the exact URL
+   shape the database accepts. Anything unrecognised is returned as typed so
+   validation rejects it. Same rules as the profile form. ── */
+function cleanInput(v) {
+  return v.trim().replace(/\s+/g, '');
+}
+
+function normaliseInstagram(v) {
+  const s = cleanInput(v);
+  if (!s) return '';
+  const link = s.match(/^(?:https?:\/\/)?(?:www\.|m\.)?instagram\.com\/([^\/?#]+)\/?(?:[?#].*)?$/i);
+  if (link) return 'https://www.instagram.com/' + link[1] + '/';
+  if (/^@?[A-Za-z0-9._]+$/.test(s)) return 'https://www.instagram.com/' + s.replace(/^@/, '') + '/';
+  return s;
+}
+
+function normaliseTikTok(v) {
+  const s = cleanInput(v);
+  if (!s) return '';
+  const link = s.match(/^(?:https?:\/\/)?(?:www\.|m\.)?tiktok\.com\/(@[^\/?#]+)\/?(?:[?#].*)?$/i);
+  if (link) return 'https://www.tiktok.com/' + link[1];
+  if (/^@?[A-Za-z0-9._]+$/.test(s)) return 'https://www.tiktok.com/@' + s.replace(/^@/, '');
+  return s;
+}
+
+function normaliseFacebook(v) {
+  const s = cleanInput(v);
+  if (!s) return '';
+  const link = s.match(/^(?:https?:\/\/)?(?:www\.|m\.)?(?:facebook|fb)\.com\/([^#]*)/i);
+  if (link) {
+    const parts = link[1].split('?');
+    const path = parts[0].replace(/\/+$/, '');
+    const id = path.toLowerCase() === 'profile.php' && (parts[1] || '').match(/(?:^|&)id=(\d+)/);
+    if (!path) return s;
+    return 'https://www.facebook.com/' + path + (id ? '?id=' + id[1] : '');
+  }
+  if (/^@?[A-Za-z0-9._]+$/.test(s)) return 'https://www.facebook.com/' + s.replace(/^@/, '');
+  return s;
+}
+
+// Must match the database checks exactly. Max 200 characters each.
+const SOCIALS = [
+  { key: 'instagram', label: 'an Instagram', normalise: normaliseInstagram,
+    re: /^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._]{1,30}\/?$/ },
+  { key: 'facebook', label: 'a Facebook', normalise: normaliseFacebook,
+    re: /^https:\/\/(www\.|m\.)?facebook\.com\/[A-Za-z0-9._\/?=&%-]+$/ },
+  { key: 'tiktok', label: 'a TikTok', normalise: normaliseTikTok,
+    re: /^https:\/\/(www\.)?tiktok\.com\/@[A-Za-z0-9._]{1,30}\/?$/ }
+];
+
+/* ── Signature pad. Strokes are kept as points in 0..1 so the pad can be
+   redrawn crisply when the screen rotates or resizes. ── */
+const sig = { strokes: [], current: null, width: 0 };
+
+function sigHasInk() { return sig.strokes.some(s => s.length > 1); }
+
+function drawStrokes(ctx, w, h, lineWidth) {
+  ctx.lineWidth = lineWidth; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1B1A17';
+  sig.strokes.forEach(s => {
+    if (!s.length) return;
+    ctx.beginPath();
+    ctx.moveTo(s[0].x * w, s[0].y * h);
+    if (s.length === 1) ctx.lineTo(s[0].x * w + 0.1, s[0].y * h);
+    for (let i = 1; i < s.length; i++) ctx.lineTo(s[i].x * w, s[i].y * h);
+    ctx.stroke();
+  });
+}
+
+function sizeSig() {
+  const cv = $('sig');
+  const r = cv.getBoundingClientRect();
+  if (!r.width) return;
+  const ratio = window.devicePixelRatio || 1;
+  cv.width = Math.round(r.width * ratio);
+  cv.height = Math.round(r.height * ratio);
+  sig.width = r.width;
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.clearRect(0, 0, r.width, r.height);
+  drawStrokes(ctx, r.width, r.height, 2.4);
+}
+
+function prepareSignStep() {
+  const adult = $('adult').value !== 'no';
+  const guardian = $('guardian').value.trim();
+  $('sign-sub').textContent = adult
+    ? 'Sign with your finger, stylus or mouse.'
+    : (guardian || 'Your parent or guardian') + ' signs here on your behalf, with a finger, stylus or mouse.';
+  $('sigName-lbl').firstChild.textContent = adult ? 'Type your full name to confirm ' : 'Parent or guardian: type your full name to confirm ';
+  $('sigName-help').textContent = adult ? 'Exactly as you wrote your full legal name' : 'Exactly as you wrote it at step 1';
+  $('sig-date').textContent = fmtDate(new Date());
+  requestAnimationFrame(sizeSig);
+}
+
+function bindSig() {
+  const cv = $('sig');
+  const pt = e => {
+    const r = cv.getBoundingClientRect();
+    return { x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)) };
+  };
+  cv.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    if (cv.getBoundingClientRect().width !== sig.width) sizeSig();
+    sig.current = [pt(e)];
+    sig.strokes.push(sig.current);
+    try { cv.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    $('sig-hint').hidden = true;
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!sig.current) return;
+    e.preventDefault();
+    const p = pt(e);
+    const last = sig.current[sig.current.length - 1];
+    sig.current.push(p);
+    const r = cv.getBoundingClientRect();
+    const ctx = cv.getContext('2d');
+    ctx.lineWidth = 2.4; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1B1A17';
+    ctx.beginPath(); ctx.moveTo(last.x * r.width, last.y * r.height); ctx.lineTo(p.x * r.width, p.y * r.height); ctx.stroke();
+  });
+  const end = () => {
+    if (!sig.current) return;
+    sig.current = null;
+    uploaded.sig = '';
+    if (sigHasInk()) { $('sigpad').classList.remove('err'); if (/sign in the box/i.test($('f-err').textContent)) setError(''); }
+  };
+  cv.addEventListener('pointerup', end);
+  cv.addEventListener('pointercancel', end);
+  $('sig-clear').addEventListener('click', () => {
+    sig.strokes = []; sig.current = null; uploaded.sig = '';
+    sizeSig();
+    $('sig-hint').hidden = false;
+  });
+  let lastW = window.innerWidth;
+  window.addEventListener('resize', () => {
+    if (step === 3 && window.innerWidth !== lastW) { lastW = window.innerWidth; sizeSig(); }
+  });
+}
+
+// Signature exported at a fixed size on a transparent background.
+function signatureBlob() {
+  const w = 900, h = Math.round(900 * 170 / Math.max(1, sig.width || 600));
+  const c = document.createElement('canvas');
+  c.width = w; c.height = Math.max(150, Math.min(600, h));
+  drawStrokes(c.getContext('2d'), c.width, c.height, 2.4 * w / Math.max(1, sig.width || 600));
+  return canvasToBlob(c, 'image/png');
+}
+
+/* ── Validation, one step at a time. Returns '' or a message and marks the field. ── */
+function clearMarks() {
+  document.querySelectorAll('.err').forEach(el => el.classList.remove('err'));
+  SOCIALS.forEach(s => { $(s.key + '-err').textContent = ''; });
+}
+
+function fail(el, msg) {
+  if (el) {
+    el.classList.add('err');
+    if (el.focus && el.tagName !== 'DIV' && el.tagName !== 'LABEL') el.focus({ preventScroll: false });
+    else if (el.scrollIntoView) el.scrollIntoView({ block: 'center' });
+  }
+  return msg;
+}
+
+function sameName(a, b) {
+  const n = s => s.trim().replace(/\s+/g, ' ').toLowerCase();
+  return n(a) === n(b);
+}
+
+function validate(s) {
+  clearMarks();
+  if (s === 0) {
+    const legal = $('legalName').value.trim();
+    if (!legal) return fail($('legalName'), 'Add your full legal name.');
+    if (legal.split(/\s+/).length < 2) return fail($('legalName'), 'Add your full legal name (first and last).');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())) return fail($('email'), 'Add an email address we can send your release to.');
+    if ($('phone').value.replace(/\D/g, '').length < 8) return fail($('phone'), 'Add a mobile number.');
+    if (!$('adult').value) return fail($('adult'), 'Let us know if you\'re 18 or over.');
+    if ($('adult').value === 'no' && $('guardian').value.trim().split(/\s+/).filter(Boolean).length < 2) return fail($('guardian'), 'Add your parent or guardian\'s full name (first and last).');
+  }
+  if (s === 1) {
+    if (!photoBlob) return fail($('upload'), 'Add a headshot photo.');
+    if (!$('displayName').value.trim()) return fail($('displayName'), 'Add your name as it should appear.');
+    if (!$('role').value) return fail($('role'), 'Choose how you would describe yourself.');
+    let bad = null;
+    SOCIALS.forEach(so => {
+      const url = so.normalise($(so.key).value);
+      if (url && (url.length > 200 || !so.re.test(url))) {
+        $(so.key + '-err').textContent = 'That doesn\'t look like ' + so.label + ' profile. Type your @handle or paste the link.';
+        $(so.key).classList.add('err');
+        if (!bad) bad = so;
+      }
+    });
+    if (bad) { $(bad.key).focus(); return 'Check your ' + bad.label.replace(/^an? /, '') + ' link.'; }
+    const bio = $('bio').value.trim();
+    if (bio.length < 20) return fail($('bio'), 'Write a short bio, at least a sentence.');
+    if (bio.length > 500) return fail($('bio'), 'Keep your bio to 500 characters.');
+  }
+  if (s === 2) {
+    if (!$('agreeRelease').checked) return fail($('c-agreeRelease'), 'Tick the release box to continue.');
+    if (!$('agreePrivacy').checked) return fail($('c-agreePrivacy'), 'Tick to confirm you\'ve read the privacy notice.');
+  }
+  if (s === 3) {
+    if (!sigHasInk()) return fail($('sigpad'), 'Sign in the box above.');
+    const expected = $('adult').value === 'no' ? $('guardian').value.trim() : $('legalName').value.trim();
+    if (!sameName($('sigName').value, expected)) return fail($('sigName'), 'Type the name exactly as: ' + expected.replace(/\s+/g, ' '));
+  }
+  return '';
+}
+
+/* ── Submit ── */
+function setProgress(msg) {
+  $('f-progress').textContent = msg;
+}
+
+async function submit() {
+  busy = true;
+  const btn = $('f-next');
+  btn.disabled = true; $('f-back').disabled = true;
+  btn.textContent = 'Submitting…';
+  setError('');
+  try {
+    const consentPublic = $('consentPublic').checked;
+    const isAdult = $('adult').value !== 'no';
+
+    if (!uploaded.photo) {
+      setProgress('Saving your photo…');
+      const path = token + '/photo-' + Date.now() + '-' + randId() + '.jpg';
+      try { await uploadObject(PRIVATE_BUCKET, path, photoBlob, 'image/jpeg'); }
+      catch (err) { throw new Error('Your photo could not be saved (' + err.message + '). Please check your connection and try again.'); }
+      uploaded.photo = path;
+    }
+
+    if (!uploaded.sig) {
+      setProgress('Saving your signature…');
+      const blob = await signatureBlob();
+      if (!blob) throw new Error('Your signature could not be read. Please clear it and sign again.');
+      const path = token + '/signature-' + Date.now() + '-' + randId() + '.png';
+      try { await uploadObject(PRIVATE_BUCKET, path, blob, 'image/png'); }
+      catch (err) { throw new Error('Your signature could not be saved (' + err.message + '). Please check your connection and try again.'); }
+      uploaded.sig = path;
+    }
+
+    if (consentPublic && !uploaded.pub) {
+      setProgress('Saving your photo…');
+      const path = token + '/' + Date.now() + '-' + randId() + '.jpg';
+      try { await uploadObject(PUBLIC_BUCKET, path, photoBlob, 'image/jpeg'); }
+      catch (err) { throw new Error('Your website photo could not be saved (' + err.message + '). Please try again.'); }
+      uploaded.pub = path;
+    }
+
+    setProgress('Filing your release…');
+    const result = await rpc('submit_release', {
+      p_token: token,
+      p: {
+        terms_version: form.terms_version,
+        legal_name: $('legalName').value.trim().replace(/\s+/g, ' '),
+        preferred_name: $('preferredName').value.trim(),
+        email: $('email').value.trim(),
+        phone: $('phone').value.trim(),
+        suburb: $('suburb').value.trim(),
+        is_adult: isAdult,
+        guardian_name: isAdult ? '' : $('guardian').value.trim().replace(/\s+/g, ' '),
+        display_name: $('displayName').value.trim(),
+        on_screen_title: $('onScreenTitle').value.trim(),
+        role_tag: $('role').value,
+        bio: $('bio').value.trim(),
+        instagram_url: normaliseInstagram($('instagram').value),
+        facebook_url: normaliseFacebook($('facebook').value),
+        tiktok_url: normaliseTikTok($('tiktok').value),
+        photo_path: uploaded.photo,
+        public_photo_path: consentPublic ? uploaded.pub : '',
+        signature_path: uploaded.sig,
+        consent_public: consentPublic,
+        consent_contact: $('consentContact').checked,
+        agree_release: $('agreeRelease').checked,
+        agree_privacy: $('agreePrivacy').checked,
+        signed_name: $('sigName').value.trim().replace(/\s+/g, ' '),
+        signed_via: MODE,
+        user_agent: navigator.userAgent
+      }
+    });
+    const releaseId = typeof result === 'string' ? result
+      : Array.isArray(result) ? (typeof result[0] === 'string' ? result[0] : result[0] && (result[0].submit_release || result[0].id))
+      : result && (result.submit_release || result.id || result.release_id);
+
+    // Emails the signed copy and files it. A scheduled job sweeps anything missed,
+    // so failures here are ignored.
+    if (releaseId) {
+      try {
+        fetch(SUPABASE_URL + '/functions/v1/release-dispatch', {
+          method: 'POST', keepalive: true,
+          headers: authHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ release_id: releaseId })
+        }).catch(() => {});
+      } catch (err) { /* ignore */ }
+    }
+
+    showDone();
+  } catch (err) {
+    setError(err.message || 'Something went wrong. Please try again.');
+    btn.textContent = 'Sign and submit';
+  } finally {
+    busy = false;
+    btn.disabled = false; $('f-back').disabled = false;
+    $('f-progress').textContent = '';
+  }
+}
+
+function showDone() {
+  const name = $('preferredName').value.trim() || $('displayName').value.trim().split(/\s+/)[0] || $('legalName').value.trim().split(/\s+/)[0];
+  $('done-title').textContent = 'Thank you, ' + name;
+  if (MODE === 'in_person') {
+    $('done-text').textContent = 'Your release is signed and filed. A copy is on its way to ' + $('email').value.trim() + '.';
+    $('done-handback').hidden = false;
+  } else {
+    $('done-text').textContent = 'Your signed copy is on its way to ' + $('email').value.trim() + '. You can close this page.';
+    $('done-handback').hidden = true;
+  }
+  show('done');
+  window.scrollTo({ top: 0 });
+}
+
+function onNext(e) {
+  e.preventDefault();
+  if (busy) return;
+  const msg = validate(step);
+  if (msg) { setError(msg); return; }
+  setError('');
+  if (step < STEPS.length - 1) { goTo(step + 1); scrollToForm(); }
+  else submit();
+}
+
+/* ── Wire up ── */
+$('form').addEventListener('submit', onNext);
+$('f-back').addEventListener('click', () => { if (!busy && step > 0) { clearMarks(); goTo(step - 1); scrollToForm(); } });
+$('adult').addEventListener('change', () => { $('guardian-wrap').hidden = $('adult').value !== 'no'; });
+$('photo-file').addEventListener('change', e => { onPhotoChosen(e.target.files[0]); e.target.value = ''; });
+$('bio').addEventListener('input', updateCount);
+['displayName', 'onScreenTitle'].forEach(id => $(id).addEventListener('input', updatePreview));
+$('role').addEventListener('change', updatePreview);
+// Clear a field's error mark as soon as it is edited.
+$('form').addEventListener('input', e => {
+  const t = e.target;
+  if (t.classList && t.classList.contains('err')) t.classList.remove('err');
+  const ferr = $(t.id + '-err'); if (ferr) ferr.textContent = '';
+  const chk = t.closest && t.closest('.check'); if (chk) chk.classList.remove('err');
+});
+$('form').addEventListener('change', e => {
+  const chk = e.target.closest && e.target.closest('.check'); if (chk) chk.classList.remove('err');
+  if (e.target.classList && e.target.classList.contains('err')) e.target.classList.remove('err');
+});
+bindSig();
+
+load();
+</script>
+</body>
+</html>
