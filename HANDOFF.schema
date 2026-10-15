@@ -238,3 +238,57 @@ UPDATE 2026-10-06 f (appended)
                   Notice shown when person is published: edits to name/bio/photo/role/socials go live on save.
                   Photo changes logged in activity_log (field "photo"). Browser-tested with mocked Supabase.
   test_profile:   Sean archiving the "C.Sean Cheng" test profile himself.
+
+UPDATE 2026-10-11 (appended)
+  task:           on-screen graphics prototypes for CTS videos: person lower thirds, key-term lower thirds, logo intro.
+                  Both formats: 16:9 (1920x1080) and 9:16 (1080x1920).
+  file:           cts_website/graphics-lab.html  (single HTML page, uses images/hero.jpg as sample footage)
+  preview:        https://claude.ai/artifact/CQbAba6eUxinovVMseFz65  (private to Sean until shared)
+  styles:         A Editorial    serif name, gold hairline, letter-tracked gold title
+                  B The Sash     pink skewed ribbon with gold edge + cream strip; logo = diagonal pink band
+                  C Entrant Card cream card + black entrant number; terms as dictionary entry; logo = rosette
+  controls:       graphic type, format, style, Compare all 3, editable text, term presets, logo upload (browser only),
+                  background (footage/black/green), loop, safe zones (9:16 keeps clear of bottom 420px + right 150px)
+  sample_text:    Brooke Strahan / "Fashions on the Field Entrant" / "Season 1" / entrant 07 are PLACEHOLDERS, not verified.
+  waiting_on:     Sean to upload real logo file (PNG/SVG) and pick a style A/B/C.
+  next:           1 pick style  2 confirm real names/titles  3 rebuild chosen style as .mogrt (Premiere/After Effects)
+                  4 export ProRes 4444 with alpha, both formats
+  note:           page sits at site root; it becomes public at chasingthesash.com/graphics-lab.html only if merged to main.
+
+UPDATE 2026-10-11 b (appended)
+  change:         graphics-lab.html expanded from 3 to 12 style directions, each a full set (person LT, term LT, logo intro).
+  styles:         A Editorial  B The Sash  C Entrant Card  D Race Book (jockey silks form guide)  E Photo Finish (finish post)
+                  F Hatbox (candy stripe)  G Frosted (glass)  H Night Meet (neon)  I Swing Tag  J Monogram  K Catwalk
+                  L Trophy Plaque (engraved gold)
+  position:       lower thirds sit in .place > .scaler. Presets bottom-left/centre/right, top-left/right; sliders for size
+                  (50-160%), left/right (+-500px) and up/down (+-700px) in video pixels. Shared across formats.
+                  Default margins 16:9 t110 r140 b130 l140; 9:16 t260 r150 b470 l80 (clears Reels/TikTok UI).
+  compare:        "Compare all 12" grid; click a style label to open it.
+  waiting_on:     Sean to pick favourite style(s), upload logo, confirm real names/titles.
+
+UPDATE 2026-10-11 c (appended)
+  logo:           official badge added at images/cts-logo-badge.svg (blush circle #F2D9D9, ink #2A2420, "CHASING / THE SASH").
+                  Now the default logo in all 12 intros. Logo switcher: CTS badge / Typeset wordmark / Uploaded file.
+  fix:            format classes renamed .frame.h/.v -> .frame.fh/.fv (avoid quirks-mode clash with style class .H).
+  note:           the logo SVG keeps its embedded C2PA provenance metadata block (harmless, adds ~8 KB).
+
+UPDATE 2026-10-11 d (appended)
+  decision:       Sean: logo intros = the badge ONLY, varied by animation. No surrounding elements or taglines.
+  change:         logo intros decoupled from lower-third styles. 12 badge animations (list shows when Graphic = Logo intro):
+                  1 Soft Focus  2 Ring Draw  3 Ink Outline  4 Letter Drop  5 Stamp  6 Coin Flip  7 Iris
+                  8 Diagonal Wipe  9 Pop  10 Light Sweep  11 Pull Back  12 Split Slide
+  how:            badge SVG inlined in a <template id="logoTpl">, path split into 14 letter paths (CHASING r1, THE SASH r2)
+                  converted to absolute 1880x1880 coordinates so each letter can animate (pathLength=1 for stroke draws).
+  removed:        logo upload/typeset switcher and per-style logo intros (old logo CSS left in place, unused).
+  background:     logo intros play on brand black; Background = Green screen gives a green key plate.
+
+UPDATE 2026-10-11 e (appended)
+  task:           thumbnail designs added as 4th Graphic type "Thumbnail" in graphics-lab.html.
+  formats:        YouTube 1280x720 (16:9) and vertical cover 1080x1920 (9:16).
+  designs:        T1 Big Type  T2 Sash Band  T3 Cover Story  T4 Blush Circle  T5 Spotlight  T6 Race Book  T7 Night Meet
+                  T8 Polaroid  T9 Big Number  T10 Duotone  T11 Quote  T12 Sticker
+  fields:         headline (*stars* colour words pink), name, episode (digits feed T9 big number), photo upload
+                  (browser only, default images/hero.jpg), photo focus slider (object-position x).
+  safe_zones:     16:9 = YouTube length badge bottom-right; 9:16 = top/bottom 240px cut by Instagram 3:4 grid crop.
+  sample_text:    "One sash changes everything" adapted from website logline; not an approved headline.
+  export:         artifact viewer blocks downloads; final PNGs to be rendered from repo (Playwright) once designs chosen.
