@@ -24,6 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Leave internal notes out of the public site
+        run: rm -f HANDOFF.schema README.md
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
