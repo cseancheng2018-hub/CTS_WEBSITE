@@ -237,14 +237,6 @@ footer a { color: inherit; }
           <div class="checks">
             <label class="check" id="c-agree"><input type="checkbox" id="agree"><span>I have read and agree to the service agreement <i>*</i></span></label>
           </div>
-          <p class="group-lbl">Insurance &mdash; tick one <i>*</i></p>
-          <div class="checks" id="ins-group" role="radiogroup" aria-label="Insurance statement" style="margin-top:2px">
-            <label class="check"><input type="radio" name="ins" value="own"><span>I hold my own public liability insurance</span></label>
-            <label class="check"><input type="radio" name="ins" value="none"><span>I don't hold my own insurance, and I understand the Producer's insurance may not cover me or my kit</span></label>
-          </div>
-          <div class="checks">
-            <label class="check"><input type="checkbox" id="future"><span>Happy to be contacted for future shoots<small>Optional</small></span></label>
-          </div>
         </section>
 
         <!-- Step 3 -->
@@ -567,7 +559,6 @@ function validate(s) {
   }
   if (s === 1) {
     if (!$('agree').checked) return fail($('c-agree'), 'Tick to agree to the service agreement.');
-    if (!document.querySelector('input[name=ins]:checked')) return fail($('ins-group'), 'Tick one insurance statement.');
   }
   if (s === 2) {
     if (!sigHasInk()) return fail($('sigpad'), 'Sign in the box above.');
@@ -590,8 +581,6 @@ function details() {
     account_name: clean($('accName').value),
     bsb: digits($('bsb').value),
     account_number: digits($('accNum').value),
-    insurance: (document.querySelector('input[name=ins]:checked') || {}).value || '',
-    future_contact: $('future').checked,
     agree: $('agree').checked
   };
 }
