@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js). page_location drops the query so the private ?t= code never reaches Google. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BN0351WGW6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BN0351WGW6', { page_location: location.origin + location.pathname });
+</script>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#F7F3EC">
+<title>Location Agreement — Chasing the Sash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Light theme, same tokens as the release form. Single theme on purpose. */
+:root {
+  --bg: #F7F3EC; --panel: #FFFFFF; --card: #FBF9F5; --card-up: #F1ECE3; --fg: #1B1A17;
+  --muted: rgba(27,26,23,.68); --faint: rgba(27,26,23,.52);
+  --line: rgba(27,26,23,.10); --line-str: rgba(27,26,23,.24);
+  --pink: #E0145F; --pink-dark: #B80F4E; --gold: #8C6A1E; --gold-bg: rgba(198,153,58,.16); --stop: #C0362F;
+  --f-display: 'Cormorant Garamond', Georgia, serif;
+  --f-body: 'Montserrat', -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: var(--f-body); font-size: 14px; line-height: 1.5; background: radial-gradient(ellipse at 80% 0%, rgba(224,20,95,.07) 0%, transparent 50%), var(--bg); color: var(--fg); min-height: 100vh; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+.top { padding: 1.25rem 3.5rem; border-bottom: 1px solid var(--line); }
+.top a { font-family: var(--f-display); font-size: 1.05rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--fg); text-decoration: none; }
+main { padding: 2rem 16px 4rem; }
+footer { border-top: 1px solid var(--line); padding: 2rem 3.5rem; font-size: .65rem; color: var(--faint); }
+footer a { color: inherit; }
+.state { display: none; } .state.on { display: block; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line-str); background: var(--card); padding: 11px 18px; border-radius: 6px; font-weight: 600; font-size: 13px; white-space: nowrap; color: var(--fg); }
+.btn:hover { background: var(--card-up); }
+.btn.primary { background: var(--pink); border-color: var(--pink); color: #fff; letter-spacing: .04em; }
+.btn.primary:hover { background: var(--pink-dark); }
+.btn.ghost { background: none; border-color: transparent; color: var(--muted); padding: 8px 10px; }
+.btn.ghost:hover { color: var(--fg); }
+.btn[disabled] { opacity: .55; cursor: wait; }
+.form-shell { max-width: 640px; margin: 0 auto; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: 0 1px 2px rgba(27,26,23,.05), 0 8px 28px rgba(27,26,23,.06); }
+.f-hero { padding: 28px 24px 18px; text-align: center; border-bottom: 1px solid var(--line); }
+.eyebrow { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--pink); font-weight: 600; }
+.f-hero h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(28px, 6vw, 38px); line-height: 1.05; margin: 8px 0 6px; text-wrap: balance; overflow-wrap: anywhere; }
+.f-hero p { margin: 0 auto; max-width: 44ch; font-size: 13px; color: var(--muted); }
+.steps { display: flex; gap: 6px; padding: 16px 24px 0; }
+.steps span { flex: 1; height: 3px; border-radius: 2px; background: var(--line-str); transition: background .3s; }
+.steps span.done { background: var(--pink); }
+.step-lbl { padding: 8px 24px 0; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; }
+.f-body { padding: 18px 24px 8px; }
+.f-body h2 { font-family: var(--f-display); font-size: 26px; font-weight: 600; margin: 0 0 4px; line-height: 1.15; }
+.f-body h3 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin: 6px 0 10px; }
+.f-body .sub { font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+.f-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 14px; }
+.f-grid .full { grid-column: 1 / -1; }
+.ff { display: grid; gap: 6px; margin-bottom: 14px; min-width: 0; align-content: start; }
+.ff label, .ff .lbl { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.ff label i, .ff .lbl i, .check i { font-style: normal; color: var(--pink); }
+.ff .help { font-size: 11.5px; color: var(--faint); }
+.ff input, .ff select, .ff textarea { font-size: 16px; padding: 11px 12px; border: 1px solid var(--line-str); background: var(--card); border-radius: 6px; width: 100%; min-width: 0; outline: none; transition: border-color .2s; }
+.ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--pink); }
+.ff textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+.ff .err, .ff input.err, .ff select.err, .ff textarea.err { border-color: var(--stop); }
+.opt { font-weight: 500; color: var(--faint); font-size: 11.5px; }
+.seg { display: flex; gap: 8px; flex-wrap: wrap; }
+.seg label { flex: 1 1 0; min-width: 0; display: flex; gap: 8px; align-items: center; border: 1px solid var(--line-str); background: var(--card); border-radius: 6px; padding: 10px 12px; font-size: 14px; font-weight: 500; cursor: pointer; }
+.seg input { width: 18px; height: 18px; accent-color: var(--pink); flex: none; }
+.seg.err label { border-color: var(--stop); }
+.privbox { border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 14px 14px 2px; margin-bottom: 14px; }
+.privacy-tag { display: inline-flex; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-bottom: 12px; color: var(--gold); background: var(--gold-bg); }
+.summary { border: 1px solid var(--line-str); border-radius: 10px; background: var(--card-up); padding: 14px 16px; margin-bottom: 16px; }
+.summary .s-top { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.summary .s-top span { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--faint); }
+.summary dl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px 14px; }
+.summary dt { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); font-weight: 600; }
+.summary dd { font-size: 13.5px; font-weight: 500; overflow-wrap: anywhere; white-space: pre-line; }
+.summary .none { font-size: 13px; color: var(--muted); }
+.legal { max-height: 260px; overflow: auto; border: 1px solid var(--line-str); border-radius: 8px; padding: 14px 16px; background: var(--card); font-size: 12.5px; line-height: 1.6; color: var(--muted); overflow-wrap: anywhere; }
+.legal h1, .legal h2, .legal h3, .legal h4, .legal h5, .legal h6 { margin: 12px 0 4px; font-family: var(--f-body); font-size: 12px; color: var(--fg); letter-spacing: .04em; text-transform: uppercase; }
+.legal > :first-child { margin-top: 0; }
+.legal p { margin: 0 0 8px; }
+.legal ul, .legal ol { margin: 0 0 8px 1.2em; }
+.legal a { color: var(--pink); }
+.checks { margin-top: 12px; }
+.check { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; cursor: pointer; }
+.check:last-child { border-bottom: 0; }
+.check input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--pink); flex: none; }
+.check.err span, .checks.err .check span { color: var(--stop); }
+.check small { display: block; color: var(--faint); font-size: 11.5px; }
+.group-lbl { font-size: 12px; font-weight: 600; margin-top: 14px; }
+.group-lbl i { font-style: normal; color: var(--pink); }
+.sigpad { position: relative; border: 1px solid var(--line-str); border-radius: 10px; background: #FEFCF8; touch-action: none; overflow: hidden; }
+.sigpad.err { border-color: var(--stop); box-shadow: 0 0 0 1px var(--stop); }
+.sigpad canvas { display: block; width: 100%; height: 170px; cursor: crosshair; touch-action: none; }
+.sigpad .base { position: absolute; left: 20px; right: 20px; bottom: 40px; border-bottom: 1px solid rgba(0,0,0,.25); pointer-events: none; }
+.sigpad .x { position: absolute; left: 22px; bottom: 44px; font-family: var(--f-display); font-size: 22px; color: rgba(0,0,0,.35); pointer-events: none; }
+.sigpad .hint { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-size: 11px; color: rgba(0,0,0,.45); pointer-events: none; }
+.sig-tools { display: flex; justify-content: flex-end; margin-top: 6px; }
+.sig-meta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin-top: 12px; font-size: 12px; }
+.sig-meta div { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
+.sig-meta span { display: block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+.sig-meta b { font-weight: 500; }
+.f-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 16px 24px 22px; }
+.f-foot .err-msg { order: -1; flex: 1 0 100%; font-size: 12.5px; color: var(--stop); line-height: 1.5; }
+.f-foot .err-msg:empty { display: none; }
+.f-foot .progress { flex: 1 0 100%; order: -1; font-size: 12.5px; color: var(--gold); }
+.f-foot .progress:empty { display: none; }
+.f-foot .btn.primary { margin-left: auto; }
+.msg { max-width: 640px; margin: 0 auto; text-align: center; padding: 3rem 24px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+.msg h1 { font-family: var(--f-display); font-size: clamp(28px, 6vw, 38px); font-weight: 600; line-height: 1.1; margin: 8px 0 12px; overflow-wrap: anywhere; }
+.msg p { font-size: 13.5px; line-height: 1.8; color: var(--muted); max-width: 46ch; margin: 0 auto; overflow-wrap: anywhere; }
+.msg p + p { margin-top: 10px; }
+.msg p.eyebrow { color: var(--pink); font-size: 10px; line-height: 1.5; }
+.msg a { color: var(--pink); }
+.msg .sash { width: 70px; height: 3px; background: var(--gold); margin: 0 auto 18px; }
+.spinner { width: 28px; height: 28px; margin: 3rem auto; border: 2px solid var(--line); border-top-color: var(--pink); border-radius: 50%; animation: spin .9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 700px) { .top, footer { padding-left: 16px; padding-right: 16px; } main { padding-top: 1rem; } }
+@media (max-width: 520px) {
+  .f-hero { padding: 24px 18px 16px; } .steps { padding: 16px 18px 0; } .step-lbl { padding: 8px 18px 0; }
+  .f-body { padding: 16px 18px 8px; } .f-foot { padding: 14px 18px 20px; }
+  .f-grid, .summary dl { grid-template-columns: minmax(0, 1fr); }
+}
+.film { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0 14px; border: 1px solid var(--line-str); background: var(--card); border-radius: 6px; padding: 2px 12px; }
+.film .check { border-bottom: 0; padding: 8px 0; }
+.summary .wide { grid-column: 1 / -1; }
+@media (max-width: 520px) { .film { grid-template-columns: minmax(0,1fr); } }
+</style>
+</head>
+<body>
+
+<header class="top"><a href="../">Chasing the Sash</a></header>
+
+<main>
+
+  <!-- Loading -->
+  <div class="state on" id="s-loading"><div class="spinner" aria-label="Loading"></div></div>
+
+  <!-- Invalid link -->
+  <div class="state" id="s-invalid">
+    <div class="msg">
+      <p class="eyebrow">Chasing the Sash</p>
+      <h1>This link isn't working</h1>
+      <p>The link may be incomplete or out of date. Please check you copied the whole link, or contact the producers at <a href="mailto:ask@chasingthesash.com">ask@chasingthesash.com</a> for a new one.</p>
+    </div>
+  </div>
+
+  <!-- Could not reach the server -->
+  <div class="state" id="s-offline">
+    <div class="msg">
+      <p class="eyebrow">Chasing the Sash</p>
+      <h1>We couldn't load your agreement</h1>
+      <p>Please check your internet connection and refresh the page. If it keeps happening, contact the producers at <a href="mailto:ask@chasingthesash.com">ask@chasingthesash.com</a>.</p>
+    </div>
+  </div>
+
+  <!-- Already signed -->
+  <div class="state" id="s-signed">
+    <div class="msg">
+      <p class="eyebrow">Chasing the Sash</p>
+      <h1>Already signed</h1>
+      <div class="sash"></div>
+      <p id="signed-text">This agreement has already been signed. Thank you!</p>
+      <p>Need to change something? Email <a href="mailto:ask@chasingthesash.com">ask@chasingthesash.com</a>.</p>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="state" id="s-form">
+    <form class="form-shell" id="form" novalidate>
+      <div class="f-hero">
+        <div class="eyebrow">Chasing the Sash</div>
+        <h1>Location agreement</h1>
+        <p>Three quick steps: you and the location, the dates and terms, then your signature.</p>
+      </div>
+      <div class="steps" id="steps" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="step-lbl" id="step-lbl" aria-live="polite">Step 1 of 3 &middot; You and the location</div>
+
+      <div class="f-body">
+
+        <!-- Step 1 -->
+        <section class="step" data-step="0">
+          <h2>You and the location</h2>
+          <p class="sub">Tell us who you are and where we'll be filming.</p>
+          <h3>About you</h3>
+          <div class="f-grid">
+            <div class="ff"><label for="fullName">Your full name <i>*</i></label><input id="fullName" maxlength="120" autocomplete="name"></div>
+            <div class="ff"><label for="role">Your role <i>*</i></label>
+              <select id="role">
+                <option value="">Please choose</option>
+                <option>Owner</option>
+                <option>Manager</option>
+                <option>Authorised representative</option>
+              </select></div>
+            <div class="ff full"><label for="org">Organisation or business name <span class="opt">Optional</span></label><input id="org" maxlength="120" autocomplete="organization"></div>
+            <div class="ff"><label for="email">Email <i>*</i></label><input id="email" type="email" maxlength="200" autocomplete="email" autocapitalize="off" spellcheck="false"></div>
+            <div class="ff"><label for="phone">Mobile <i>*</i></label><input id="phone" type="tel" maxlength="30" autocomplete="tel"></div>
+          </div>
+          <h3>The location</h3>
+          <div class="f-grid">
+            <div class="ff full"><label for="locName">Location name <i>*</i></label><input id="locName" maxlength="120" autocomplete="off"><span class="help">e.g. a racecourse area, boutique, home or caf&eacute;</span></div>
+            <div class="ff full"><label for="street">Street address <i>*</i></label><input id="street" maxlength="160" autocomplete="street-address"></div>
+            <div class="ff full"><label for="area">Suburb, state and postcode <i>*</i></label><input id="area" maxlength="120" autocomplete="off"></div>
+            <div class="ff full"><span class="lbl">What can be filmed? <span class="opt">Tick all that apply</span></span>
+              <div class="film">
+                <label class="check"><input type="checkbox" name="film" value="interior"><span>Interior</span></label>
+                <label class="check"><input type="checkbox" name="film" value="exterior"><span>Exterior</span></label>
+                <label class="check"><input type="checkbox" name="film" value="signage"><span>Signage and logo</span></label>
+                <label class="check"><input type="checkbox" name="film" value="staff"><span>Staff at work</span></label>
+              </div></div>
+            <div class="ff full"><label for="offLimits">Areas that are off-limits <span class="opt">Optional</span></label><textarea id="offLimits" maxlength="600"></textarea></div>
+            <div class="ff full"><label for="access">Parking and access notes <span class="opt">Optional</span></label><textarea id="access" maxlength="600"></textarea></div>
+            <div class="ff"><label for="siteName">On-site contact on the day <span class="opt">Optional</span></label><input id="siteName" maxlength="120" placeholder="Name" autocomplete="off"></div>
+            <div class="ff"><label for="sitePhone">Their mobile <span class="opt">Optional</span></label><input id="sitePhone" type="tel" maxlength="30" autocomplete="off"></div>
+          </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section class="step" data-step="1" hidden>
+          <h2>Dates &amp; terms</h2>
+          <p class="sub">The producer has filled in the shoot details. Please read the terms before you sign.</p>
+          <div class="summary" aria-label="Shoot summary">
+            <div class="s-top"><span>Shoot details &middot; set by the producer</span><span>Read only</span></div>
+            <dl id="job"></dl>
+          </div>
+          <div class="legal" id="legal" tabindex="0" aria-label="Location agreement terms"></div>
+          <div class="checks">
+            <label class="check" id="c-agree"><input type="checkbox" id="agree"><span>I have read and agree to the location agreement <i>*</i></span></label>
+            <label class="check" id="c-authority"><input type="checkbox" id="authority"><span>I confirm I have authority to grant access to this location <i>*</i></span></label>
+            <label class="check"><input type="checkbox" id="coc"><span>Please send me a certificate of currency<small>Optional. A copy of the Producer's insurance certificate.</small></span></label>
+          </div>
+        </section>
+
+        <!-- Step 3 -->
+        <section class="step" data-step="2" hidden>
+          <h2>Sign</h2>
+          <p class="sub">Sign with your finger, stylus or mouse.</p>
+          <div class="sigpad" id="sigpad"><canvas id="sig" aria-label="Signature pad" role="img"></canvas><span class="base"></span><span class="x">&times;</span><span class="hint" id="sig-hint">Sign above the line</span></div>
+          <div class="sig-tools"><button class="btn ghost" type="button" id="sig-clear">Clear signature</button></div>
+          <div class="ff" style="margin-top:6px"><label for="sigName">Type your full name to confirm <i>*</i></label><input id="sigName" maxlength="120" autocomplete="off"><span class="help">Exactly as you wrote your full name at step 1</span></div>
+          <div class="sig-meta">
+            <div><span>Date</span><b id="sig-date"></b></div>
+            <div><span>Signed via</span><b>Private link</b></div>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="f-foot">
+        <button class="btn" type="button" id="f-back" hidden>Back</button>
+        <span class="err-msg" id="f-err" role="alert"></span>
+        <span class="progress" id="f-progress" aria-live="polite"></span>
+        <button class="btn primary" type="submit" id="f-next">Continue</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Done -->
+  <div class="state" id="s-done">
+    <div class="msg">
+      <p class="eyebrow">Signed</p>
+      <h1 id="done-title">Thank you</h1>
+      <div class="sash"></div>
+      <p id="done-text"></p>
+    </div>
+  </div>
+
+</main>
+
+<footer>&copy; Chasing the Sash &middot; Produced by Freestyle TV &middot; <a href="../privacy.html">Privacy</a></footer>
+
+<script>
+'use strict';
+
+// Public anon key only. Row Level Security, the storage policies and the
+// token-checked agreement functions are what protect the data. Never put the
+// service_role key here.
+const SUPABASE_URL = 'https://lpgjycgsxjsachqnmegw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZ2p5Y2dzeGpzYWNocW5tZWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MDMyNDIsImV4cCI6MjEwMzI3OTI0Mn0.vitgl1amPiSqCcuYk4Yc3jp-dsKSn7udcLwBDAIsVvk';
+const KIND = 'location';
+const BUCKET = 'agreements';
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const STEPS = ['You and the location', 'Dates & terms', 'Sign'];
+const ROLES = ['Owner', 'Manager', 'Authorised representative'];
+// [key, label, spans both columns]
+const JOB_FIELDS = [
+  ['dates', 'Shoot date(s)'], ['times', 'Call / wrap'], ['crew_size', 'Crew size'],
+  ['fee', 'Location fee'], ['episode', 'Episode', true]
+];
+
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+const token = (params.get('t') || '').trim().toLowerCase();
+
+let form = null;                // row from get_agreement_form
+let step = 0;
+let busy = false;
+let uploadedSig = '';           // signature path already uploaded, so a retry doesn't upload it again
+
+function show(state) {
+  document.querySelectorAll('.state').forEach(el => el.classList.toggle('on', el.id === 's-' + state));
+}
+
+function fmtDate(d) {
+  return new Date(d).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Australia/Melbourne' });
+}
+
+/* ── Supabase REST helpers (plain fetch, anon key) ── */
+function authHeaders(extra) {
+  return Object.assign({ apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY }, extra || {});
+}
+
+async function readJson(res) {
+  const text = await res.text();
+  try { return text ? JSON.parse(text) : null; } catch (e) { return null; }
+}
+
+function serverMessage(body, fallback) {
+  if (body && typeof body === 'object') {
+    const m = body.message || body.error_description || body.msg || (typeof body.error === 'string' ? body.error : '');
+    if (m) return String(m);
+  }
+  return fallback;
+}
+
+async function rpc(name, body) {
+  const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/' + name, {
+    method: 'POST',
+    headers: authHeaders({ 'Content-Type': 'application/json', Accept: 'application/json' }),
+    body: JSON.stringify(body)
+  });
+  const data = await readJson(res);
+  if (!res.ok) {
+    const err = new Error(serverMessage(data, 'Something went wrong (error ' + res.status + '). Please try again.'));
+    err.status = res.status;
+    throw err;
+  }
+  return data;
+}
+
+async function uploadObject(path, blob, contentType) {
+  const res = await fetch(SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + path, {
+    method: 'POST',
+    headers: authHeaders({ 'Content-Type': contentType, 'x-upsert': 'false', 'cache-control': 'max-age=31536000' }),
+    body: blob
+  });
+  if (!res.ok) {
+    const data = await readJson(res);
+    throw new Error(serverMessage(data, 'error ' + res.status));
+  }
+  return path;
+}
+
+// 8 characters of [a-z0-9]; the storage policy wants 4 to 12.
+function randId() {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const buf = new Uint8Array(8);
+  crypto.getRandomValues(buf);
+  return Array.from(buf, b => chars[b % chars.length]).join('');
+}
+
+/* ── Load ── */
+function renderJob(job) {
+  const dl = $('job');
+  dl.textContent = '';
+  JOB_FIELDS.forEach(([key, label, wide]) => {
+    const v = job && job[key] != null ? String(job[key]).trim() : '';
+    if (!v) return;
+    const row = document.createElement('div');
+    if (wide) row.className = 'wide';
+    const dt = document.createElement('dt'); dt.textContent = label;
+    const dd = document.createElement('dd'); dd.textContent = v;
+    row.append(dt, dd);
+    dl.appendChild(row);
+  });
+  if (!dl.children.length) {
+    const p = document.createElement('p'); p.className = 'none';
+    p.textContent = 'The producer will confirm the shoot details with you.';
+    dl.replaceWith(p); p.id = 'job';
+  }
+}
+
+async function load() {
+  if (!UUID_RE.test(token)) return show('invalid');
+  let rows;
+  try {
+    rows = await rpc('get_agreement_form', { p_token: token });
+  } catch (err) {
+    return show(err.status ? 'invalid' : 'offline');
+  }
+  if (!Array.isArray(rows) || !rows.length) return show('invalid');
+  form = rows[0];
+
+  // A crew link opened on the location page: send it to the right form.
+  if (form.kind && form.kind !== KIND) {
+    if (form.kind === 'crew') { location.replace('../crew/?t=' + encodeURIComponent(token)); return; }
+    return show('invalid');
+  }
+
+  if (form.already_signed) {
+    $('signed-text').textContent = form.signed_at
+      ? 'This agreement was signed on ' + fmtDate(form.signed_at) + '. Thank you!'
+      : 'This agreement has already been signed. Thank you!';
+    return show('signed');
+  }
+
+  $('fullName').value = String(form.recipient_name || '').trim();
+  $('email').value = String(form.recipient_email || '').trim();
+  renderJob(form.job || {});
+  // Written by the production team in the dashboard; the only field set as HTML.
+  $('legal').innerHTML = form.terms_html || '';
+
+  goTo(0);
+  show('form');
+}
+
+/* ── Steps ── */
+function goTo(n) {
+  step = n;
+  document.querySelectorAll('.step').forEach(el => { el.hidden = Number(el.dataset.step) !== n; });
+  document.querySelectorAll('#steps span').forEach((el, i) => el.classList.toggle('done', i <= n));
+  $('step-lbl').textContent = 'Step ' + (n + 1) + ' of ' + STEPS.length + ' · ' + STEPS[n];
+  $('f-back').hidden = n === 0;
+  $('f-next').textContent = n === STEPS.length - 1 ? 'Sign and submit' : 'Continue';
+  setError('');
+  if (n === 2) { $('sig-date').textContent = fmtDate(new Date()); requestAnimationFrame(sizeSig); }
+}
+
+function scrollToForm() {
+  const top = $('form').getBoundingClientRect().top + window.scrollY - 8;
+  if (window.scrollY > top) window.scrollTo({ top: Math.max(0, top) });
+}
+
+function setError(msg) { $('f-err').textContent = msg; }
+
+/* ── Signature pad. Strokes are kept as points in 0..1 so the pad can be
+   redrawn crisply when the screen rotates or resizes. ── */
+const sig = { strokes: [], current: null, width: 0 };
+
+function sigHasInk() { return sig.strokes.some(s => s.length > 1); }
+
+function drawStrokes(ctx, w, h, lineWidth) {
+  ctx.lineWidth = lineWidth; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1B1A17';
+  sig.strokes.forEach(s => {
+    if (!s.length) return;
+    ctx.beginPath();
+    ctx.moveTo(s[0].x * w, s[0].y * h);
+    if (s.length === 1) ctx.lineTo(s[0].x * w + 0.1, s[0].y * h);
+    for (let i = 1; i < s.length; i++) ctx.lineTo(s[i].x * w, s[i].y * h);
+    ctx.stroke();
+  });
+}
+
+function sizeSig() {
+  const cv = $('sig');
+  const r = cv.getBoundingClientRect();
+  if (!r.width) return;
+  const ratio = window.devicePixelRatio || 1;
+  cv.width = Math.round(r.width * ratio);
+  cv.height = Math.round(r.height * ratio);
+  sig.width = r.width;
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.clearRect(0, 0, r.width, r.height);
+  drawStrokes(ctx, r.width, r.height, 2.4);
+}
+
+function bindSig() {
+  const cv = $('sig');
+  const pt = e => {
+    const r = cv.getBoundingClientRect();
+    return { x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)) };
+  };
+  cv.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    if (cv.getBoundingClientRect().width !== sig.width) sizeSig();
+    sig.current = [pt(e)];
+    sig.strokes.push(sig.current);
+    try { cv.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    $('sig-hint').hidden = true;
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!sig.current) return;
+    e.preventDefault();
+    const p = pt(e);
+    const last = sig.current[sig.current.length - 1];
+    sig.current.push(p);
+    const r = cv.getBoundingClientRect();
+    const ctx = cv.getContext('2d');
+    ctx.lineWidth = 2.4; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1B1A17';
+    ctx.beginPath(); ctx.moveTo(last.x * r.width, last.y * r.height); ctx.lineTo(p.x * r.width, p.y * r.height); ctx.stroke();
+  });
+  const end = () => {
+    if (!sig.current) return;
+    sig.current = null;
+    uploadedSig = '';
+    if (sigHasInk()) { $('sigpad').classList.remove('err'); if (/sign in the box/i.test($('f-err').textContent)) setError(''); }
+  };
+  cv.addEventListener('pointerup', end);
+  cv.addEventListener('pointercancel', end);
+  $('sig-clear').addEventListener('click', () => {
+    sig.strokes = []; sig.current = null; uploadedSig = '';
+    sizeSig();
+    $('sig-hint').hidden = false;
+  });
+  let lastW = window.innerWidth;
+  window.addEventListener('resize', () => {
+    if (step === 2 && window.innerWidth !== lastW) { lastW = window.innerWidth; sizeSig(); }
+  });
+}
+
+function canvasToBlob(canvas, type, quality) {
+  return new Promise(resolve => canvas.toBlob(resolve, type, quality));
+}
+
+// Signature exported at a fixed size on a transparent background.
+function signatureBlob() {
+  const w = 900, h = Math.round(900 * 170 / Math.max(1, sig.width || 600));
+  const c = document.createElement('canvas');
+  c.width = w; c.height = Math.max(150, Math.min(600, h));
+  drawStrokes(c.getContext('2d'), c.width, c.height, 2.4 * w / Math.max(1, sig.width || 600));
+  return canvasToBlob(c, 'image/png');
+}
+
+/* ── Validation, one step at a time. Returns '' or a message and marks the field.
+   Same rules as the database checks in submit_agreement. ── */
+function clearMarks() { document.querySelectorAll('.err').forEach(el => el.classList.remove('err')); }
+
+function fail(el, msg) {
+  el.classList.add('err');
+  if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA') el.focus();
+  else el.scrollIntoView({ block: 'center' });
+  return msg;
+}
+
+const clean = v => v.trim().replace(/\s+/g, ' ');
+const digits = v => v.replace(/\D/g, '');
+function sameName(a, b) { return clean(a).toLowerCase() === clean(b).toLowerCase(); }
+
+function validate(s) {
+  clearMarks();
+  if (s === 0) {
+    if (clean($('fullName').value).split(' ').filter(Boolean).length < 2 || clean($('fullName').value).length < 3) return fail($('fullName'), 'Add your full name (first and last).');
+    if (!ROLES.includes($('role').value)) return fail($('role'), 'Choose your role at the location.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())) return fail($('email'), 'Add a valid email address.');
+    const ph = digits($('phone').value).length;
+    if (ph < 8 || ph > 15) return fail($('phone'), 'Add a mobile number.');
+    if (!$('locName').value.trim()) return fail($('locName'), 'Add the location name.');
+    if (!$('street').value.trim()) return fail($('street'), 'Add the street address.');
+    if (!/\d{4}\s*$/.test($('area').value.trim())) return fail($('area'), 'Add the suburb, state and a 4-digit postcode, e.g. Fitzroy VIC 3065.');
+    const sp = $('sitePhone').value.trim();
+    if (sp && (digits(sp).length < 8 || digits(sp).length > 15)) return fail($('sitePhone'), 'Check the on-site contact\'s mobile number, or leave it blank.');
+  }
+  if (s === 1) {
+    if (!$('agree').checked) return fail($('c-agree'), 'Tick to agree to the location agreement.');
+    if (!$('authority').checked) return fail($('c-authority'), 'Tick to confirm you have authority to grant access.');
+  }
+  if (s === 2) {
+    if (!sigHasInk()) return fail($('sigpad'), 'Sign in the box above.');
+    if (!sameName($('sigName').value, $('fullName').value)) return fail($('sigName'), 'Type the name exactly as: ' + clean($('fullName').value));
+  }
+  return '';
+}
+
+/* ── Submit ── */
+function details() {
+  return {
+    full_name: clean($('fullName').value),
+    role: $('role').value,
+    organisation: clean($('org').value),
+    email: $('email').value.trim(),
+    phone: $('phone').value.trim(),
+    location_name: clean($('locName').value),
+    street: clean($('street').value),
+    area: clean($('area').value),
+    film: Array.from(document.querySelectorAll('input[name=film]:checked'), el => el.value),
+    off_limits: $('offLimits').value.trim(),
+    access_notes: $('access').value.trim(),
+    site_contact_name: clean($('siteName').value),
+    site_contact_phone: $('sitePhone').value.trim(),
+    want_coc: $('coc').checked,
+    authority: $('authority').checked,
+    agree: $('agree').checked
+  };
+}
+
+async function submit() {
+  busy = true;
+  const btn = $('f-next');
+  btn.disabled = true; $('f-back').disabled = true;
+  btn.textContent = 'Submitting…';
+  setError('');
+  try {
+    if (!uploadedSig) {
+      $('f-progress').textContent = 'Saving your signature…';
+      const blob = await signatureBlob();
+      if (!blob) throw new Error('Your signature could not be read. Please clear it and sign again.');
+      const path = token + '/signature-' + Date.now() + '-' + randId() + '.png';
+      try { await uploadObject(path, blob, 'image/png'); }
+      catch (err) { throw new Error('Your signature could not be saved (' + err.message + '). Please check your connection and try again.'); }
+      uploadedSig = path;
+    }
+
+    $('f-progress').textContent = 'Filing your agreement…';
+    const result = await rpc('submit_agreement', {
+      p_token: token,
+      p: {
+        terms_version: form.terms_version,
+        signed_name: clean($('sigName').value),
+        signature_path: uploadedSig,
+        signed_via: 'link',
+        user_agent: navigator.userAgent.slice(0, 400),
+        details: details()
+      }
+    });
+    const signatureId = typeof result === 'string' ? result
+      : Array.isArray(result) ? (typeof result[0] === 'string' ? result[0] : result[0] && (result[0].submit_agreement || result[0].id))
+      : result && (result.submit_agreement || result.id);
+
+    // Builds, files and emails the signed copy. A scheduled job sweeps anything
+    // missed, so failures here are ignored.
+    if (signatureId) {
+      try {
+        fetch(SUPABASE_URL + '/functions/v1/release-dispatch', {
+          method: 'POST', keepalive: true,
+          headers: authHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ agreement_signature_id: signatureId })
+        }).catch(() => {});
+      } catch (err) { /* ignore */ }
+    }
+
+    showDone();
+  } catch (err) {
+    setError(err.message || 'Something went wrong. Please try again.');
+    btn.textContent = 'Sign and submit';
+  } finally {
+    busy = false;
+    btn.disabled = false; $('f-back').disabled = false;
+    $('f-progress').textContent = '';
+  }
+}
+
+function showDone() {
+  const first = clean($('fullName').value).split(' ')[0];
+  $('done-title').textContent = 'Thank you, ' + first;
+  $('done-text').textContent = 'The signed agreement for ' + clean($('locName').value) + ' is on its way to ' + $('email').value.trim() + '. You can close this page.';
+  show('done');
+  window.scrollTo({ top: 0 });
+}
+
+function onNext(e) {
+  e.preventDefault();
+  if (busy) return;
+  const msg = validate(step);
+  if (msg) { setError(msg); return; }
+  setError('');
+  if (step < STEPS.length - 1) { goTo(step + 1); scrollToForm(); }
+  else submit();
+}
+
+/* ── Wire up ── */
+$('form').addEventListener('submit', onNext);
+$('f-back').addEventListener('click', () => { if (!busy && step > 0) { clearMarks(); goTo(step - 1); scrollToForm(); } });
+// Clear a field's error mark as soon as it is edited.
+$('form').addEventListener('input', e => {
+  const t = e.target;
+  let fixed = false;
+  if (t.classList && t.classList.contains('err')) { t.classList.remove('err'); fixed = true; }
+  const g = t.closest && t.closest('.err'); if (g) { g.classList.remove('err'); fixed = true; }
+  if (fixed) setError('');
+});
+$('form').addEventListener('change', e => {
+  let fixed = false;
+  if (e.target.classList && e.target.classList.contains('err')) { e.target.classList.remove('err'); fixed = true; }
+  const g = e.target.closest && e.target.closest('.err'); if (g) { g.classList.remove('err'); fixed = true; }
+  if (fixed) setError('');
+});
+bindSig();
+
+load();
+</script>
+</body>
+</html>
