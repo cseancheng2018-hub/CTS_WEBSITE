@@ -13,40 +13,40 @@
 </script>
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#090907">
+<meta name="theme-color" content="#F7F3EC">
 <title>Participant Release — Chasing the Sash</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Brand-dark, single theme. Tokens follow the approved release prototype. */
+/* Light theme (Sean, 2026-10-16), brand pink and gold kept. Single theme on purpose. */
 :root {
-  --bg: #090907;
-  --panel: #101010;
-  --card: #161614;
-  --card-up: #1D1D1A;
-  --fg: #FEFCF8;
+  --bg: #F7F3EC;
+  --panel: #FFFFFF;
+  --card: #FBF9F5;
+  --card-up: #F1ECE3;
+  --fg: #1B1A17;
   --cream: #F4EDE0;
-  --muted: rgba(254,252,248,0.58);
-  --faint: rgba(254,252,248,0.42);
-  --line: rgba(255,255,255,0.09);
-  --line-str: rgba(255,255,255,0.2);
-  --pink: #FF1F6E;
-  --pink-dark: #C8145A;
-  --gold: #C6993A;
-  --gold-bg: rgba(198,153,58,0.14);
-  --ok: #5FBF7E; --ok-bg: rgba(95,191,126,0.13);
-  --stop: #E0554F; --stop-bg: rgba(224,85,79,0.13);
+  --muted: rgba(27,26,23,0.68);
+  --faint: rgba(27,26,23,0.52);
+  --line: rgba(27,26,23,0.10);
+  --line-str: rgba(27,26,23,0.24);
+  --pink: #E0145F;
+  --pink-dark: #B80F4E;
+  --gold: #8C6A1E;
+  --gold-bg: rgba(198,153,58,0.16);
+  --ok: #2E7D4F; --ok-bg: rgba(46,125,79,0.10);
+  --stop: #C0362F; --stop-bg: rgba(192,54,47,0.10);
   --f-display: 'Cormorant Garamond', Georgia, serif;
   --f-body: 'Montserrat', -apple-system, 'Segoe UI', sans-serif;
-  color-scheme: dark;
+  color-scheme: light;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--f-body); font-size: 14px; line-height: 1.5;
   background:
-    radial-gradient(ellipse at 80% 0%, rgba(255,31,110,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 0%, rgba(224,20,95,0.07) 0%, transparent 50%),
     var(--bg);
   color: var(--fg);
   min-height: 100vh;
@@ -60,7 +60,7 @@ img { display: block; }
 
 .top {
   padding: 1.25rem 3.5rem;
-  border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid var(--line);
 }
 .top a {
   font-family: var(--f-display);
@@ -70,8 +70,8 @@ img { display: block; }
 }
 main { padding: 2rem 16px 4rem; }
 footer {
-  border-top: 0.5px solid rgba(255,255,255,0.05);
-  padding: 2rem 3.5rem; font-size: 0.65rem; color: rgba(255,255,255,0.3);
+  border-top: 1px solid var(--line);
+  padding: 2rem 3.5rem; font-size: 0.65rem; color: var(--faint);
 }
 footer a { color: inherit; }
 
@@ -88,7 +88,7 @@ footer a { color: inherit; }
 .btn[disabled] { opacity: .55; cursor: wait; }
 
 /* form shell */
-.form-shell { max-width: 640px; margin: 0 auto; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.form-shell { max-width: 640px; margin: 0 auto; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: 0 1px 2px rgba(27,26,23,0.05), 0 8px 28px rgba(27,26,23,0.06); }
 .handover { padding: 10px 18px; background: var(--gold-bg); color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: .02em; text-align: center; }
 .f-hero { padding: 28px 24px 18px; text-align: center; border-bottom: 1px solid var(--line); }
 .f-hero .eyebrow { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--pink); font-weight: 600; }
@@ -117,6 +117,7 @@ footer a { color: inherit; }
 .privacy-tag { display: inline-flex; gap: 6px; align-items: center; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-bottom: 12px; }
 .privacy-tag.pub { color: var(--ok); background: var(--ok-bg); }
 .privacy-tag.priv { color: var(--gold); background: var(--gold-bg); }
+.opt { font-weight: 500; color: var(--faint); font-size: 11.5px; }
 .label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
 
 /* photo */
@@ -193,7 +194,7 @@ footer a { color: inherit; }
 .msg a { color: var(--pink); }
 .msg .sash { width: 70px; height: 3px; background: var(--gold); margin: 0 auto 18px; }
 .msg .handback { display: inline-block; margin-top: 20px; padding: 10px 16px; background: var(--gold-bg); color: var(--gold); border-radius: 6px; font-weight: 600; font-size: 13px; }
-.spinner { width: 28px; height: 28px; margin: 3rem auto; border: 2px solid rgba(255,255,255,0.12); border-top-color: var(--pink); border-radius: 50%; animation: spin 0.9s linear infinite; }
+.spinner { width: 28px; height: 28px; margin: 3rem auto; border: 2px solid var(--line); border-top-color: var(--pink); border-radius: 50%; animation: spin 0.9s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 700px) {
@@ -256,23 +257,22 @@ footer a { color: inherit; }
       <div class="f-hero">
         <div class="eyebrow">Chasing the Sash</div>
         <h1 id="hero-title">Welcome to the interview</h1>
-        <p>Four quick steps: your details, your photo and profile, then your participant release.</p>
+        <p>Three quick steps: your details, your participant release, then your signature.</p>
         <p class="f-ep" id="hero-eps" hidden></p>
       </div>
-      <div class="steps" id="steps" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-      <div class="step-lbl" id="step-lbl" aria-live="polite">Step 1 of 4 &middot; About you</div>
+      <div class="steps" id="steps" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="step-lbl" id="step-lbl" aria-live="polite">Step 1 of 3 &middot; About you</div>
 
       <div class="f-body">
 
         <!-- Step 1: About you -->
         <section class="step" data-step="0">
           <h2>About you</h2>
-          <p class="sub">This goes on your release. It stays private to the production team.</p>
-          <span class="privacy-tag priv">Private</span>
+          <p class="sub">This goes on your release and stays private to the production team.</p>
           <div class="f-grid">
             <div class="ff full"><label for="legalName">Full legal name <i>*</i></label><input id="legalName" maxlength="120" autocomplete="name"><span class="help">As it appears on your ID</span></div>
-            <div class="ff"><label for="preferredName">What should we call you?</label><input id="preferredName" maxlength="80" autocomplete="nickname"></div>
-            <div class="ff"><label for="suburb">Suburb and state</label><input id="suburb" maxlength="80" autocomplete="address-level2"></div>
+            <div class="ff"><label for="preferredName">What should we call you? <span class="opt">Optional</span></label><input id="preferredName" maxlength="80" autocomplete="nickname"></div>
+            <div class="ff"><label for="suburb">Suburb and state <span class="opt">Optional</span></label><input id="suburb" maxlength="80" autocomplete="address-level2"></div>
             <div class="ff"><label for="email">Email <i>*</i></label><input id="email" type="email" maxlength="200" autocomplete="email" autocapitalize="off" spellcheck="false"><span class="help">Your signed release is emailed here</span></div>
             <div class="ff"><label for="phone">Mobile <i>*</i></label><input id="phone" type="tel" maxlength="30" autocomplete="tel"></div>
             <div class="ff full"><label for="adult">Are you 18 or over? <i>*</i></label>
@@ -282,59 +282,24 @@ footer a { color: inherit; }
                 <option value="no">No, I'm under 18</option>
               </select></div>
             <div class="ff full" id="guardian-wrap" hidden><label for="guardian">Parent or guardian's full name <i>*</i></label><input id="guardian" maxlength="120"><span class="help">They will sign the release at the last step</span></div>
+            <div class="ff full"><label for="onScreenTitle">Title, occupation or role <i>*</i></label><input id="onScreenTitle" maxlength="40" placeholder="e.g. Milliner, Racewear designer, Judge"><span class="help">Shown under your name on screen. Up to 40 characters.</span></div>
           </div>
-        </section>
-
-        <!-- Step 2: Photo & profile -->
-        <section class="step" data-step="1" hidden>
-          <h2>Your photo &amp; profile</h2>
-          <p class="sub">One clear photo, taken now. Our crew use it to know who's who in the edit, and it goes on your card on chasingthesash.com. Want a nicer one on the website later? Just reply to your release email with it.</p>
-          <span class="privacy-tag priv">Crew</span> <span class="privacy-tag pub">Website</span>
           <div class="upload" id="upload">
-            <div class="ph" id="ph-empty">No photo yet</div>
+            <div class="ph" id="ph-empty">No photo</div>
             <img id="ph-prev" alt="Your headshot" hidden>
-            <div class="u-txt"><b>Headshot <i style="font-style:normal;color:var(--pink)">*</i></b><span id="photo-tip">A recent selfie is fine. Face the camera, good light, no sunglasses.</span>
-              <div class="u-btns"><label class="btn" for="photo-file" id="photo-btn">Upload photo</label><input type="file" id="photo-file" accept="image/*" capture="user"></div></div>
+            <div class="u-txt"><b>Headshot <span class="opt">Optional</span></b><span id="photo-tip">A recent selfie is fine. Face the camera, good light, no sunglasses.</span>
+              <div class="u-btns"><label class="btn" for="photo-file" id="photo-btn">Upload photo</label><input type="file" id="photo-file" accept="image/*" capture="user"><button class="btn ghost" type="button" id="photo-clear" hidden>Remove</button></div></div>
           </div>
           <p class="photo-err" id="photo-err" role="alert"></p>
-          <div class="f-grid">
-            <div class="ff"><label for="displayName">Your name as it should appear <i>*</i></label><input id="displayName" maxlength="80"><span class="help">On screen and on the website. Check the spelling.</span></div>
-            <div class="ff"><label for="onScreenTitle">Title under your name on screen</label><input id="onScreenTitle" maxlength="40" placeholder="e.g. Racewear designer"><span class="help">Up to 40 characters</span></div>
-            <div class="ff full"><label for="role">How would you describe yourself? <i>*</i></label>
-              <select id="role">
-                <option value="">Please choose</option>
-                <option>Circuit Regular</option>
-                <option>First-Timer</option>
-                <option>Community Leader</option>
-                <option>Judge</option>
-                <option>Milliner</option>
-                <option>Designer</option>
-                <option>Stylist</option>
-                <option>Trainer or Jockey</option>
-                <option>Other</option>
-              </select></div>
-          </div>
           <div class="socials">
-            <div class="ff"><label for="instagram">Instagram</label><input id="instagram" maxlength="200" placeholder="@yourhandle" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="instagram-err"></span></div>
-            <div class="ff"><label for="facebook">Facebook</label><input id="facebook" maxlength="200" placeholder="@name or link" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="facebook-err"></span></div>
-            <div class="ff"><label for="tiktok">TikTok</label><input id="tiktok" maxlength="200" placeholder="@yourhandle" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="tiktok-err"></span></div>
-          </div>
-          <div class="ff"><label for="bio">Short bio for the website <i>*</i></label><textarea id="bio" maxlength="500" placeholder="Who you are, your connection to Fashions on the Field, and what the sash means to you."></textarea><span class="count" id="bio-ct">0/500</span></div>
-          <p class="label" style="margin:4px 0 8px">Preview</p>
-          <div class="pv-grid">
-            <div>
-              <div class="lt"><div class="noimg" id="lt-noimg">Your photo</div><img id="lt-img" alt="" hidden><div class="safe"></div><span class="tc">01:04:22:13</span><div class="bar"><b id="lt-name"></b><span id="lt-role"></span></div></div>
-              <p class="pv-cap">In the episode</p>
-            </div>
-            <div>
-              <div class="scard"><div class="pic"><div class="noimg" id="card-noimg">Your photo</div><img id="card-img" alt="" hidden></div><div class="info"><p class="role" id="pv-role"></p><p class="nm" id="pv-name"></p></div></div>
-              <p class="pv-cap">On the website</p>
-            </div>
+            <div class="ff"><label for="instagram">Instagram <span class="opt">Optional</span></label><input id="instagram" maxlength="200" placeholder="@yourhandle" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="instagram-err"></span></div>
+            <div class="ff"><label for="facebook">Facebook <span class="opt">Optional</span></label><input id="facebook" maxlength="200" placeholder="@name or link" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="facebook-err"></span></div>
+            <div class="ff"><label for="tiktok">TikTok <span class="opt">Optional</span></label><input id="tiktok" maxlength="200" placeholder="@yourhandle" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="ferr" id="tiktok-err"></span></div>
           </div>
         </section>
 
-        <!-- Step 3: Release & privacy -->
-        <section class="step" data-step="2" hidden>
+        <!-- Step 2: Release & privacy -->
+        <section class="step" data-step="1" hidden>
           <h2>Release &amp; privacy</h2>
           <p class="sub">Please read before you sign. A copy is emailed to you straight after.</p>
           <div class="legal" id="legal" tabindex="0" aria-label="Participant release, privacy notice and terms"></div>
@@ -346,8 +311,8 @@ footer a { color: inherit; }
           </div>
         </section>
 
-        <!-- Step 4: Sign -->
-        <section class="step" data-step="3" hidden>
+        <!-- Step 3: Sign -->
+        <section class="step" data-step="2" hidden>
           <h2>Sign</h2>
           <p class="sub" id="sign-sub">Sign with your finger, stylus or mouse.</p>
           <div class="sigpad" id="sigpad"><canvas id="sig" aria-label="Signature pad" role="img"></canvas><span class="base"></span><span class="x">&times;</span><span class="hint" id="sig-hint">Sign above the line</span></div>
@@ -400,7 +365,7 @@ const MAX_INPUT_BYTES = 25 * 1024 * 1024;
 const MAX_EDGE = 1400;          // longest side after resize, in px
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const TOKEN_RE = /^[A-Za-z0-9_-]{8,128}$/;      // keeps the token safe to use as a storage folder
-const STEPS = ['About you', 'Photo & profile', 'Release & privacy', 'Sign'];
+const STEPS = ['About you', 'Release & privacy', 'Sign'];
 
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -512,13 +477,10 @@ async function load() {
     : 'A recent selfie is fine. Face the camera, good light, no sunglasses.';
   $('sig-via').textContent = MODE === 'in_person' ? 'In person · Hannah\'s device' : 'Private link';
 
-  $('displayName').value = form.display_name || '';
   $('email').value = form.email || '';
   // Written by the production team in the dashboard; the only field set as HTML.
   $('legal').innerHTML = form.terms_html || '';
 
-  updatePreview();
-  updateCount();
   goTo(0);
   show('form');
 }
@@ -532,7 +494,7 @@ function goTo(n) {
   $('f-back').hidden = n === 0;
   $('f-next').textContent = n === STEPS.length - 1 ? 'Sign and submit' : 'Continue';
   setError('');
-  if (n === 3) prepareSignStep();
+  if (n === 2) prepareSignStep();
 }
 
 function scrollToForm() {
@@ -576,7 +538,7 @@ async function shrink(file) {
 }
 
 function setPhoto(url) {
-  [['ph-prev', 'ph-empty'], ['lt-img', 'lt-noimg'], ['card-img', 'card-noimg']].forEach(([img, empty]) => {
+  [['ph-prev', 'ph-empty']].forEach(([img, empty]) => {
     if (url) { $(img).src = url; $(img).hidden = false; $(empty).hidden = true; }
     else { $(img).hidden = true; $(img).removeAttribute('src'); $(empty).hidden = false; }
   });
@@ -601,24 +563,11 @@ async function onPhotoChosen(file) {
     if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
     photoPreviewUrl = URL.createObjectURL(blob);
     setPhoto(photoPreviewUrl);
-    $('photo-btn').textContent = 'Retake photo';
+    $('photo-btn').textContent = MODE === 'in_person' ? 'Retake photo' : 'Change photo';
+    $('photo-clear').hidden = false;
   } catch (err) {
     $('photo-err').textContent = err.message;
   }
-}
-
-/* ── Live previews ── */
-function updatePreview() {
-  $('lt-name').textContent = $('displayName').value.trim() || 'Your name';
-  $('pv-name').textContent = $('displayName').value.trim() || 'Your name';
-  $('lt-role').textContent = $('onScreenTitle').value.trim();
-  $('pv-role').textContent = $('role').value || 'Your role';
-}
-
-function updateCount() {
-  const n = $('bio').value.length;
-  $('bio-ct').textContent = n + '/500';
-  $('bio-ct').classList.toggle('over', n > 500);
 }
 
 /* ── Social links: turn a typed handle or pasted link into the exact URL
@@ -755,7 +704,7 @@ function bindSig() {
   });
   let lastW = window.innerWidth;
   window.addEventListener('resize', () => {
-    if (step === 3 && window.innerWidth !== lastW) { lastW = window.innerWidth; sizeSig(); }
+    if (step === 2 && window.innerWidth !== lastW) { lastW = window.innerWidth; sizeSig(); }
   });
 }
 
@@ -798,11 +747,7 @@ function validate(s) {
     if ($('phone').value.replace(/\D/g, '').length < 8) return fail($('phone'), 'Add a mobile number.');
     if (!$('adult').value) return fail($('adult'), 'Let us know if you\'re 18 or over.');
     if ($('adult').value === 'no' && $('guardian').value.trim().split(/\s+/).filter(Boolean).length < 2) return fail($('guardian'), 'Add your parent or guardian\'s full name (first and last).');
-  }
-  if (s === 1) {
-    if (!photoBlob) return fail($('upload'), 'Add a headshot photo.');
-    if (!$('displayName').value.trim()) return fail($('displayName'), 'Add your name as it should appear.');
-    if (!$('role').value) return fail($('role'), 'Choose how you would describe yourself.');
+    if (!$('onScreenTitle').value.trim()) return fail($('onScreenTitle'), 'Add your title, occupation or role.');
     let bad = null;
     SOCIALS.forEach(so => {
       const url = so.normalise($(so.key).value);
@@ -813,15 +758,12 @@ function validate(s) {
       }
     });
     if (bad) { $(bad.key).focus(); return 'Check your ' + bad.label.replace(/^an? /, '') + ' link.'; }
-    const bio = $('bio').value.trim();
-    if (bio.length < 20) return fail($('bio'), 'Write a short bio, at least a sentence.');
-    if (bio.length > 500) return fail($('bio'), 'Keep your bio to 500 characters.');
   }
-  if (s === 2) {
+  if (s === 1) {
     if (!$('agreeRelease').checked) return fail($('c-agreeRelease'), 'Tick the release box to continue.');
     if (!$('agreePrivacy').checked) return fail($('c-agreePrivacy'), 'Tick to confirm you\'ve read the privacy notice.');
   }
-  if (s === 3) {
+  if (s === 2) {
     if (!sigHasInk()) return fail($('sigpad'), 'Sign in the box above.');
     const expected = $('adult').value === 'no' ? $('guardian').value.trim() : $('legalName').value.trim();
     if (!sameName($('sigName').value, expected)) return fail($('sigName'), 'Type the name exactly as: ' + expected.replace(/\s+/g, ' '));
@@ -844,7 +786,7 @@ async function submit() {
     const consentPublic = $('consentPublic').checked;
     const isAdult = $('adult').value !== 'no';
 
-    if (!uploaded.photo) {
+    if (photoBlob && !uploaded.photo) {
       setProgress('Saving your photo…');
       const path = token + '/photo-' + Date.now() + '-' + randId() + '.jpg';
       try { await uploadObject(PRIVATE_BUCKET, path, photoBlob, 'image/jpeg'); }
@@ -862,7 +804,7 @@ async function submit() {
       uploaded.sig = path;
     }
 
-    if (consentPublic && !uploaded.pub) {
+    if (photoBlob && consentPublic && !uploaded.pub) {
       setProgress('Saving your photo…');
       const path = token + '/' + Date.now() + '-' + randId() + '.jpg';
       try { await uploadObject(PUBLIC_BUCKET, path, photoBlob, 'image/jpeg'); }
@@ -882,15 +824,15 @@ async function submit() {
         suburb: $('suburb').value.trim(),
         is_adult: isAdult,
         guardian_name: isAdult ? '' : $('guardian').value.trim().replace(/\s+/g, ' '),
-        display_name: $('displayName').value.trim(),
+        display_name: $('legalName').value.trim().replace(/\s+/g, ' '),
         on_screen_title: $('onScreenTitle').value.trim(),
-        role_tag: $('role').value,
-        bio: $('bio').value.trim(),
+        role_tag: '',
+        bio: '',
         instagram_url: normaliseInstagram($('instagram').value),
         facebook_url: normaliseFacebook($('facebook').value),
         tiktok_url: normaliseTikTok($('tiktok').value),
-        photo_path: uploaded.photo,
-        public_photo_path: consentPublic ? uploaded.pub : '',
+        photo_path: photoBlob ? uploaded.photo : '',
+        public_photo_path: photoBlob && consentPublic ? uploaded.pub : '',
         signature_path: uploaded.sig,
         consent_public: consentPublic,
         consent_contact: $('consentContact').checked,
@@ -929,7 +871,7 @@ async function submit() {
 }
 
 function showDone() {
-  const name = $('preferredName').value.trim() || $('displayName').value.trim().split(/\s+/)[0] || $('legalName').value.trim().split(/\s+/)[0];
+  const name = $('preferredName').value.trim() || $('legalName').value.trim().split(/\s+/)[0];
   $('done-title').textContent = 'Thank you, ' + name;
   if (MODE === 'in_person') {
     $('done-text').textContent = 'Your release is signed and filed. A copy is on its way to ' + $('email').value.trim() + '.';
@@ -957,9 +899,13 @@ $('form').addEventListener('submit', onNext);
 $('f-back').addEventListener('click', () => { if (!busy && step > 0) { clearMarks(); goTo(step - 1); scrollToForm(); } });
 $('adult').addEventListener('change', () => { $('guardian-wrap').hidden = $('adult').value !== 'no'; });
 $('photo-file').addEventListener('change', e => { onPhotoChosen(e.target.files[0]); e.target.value = ''; });
-$('bio').addEventListener('input', updateCount);
-['displayName', 'onScreenTitle'].forEach(id => $(id).addEventListener('input', updatePreview));
-$('role').addEventListener('change', updatePreview);
+$('photo-clear').addEventListener('click', () => {
+  photoBlob = null; uploaded.photo = ''; uploaded.pub = '';
+  if (photoPreviewUrl) { URL.revokeObjectURL(photoPreviewUrl); photoPreviewUrl = null; }
+  setPhoto(null);
+  $('photo-clear').hidden = true;
+  $('photo-btn').textContent = MODE === 'in_person' ? 'Take photo' : 'Upload photo';
+});
 // Clear a field's error mark as soon as it is edited.
 $('form').addEventListener('input', e => {
   const t = e.target;
