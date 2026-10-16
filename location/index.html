@@ -239,7 +239,6 @@ footer a { color: inherit; }
           <div class="checks">
             <label class="check" id="c-agree"><input type="checkbox" id="agree"><span>I have read and agree to the location agreement <i>*</i></span></label>
             <label class="check" id="c-authority"><input type="checkbox" id="authority"><span>I confirm I have authority to grant access to this location <i>*</i></span></label>
-            <label class="check"><input type="checkbox" id="coc"><span>Please send me a certificate of currency<small>Optional. A copy of the Producer's insurance certificate.</small></span></label>
           </div>
         </section>
 
@@ -590,7 +589,6 @@ function details() {
     access_notes: $('access').value.trim(),
     site_contact_name: clean($('siteName').value),
     site_contact_phone: $('sitePhone').value.trim(),
-    want_coc: $('coc').checked,
     authority: $('authority').checked,
     agree: $('agree').checked
   };
