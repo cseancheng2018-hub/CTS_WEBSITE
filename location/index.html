@@ -135,6 +135,7 @@ footer a { color: inherit; }
 }
 .film { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0 14px; border: 1px solid var(--line-str); background: var(--card); border-radius: 6px; padding: 2px 12px; }
 .film .check { border-bottom: 0; padding: 8px 0; }
+.film.err { border-color: var(--stop); }
 .summary .wide { grid-column: 1 / -1; }
 @media (max-width: 520px) { .film { grid-template-columns: minmax(0,1fr); } }
 </style>
@@ -182,7 +183,7 @@ footer a { color: inherit; }
     <form class="form-shell" id="form" novalidate>
       <div class="f-hero">
         <div class="eyebrow">Chasing the Sash</div>
-        <h1>Location agreement</h1>
+        <h1 id="doc-title">Location Agreement</h1>
         <p>Three quick steps: you and the location, the dates and terms, then your signature.</p>
       </div>
       <div class="steps" id="steps" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -197,33 +198,33 @@ footer a { color: inherit; }
           <h3>About you</h3>
           <div class="f-grid">
             <div class="ff"><label for="fullName">Your full name <i>*</i></label><input id="fullName" maxlength="120" autocomplete="name"></div>
-            <div class="ff"><label for="role">Your role <i>*</i></label>
+            <div class="ff" data-q="role"><label for="role">Your role <span data-qm="role"><i>*</i></span></label>
               <select id="role">
                 <option value="">Please choose</option>
                 <option>Owner</option>
                 <option>Manager</option>
                 <option>Authorised representative</option>
               </select></div>
-            <div class="ff full"><label for="org">Organisation or business name <span class="opt">Optional</span></label><input id="org" maxlength="120" autocomplete="organization"></div>
+            <div class="ff full" data-q="organisation"><label for="org">Organisation or business name <span data-qm="organisation"><span class="opt">Optional</span></span></label><input id="org" maxlength="120" autocomplete="organization"></div>
             <div class="ff"><label for="email">Email <i>*</i></label><input id="email" type="email" maxlength="200" autocomplete="email" autocapitalize="off" spellcheck="false"></div>
             <div class="ff"><label for="phone">Mobile <i>*</i></label><input id="phone" type="tel" maxlength="30" autocomplete="tel"></div>
           </div>
-          <h3>The location</h3>
-          <div class="f-grid">
-            <div class="ff full"><label for="locName">Location name <i>*</i></label><input id="locName" maxlength="120" autocomplete="off"><span class="help">e.g. a racecourse area, boutique, home or caf&eacute;</span></div>
-            <div class="ff full"><label for="street">Street address <i>*</i></label><input id="street" maxlength="160" autocomplete="street-address"></div>
-            <div class="ff full"><label for="area">Suburb, state and postcode <i>*</i></label><input id="area" maxlength="120" autocomplete="off"></div>
-            <div class="ff full"><span class="lbl">What can be filmed? <span class="opt">Tick all that apply</span></span>
-              <div class="film">
+          <h3 id="loc-h">The location</h3>
+          <div class="f-grid" id="loc-grid">
+            <div class="ff full" data-q="location"><label for="locName">Location name <span data-qm="location"><i>*</i></span></label><input id="locName" maxlength="120" autocomplete="off"><span class="help">e.g. a racecourse area, boutique, home or caf&eacute;</span></div>
+            <div class="ff full" data-q="location"><label for="street">Street address <span data-qm="location"><i>*</i></span></label><input id="street" maxlength="160" autocomplete="street-address"></div>
+            <div class="ff full" data-q="location"><label for="area">Suburb, state and postcode <span data-qm="location"><i>*</i></span></label><input id="area" maxlength="120" autocomplete="off"></div>
+            <div class="ff full" data-q="film"><span class="lbl" id="film-lbl">What can be filmed? <span data-qm="film" data-qm-hint="tick all that apply"><span class="opt">Optional &middot; tick all that apply</span></span></span>
+              <div class="film" id="film" role="group" aria-labelledby="film-lbl">
                 <label class="check"><input type="checkbox" name="film" value="interior"><span>Interior</span></label>
                 <label class="check"><input type="checkbox" name="film" value="exterior"><span>Exterior</span></label>
                 <label class="check"><input type="checkbox" name="film" value="signage"><span>Signage and logo</span></label>
                 <label class="check"><input type="checkbox" name="film" value="staff"><span>Staff at work</span></label>
               </div></div>
-            <div class="ff full"><label for="offLimits">Areas that are off-limits <span class="opt">Optional</span></label><textarea id="offLimits" maxlength="600"></textarea></div>
-            <div class="ff full"><label for="access">Parking and access notes <span class="opt">Optional</span></label><textarea id="access" maxlength="600"></textarea></div>
-            <div class="ff"><label for="siteName">On-site contact on the day <span class="opt">Optional</span></label><input id="siteName" maxlength="120" placeholder="Name" autocomplete="off"></div>
-            <div class="ff"><label for="sitePhone">Their mobile <span class="opt">Optional</span></label><input id="sitePhone" type="tel" maxlength="30" autocomplete="off"></div>
+            <div class="ff full" data-q="off_limits"><label for="offLimits">Areas that are off-limits <span data-qm="off_limits"><span class="opt">Optional</span></span></label><textarea id="offLimits" maxlength="600"></textarea></div>
+            <div class="ff full" data-q="access_notes"><label for="access">Parking and access notes <span data-qm="access_notes"><span class="opt">Optional</span></span></label><textarea id="access" maxlength="600"></textarea></div>
+            <div class="ff" data-q="site_contact"><label for="siteName">On-site contact on the day <span data-qm="site_contact"><span class="opt">Optional</span></span></label><input id="siteName" maxlength="120" placeholder="Name" autocomplete="off"></div>
+            <div class="ff" data-q="site_contact"><label for="sitePhone">Their mobile <span data-qm="site_contact"><span class="opt">Optional</span></span></label><input id="sitePhone" type="tel" maxlength="30" autocomplete="off"></div>
           </div>
         </section>
 
@@ -293,17 +294,24 @@ const BUCKET = 'agreements';
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const STEPS = ['You and the location', 'Dates & terms', 'Sign'];
 const ROLES = ['Owner', 'Manager', 'Authorised representative'];
-// [key, label, spans both columns]
+const DEFAULT_TITLE = 'Location Agreement';
+const OTHER_KIND = 'crew';
+const NAME_ID = 'fullName';
+const NO_JOB_TEXT = 'The producer will confirm the shoot details with you.';
+// Old agreements (no job_rows) fall back to these job object keys: [key, label, spans both columns]
 const JOB_FIELDS = [
   ['dates', 'Shoot date(s)'], ['times', 'Call / wrap'], ['crew_size', 'Crew size'],
   ['fee', 'Location fee'], ['episode', 'Episode', true]
 ];
+// Which questions are asked. A missing key uses this default (same as the database
+// function agreement_question). 'location' = name + street + area; 'site_contact' = name + mobile.
+const Q_DEFAULTS = { role: 'required', organisation: 'optional', location: 'required', film: 'optional', off_limits: 'optional', access_notes: 'optional', site_contact: 'optional' };
 
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const token = (params.get('t') || '').trim().toLowerCase();
 
-let form = null;                // row from get_agreement_form
+let form = null;                // row from get_agreement_form2
 let step = 0;
 let busy = false;
 let uploadedSig = '';           // signature path already uploaded, so a retry doesn't upload it again
@@ -371,14 +379,45 @@ function randId() {
 }
 
 /* ── Load ── */
-function renderJob(job) {
+const Q_STATES = ['required', 'optional', 'off'];
+function q(key) {
+  const v = form && form.questions && typeof form.questions === 'object' ? form.questions[key] : '';
+  return Q_STATES.includes(v) ? v : Q_DEFAULTS[key];
+}
+const asked = key => q(key) !== 'off';
+const needed = key => q(key) === 'required';
+
+// Hide questions that are not asked; mark the rest required (*) or Optional.
+function applyQuestions() {
+  document.querySelectorAll('[data-q]').forEach(el => { el.hidden = !asked(el.dataset.q); });
+  document.querySelectorAll('[data-qm]').forEach(el => {
+    const hint = el.dataset.qmHint || '';
+    el.textContent = '';
+    const o = document.createElement('span'); o.className = 'opt';
+    if (needed(el.dataset.qm)) {
+      const i = document.createElement('i'); i.textContent = '*'; el.appendChild(i);
+      if (hint) { o.textContent = ' ' + hint.charAt(0).toUpperCase() + hint.slice(1); el.appendChild(o); }
+    } else {
+      o.textContent = 'Optional' + (hint ? ' · ' + hint : ''); el.appendChild(o);
+    }
+  });
+}
+
+// Job lines: ordered [label, value] pairs from the builder; older agreements use the job object.
+function jobLines() {
+  const rows = Array.isArray(form.job_rows) ? form.job_rows.filter(r => Array.isArray(r)) : [];
+  if (rows.length) return rows.map(r => [String(r[0] == null ? '' : r[0]).trim(), String(r[1] == null ? '' : r[1]).trim()]);
+  const job = form.job && typeof form.job === 'object' ? form.job : {};
+  return JOB_FIELDS.map(([key, label, wide]) => [label, job[key] != null ? String(job[key]).trim() : '', wide]);
+}
+
+function renderJob() {
   const dl = $('job');
   dl.textContent = '';
-  JOB_FIELDS.forEach(([key, label, wide]) => {
-    const v = job && job[key] != null ? String(job[key]).trim() : '';
+  jobLines().forEach(([label, v, wide]) => {
     if (!v) return;
     const row = document.createElement('div');
-    if (wide) row.className = 'wide';
+    if (wide || v.length > 40 || v.includes('\n')) row.className = 'wide';
     const dt = document.createElement('dt'); dt.textContent = label;
     const dd = document.createElement('dd'); dd.textContent = v;
     row.append(dt, dd);
@@ -386,7 +425,7 @@ function renderJob(job) {
   });
   if (!dl.children.length) {
     const p = document.createElement('p'); p.className = 'none';
-    p.textContent = 'The producer will confirm the shoot details with you.';
+    p.textContent = NO_JOB_TEXT;
     dl.replaceWith(p); p.id = 'job';
   }
 }
@@ -395,16 +434,16 @@ async function load() {
   if (!UUID_RE.test(token)) return show('invalid');
   let rows;
   try {
-    rows = await rpc('get_agreement_form', { p_token: token });
+    rows = await rpc('get_agreement_form2', { p_token: token });
   } catch (err) {
     return show(err.status ? 'invalid' : 'offline');
   }
   if (!Array.isArray(rows) || !rows.length) return show('invalid');
   form = rows[0];
 
-  // A crew link opened on the location page: send it to the right form.
+  // A link of the other kind opened on this page: send it to the right form.
   if (form.kind && form.kind !== KIND) {
-    if (form.kind === 'crew') { location.replace('../crew/?t=' + encodeURIComponent(token)); return; }
+    if (form.kind === OTHER_KIND) { location.replace('../' + OTHER_KIND + '/?t=' + encodeURIComponent(token)); return; }
     return show('invalid');
   }
 
@@ -415,9 +454,15 @@ async function load() {
     return show('signed');
   }
 
-  $('fullName').value = String(form.recipient_name || '').trim();
+  const title = String(form.doc_title || '').trim() || DEFAULT_TITLE;
+  $('doc-title').textContent = title;
+  document.title = title + ' — Chasing the Sash';
+  $(NAME_ID).value = String(form.recipient_name || '').trim();
   $('email').value = String(form.recipient_email || '').trim();
-  renderJob(form.job || {});
+  applyQuestions();
+  // Hide the 'The location' heading when none of its questions are asked.
+  $('loc-h').hidden = !Array.from($('loc-grid').children).some(el => !el.hidden);
+  renderJob();
   // Written by the production team in the dashboard; the only field set as HTML.
   $('legal').innerHTML = form.terms_html || '';
 
@@ -552,15 +597,28 @@ function validate(s) {
   clearMarks();
   if (s === 0) {
     if (clean($('fullName').value).split(' ').filter(Boolean).length < 2 || clean($('fullName').value).length < 3) return fail($('fullName'), 'Add your full name (first and last).');
-    if (!ROLES.includes($('role').value)) return fail($('role'), 'Choose your role at the location.');
+    if (asked('role') && (needed('role') || $('role').value) && !ROLES.includes($('role').value)) return fail($('role'), 'Choose your role at the location.');
+    if (needed('organisation') && !clean($('org').value)) return fail($('org'), 'Add the organisation or business name.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())) return fail($('email'), 'Add a valid email address.');
     const ph = digits($('phone').value).length;
     if (ph < 8 || ph > 15) return fail($('phone'), 'Add a mobile number.');
-    if (!$('locName').value.trim()) return fail($('locName'), 'Add the location name.');
-    if (!$('street').value.trim()) return fail($('street'), 'Add the street address.');
-    if (!/\d{4}\s*$/.test($('area').value.trim())) return fail($('area'), 'Add the suburb, state and a 4-digit postcode, e.g. Fitzroy VIC 3065.');
-    const sp = $('sitePhone').value.trim();
-    if (sp && (digits(sp).length < 8 || digits(sp).length > 15)) return fail($('sitePhone'), 'Check the on-site contact\'s mobile number, or leave it blank.');
+    // Location: all three when required, or when any of them is filled in.
+    const anyLoc = [$('locName'), $('street'), $('area')].some(el => el.value.trim());
+    if (asked('location') && (needed('location') || anyLoc)) {
+      const opt = needed('location') ? '' : ' Or leave the location details blank.';
+      if (!$('locName').value.trim()) return fail($('locName'), 'Add the location name.' + opt);
+      if (!$('street').value.trim()) return fail($('street'), 'Add the street address.' + opt);
+      if (!/\d{4}\s*$/.test($('area').value.trim())) return fail($('area'), 'Add the suburb, state and a 4-digit postcode, e.g. Fitzroy VIC 3065.' + opt);
+    }
+    if (needed('film') && !document.querySelector('input[name=film]:checked')) return fail($('film'), 'Tick what can be filmed.');
+    if (needed('off_limits') && !$('offLimits').value.trim()) return fail($('offLimits'), 'List any off-limits areas (write "None" if there are none).');
+    if (needed('access_notes') && !$('access').value.trim()) return fail($('access'), 'Add parking and access notes.');
+    if (asked('site_contact')) {
+      if (needed('site_contact') && !clean($('siteName').value)) return fail($('siteName'), 'Add the on-site contact for the day.');
+      const sp = $('sitePhone').value.trim();
+      if (needed('site_contact') && !sp) return fail($('sitePhone'), 'Add the on-site contact\'s mobile number.');
+      if (sp && (digits(sp).length < 8 || digits(sp).length > 15)) return fail($('sitePhone'), needed('site_contact') ? 'Check the on-site contact\'s mobile number.' : 'Check the on-site contact\'s mobile number, or leave it blank.');
+    }
   }
   if (s === 1) {
     if (!$('agree').checked) return fail($('c-agree'), 'Tick to agree to the location agreement.');
@@ -575,23 +633,27 @@ function validate(s) {
 
 /* ── Submit ── */
 function details() {
-  return {
-    full_name: clean($('fullName').value),
-    role: $('role').value,
-    organisation: clean($('org').value),
-    email: $('email').value.trim(),
-    phone: $('phone').value.trim(),
-    location_name: clean($('locName').value),
-    street: clean($('street').value),
-    area: clean($('area').value),
-    film: Array.from(document.querySelectorAll('input[name=film]:checked'), el => el.value),
-    off_limits: $('offLimits').value.trim(),
-    access_notes: $('access').value.trim(),
-    site_contact_name: clean($('siteName').value),
-    site_contact_phone: $('sitePhone').value.trim(),
-    authority: $('authority').checked,
-    agree: $('agree').checked
-  };
+  // Only the questions that were asked are sent.
+  const d = { full_name: clean($('fullName').value) };
+  if (asked('role')) d.role = $('role').value;
+  if (asked('organisation')) d.organisation = clean($('org').value);
+  d.email = $('email').value.trim();
+  d.phone = $('phone').value.trim();
+  if (asked('location')) {
+    d.location_name = clean($('locName').value);
+    d.street = clean($('street').value);
+    d.area = clean($('area').value);
+  }
+  if (asked('film')) d.film = Array.from(document.querySelectorAll('input[name=film]:checked'), el => el.value);
+  if (asked('off_limits')) d.off_limits = $('offLimits').value.trim();
+  if (asked('access_notes')) d.access_notes = $('access').value.trim();
+  if (asked('site_contact')) {
+    d.site_contact_name = clean($('siteName').value);
+    d.site_contact_phone = $('sitePhone').value.trim();
+  }
+  d.authority = $('authority').checked;
+  d.agree = $('agree').checked;
+  return d;
 }
 
 async function submit() {
@@ -653,7 +715,8 @@ async function submit() {
 function showDone() {
   const first = clean($('fullName').value).split(' ')[0];
   $('done-title').textContent = 'Thank you, ' + first;
-  $('done-text').textContent = 'The signed agreement for ' + clean($('locName').value) + ' is on its way to ' + $('email').value.trim() + '. You can close this page.';
+  const place = asked('location') ? clean($('locName').value) : '';
+  $('done-text').textContent = (place ? 'The signed agreement for ' + place : 'Your signed agreement') + ' is on its way to ' + $('email').value.trim() + '. You can close this page.';
   show('done');
   window.scrollTo({ top: 0 });
 }
