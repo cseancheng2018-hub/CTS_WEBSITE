@@ -99,6 +99,7 @@ footer a { color: inherit; }
 .check input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--pink); flex: none; }
 .check.err span, .checks.err .check span { color: var(--stop); }
 .check small { display: block; color: var(--faint); font-size: 11.5px; }
+.summary .wide { grid-column: 1 / -1; }
 .group-lbl { font-size: 12px; font-weight: 600; margin-top: 14px; }
 .group-lbl i { font-style: normal; color: var(--pink); }
 .sigpad { position: relative; border: 1px solid var(--line-str); border-radius: 10px; background: #FEFCF8; touch-action: none; overflow: hidden; }
@@ -178,7 +179,7 @@ footer a { color: inherit; }
     <form class="form-shell" id="form" novalidate>
       <div class="f-hero">
         <div class="eyebrow">Chasing the Sash</div>
-        <h1>Freelancer service agreement</h1>
+        <h1 id="doc-title">Crew Service Agreement</h1>
         <p>Three quick steps: your details, the job and terms, then your signature.</p>
       </div>
       <div class="steps" id="steps" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -192,17 +193,17 @@ footer a { color: inherit; }
           <p class="sub">For your agreement and invoices. Private to the production team.</p>
           <div class="f-grid">
             <div class="ff full"><label for="legalName">Full legal name <i>*</i></label><input id="legalName" maxlength="120" autocomplete="name"></div>
-            <div class="ff full"><label for="bizName">Business or trading name <span class="opt">Optional</span></label><input id="bizName" maxlength="120" autocomplete="organization"></div>
-            <div class="ff"><label for="abn">ABN <i>*</i></label><input id="abn" inputmode="numeric" maxlength="14" autocomplete="off"><span class="help">11 digits</span></div>
-            <div class="ff"><span class="lbl" id="gst-lbl">GST registered? <i>*</i></span>
+            <div class="ff full" data-q="business_name"><label for="bizName">Business or trading name <span data-qm="business_name"><span class="opt">Optional</span></span></label><input id="bizName" maxlength="120" autocomplete="organization"></div>
+            <div class="ff" data-q="abn"><label for="abn">ABN <span data-qm="abn"><i>*</i></span></label><input id="abn" inputmode="numeric" maxlength="14" autocomplete="off"><span class="help">11 digits</span></div>
+            <div class="ff" data-q="gst_registered"><span class="lbl" id="gst-lbl">GST registered? <span data-qm="gst_registered"><i>*</i></span></span>
               <div class="seg" id="gst" role="radiogroup" aria-labelledby="gst-lbl">
                 <label><input type="radio" name="gst" value="yes">Yes</label>
                 <label><input type="radio" name="gst" value="no">No</label>
               </div></div>
             <div class="ff"><label for="email">Email <i>*</i></label><input id="email" type="email" maxlength="200" autocomplete="email" autocapitalize="off" spellcheck="false"></div>
             <div class="ff"><label for="phone">Mobile <i>*</i></label><input id="phone" type="tel" maxlength="30" autocomplete="tel"></div>
-            <div class="ff"><label for="suburb">Suburb and state <span class="opt">Optional</span></label><input id="suburb" maxlength="80" autocomplete="address-level2"></div>
-            <div class="ff"><label for="role">Role on the production <i>*</i></label>
+            <div class="ff" data-q="suburb"><label for="suburb">Suburb and state <span data-qm="suburb"><span class="opt">Optional</span></span></label><input id="suburb" maxlength="80" autocomplete="address-level2"></div>
+            <div class="ff" data-q="role"><label for="role">Role on the production <span data-qm="role"><i>*</i></span></label>
               <select id="role">
                 <option value="">Please choose</option>
                 <option>Director of Photography</option>
@@ -215,12 +216,12 @@ footer a { color: inherit; }
                 <option>Other</option>
               </select></div>
           </div>
-          <div class="privbox">
+          <div class="privbox" data-q="bank">
             <span class="privacy-tag">Only the production team sees these</span>
             <div class="f-grid">
-              <div class="ff full"><label for="accName">Account name <i>*</i></label><input id="accName" maxlength="120" autocomplete="off"></div>
-              <div class="ff"><label for="bsb">BSB <i>*</i></label><input id="bsb" inputmode="numeric" maxlength="7" autocomplete="off"><span class="help">6 digits</span></div>
-              <div class="ff"><label for="accNum">Account number <i>*</i></label><input id="accNum" inputmode="numeric" maxlength="12" autocomplete="off"></div>
+              <div class="ff full"><label for="accName">Account name <span data-qm="bank"><i>*</i></span></label><input id="accName" maxlength="120" autocomplete="off"></div>
+              <div class="ff"><label for="bsb">BSB <span data-qm="bank"><i>*</i></span></label><input id="bsb" inputmode="numeric" maxlength="7" autocomplete="off"><span class="help">6 digits</span></div>
+              <div class="ff"><label for="accNum">Account number <span data-qm="bank"><i>*</i></span></label><input id="accNum" inputmode="numeric" maxlength="12" autocomplete="off"></div>
             </div>
           </div>
         </section>
@@ -289,16 +290,24 @@ const KIND = 'crew';
 const BUCKET = 'agreements';
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const STEPS = ['Your details', 'The job & terms', 'Sign'];
+const DEFAULT_TITLE = 'Crew Service Agreement';
+const OTHER_KIND = 'location';
+const NAME_ID = 'legalName';
+const NO_JOB_TEXT = 'The producer will confirm the job details with you.';
+// Old agreements (no job_rows) fall back to these job object keys.
 const JOB_FIELDS = [
   ['episode', 'Shoot / episode'], ['dates', 'Dates'], ['location', 'Location'],
   ['rate', 'Agreed rate'], ['kit', 'Kit included'], ['payment_terms', 'Payment terms']
 ];
+// Which questions are asked. A missing key uses this default (same as the
+// database function agreement_question). 'bank' covers account name, BSB and number.
+const Q_DEFAULTS = { business_name: 'optional', abn: 'required', gst_registered: 'required', suburb: 'optional', role: 'required', bank: 'required' };
 
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const token = (params.get('t') || '').trim().toLowerCase();
 
-let form = null;                // row from get_agreement_form
+let form = null;                // row from get_agreement_form2
 let step = 0;
 let busy = false;
 let uploadedSig = '';           // signature path already uploaded, so a retry doesn't upload it again
@@ -366,13 +375,45 @@ function randId() {
 }
 
 /* ── Load ── */
-function renderJob(job) {
+const Q_STATES = ['required', 'optional', 'off'];
+function q(key) {
+  const v = form && form.questions && typeof form.questions === 'object' ? form.questions[key] : '';
+  return Q_STATES.includes(v) ? v : Q_DEFAULTS[key];
+}
+const asked = key => q(key) !== 'off';
+const needed = key => q(key) === 'required';
+
+// Hide questions that are not asked; mark the rest required (*) or Optional.
+function applyQuestions() {
+  document.querySelectorAll('[data-q]').forEach(el => { el.hidden = !asked(el.dataset.q); });
+  document.querySelectorAll('[data-qm]').forEach(el => {
+    const hint = el.dataset.qmHint || '';
+    el.textContent = '';
+    const o = document.createElement('span'); o.className = 'opt';
+    if (needed(el.dataset.qm)) {
+      const i = document.createElement('i'); i.textContent = '*'; el.appendChild(i);
+      if (hint) { o.textContent = ' ' + hint.charAt(0).toUpperCase() + hint.slice(1); el.appendChild(o); }
+    } else {
+      o.textContent = 'Optional' + (hint ? ' · ' + hint : ''); el.appendChild(o);
+    }
+  });
+}
+
+// Job lines: ordered [label, value] pairs from the builder; older agreements use the job object.
+function jobLines() {
+  const rows = Array.isArray(form.job_rows) ? form.job_rows.filter(r => Array.isArray(r)) : [];
+  if (rows.length) return rows.map(r => [String(r[0] == null ? '' : r[0]).trim(), String(r[1] == null ? '' : r[1]).trim()]);
+  const job = form.job && typeof form.job === 'object' ? form.job : {};
+  return JOB_FIELDS.map(([key, label, wide]) => [label, job[key] != null ? String(job[key]).trim() : '', wide]);
+}
+
+function renderJob() {
   const dl = $('job');
   dl.textContent = '';
-  JOB_FIELDS.forEach(([key, label]) => {
-    const v = job && job[key] != null ? String(job[key]).trim() : '';
+  jobLines().forEach(([label, v, wide]) => {
     if (!v) return;
     const row = document.createElement('div');
+    if (wide || v.length > 40 || v.includes('\n')) row.className = 'wide';
     const dt = document.createElement('dt'); dt.textContent = label;
     const dd = document.createElement('dd'); dd.textContent = v;
     row.append(dt, dd);
@@ -380,7 +421,7 @@ function renderJob(job) {
   });
   if (!dl.children.length) {
     const p = document.createElement('p'); p.className = 'none';
-    p.textContent = 'The producer will confirm the job details with you.';
+    p.textContent = NO_JOB_TEXT;
     dl.replaceWith(p); p.id = 'job';
   }
 }
@@ -389,16 +430,16 @@ async function load() {
   if (!UUID_RE.test(token)) return show('invalid');
   let rows;
   try {
-    rows = await rpc('get_agreement_form', { p_token: token });
+    rows = await rpc('get_agreement_form2', { p_token: token });
   } catch (err) {
     return show(err.status ? 'invalid' : 'offline');
   }
   if (!Array.isArray(rows) || !rows.length) return show('invalid');
   form = rows[0];
 
-  // A location link opened on the crew page: send it to the right form.
+  // A link of the other kind opened on this page: send it to the right form.
   if (form.kind && form.kind !== KIND) {
-    if (form.kind === 'location') { location.replace('../location/?t=' + encodeURIComponent(token)); return; }
+    if (form.kind === OTHER_KIND) { location.replace('../' + OTHER_KIND + '/?t=' + encodeURIComponent(token)); return; }
     return show('invalid');
   }
 
@@ -409,9 +450,13 @@ async function load() {
     return show('signed');
   }
 
-  $('legalName').value = String(form.recipient_name || '').trim();
+  const title = String(form.doc_title || '').trim() || DEFAULT_TITLE;
+  $('doc-title').textContent = title;
+  document.title = title + ' — Chasing the Sash';
+  $(NAME_ID).value = String(form.recipient_name || '').trim();
   $('email').value = String(form.recipient_email || '').trim();
-  renderJob(form.job || {});
+  applyQuestions();
+  renderJob();
   // Written by the production team in the dashboard; the only field set as HTML.
   $('legal').innerHTML = form.terms_html || '';
 
@@ -546,16 +591,25 @@ function validate(s) {
   clearMarks();
   if (s === 0) {
     if (clean($('legalName').value).split(' ').filter(Boolean).length < 2 || clean($('legalName').value).length < 3) return fail($('legalName'), 'Add your full legal name (first and last).');
-    if (!/^\d{11}$/.test(digits($('abn').value)) || /[^\d\s]/.test($('abn').value)) return fail($('abn'), 'An ABN is 11 digits, e.g. 12 345 678 901.');
-    if (!document.querySelector('input[name=gst]:checked')) return fail($('gst'), 'Let us know if you are registered for GST.');
+    if (needed('business_name') && !clean($('bizName').value)) return fail($('bizName'), 'Add your business or trading name.');
+    if (asked('abn') && (needed('abn') || $('abn').value.trim())) {
+      if (!/^\d{11}$/.test(digits($('abn').value)) || /[^\d\s]/.test($('abn').value)) return fail($('abn'), 'An ABN is 11 digits, e.g. 12 345 678 901.');
+    }
+    if (needed('gst_registered') && !document.querySelector('input[name=gst]:checked')) return fail($('gst'), 'Let us know if you are registered for GST.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())) return fail($('email'), 'Add a valid email address.');
     const ph = digits($('phone').value).length;
     if (ph < 8 || ph > 15) return fail($('phone'), 'Add a mobile number.');
-    if (!$('role').value) return fail($('role'), 'Choose your role on the production.');
-    if (!$('accName').value.trim()) return fail($('accName'), 'Add the bank account name.');
-    if (!/^\d{6}$/.test(digits($('bsb').value)) || /[^\d\s-]/.test($('bsb').value)) return fail($('bsb'), 'A BSB is 6 digits, e.g. 063-000.');
-    const acc = digits($('accNum').value);
-    if (acc.length < 5 || acc.length > 10 || /[^\d\s-]/.test($('accNum').value)) return fail($('accNum'), 'Add your account number (5 to 10 digits).');
+    if (needed('suburb') && !clean($('suburb').value)) return fail($('suburb'), 'Add your suburb and state.');
+    if (needed('role') && !$('role').value) return fail($('role'), 'Choose your role on the production.');
+    // Bank details: all three when required, or when any of them is filled in.
+    const anyBank = [$('accName'), $('bsb'), $('accNum')].some(el => el.value.trim());
+    if (asked('bank') && (needed('bank') || anyBank)) {
+      const opt = needed('bank') ? '' : ' Or leave all three bank details blank.';
+      if (!$('accName').value.trim()) return fail($('accName'), 'Add the bank account name.' + opt);
+      if (!/^\d{6}$/.test(digits($('bsb').value)) || /[^\d\s-]/.test($('bsb').value)) return fail($('bsb'), 'A BSB is 6 digits, e.g. 063-000.' + opt);
+      const acc = digits($('accNum').value);
+      if (acc.length < 5 || acc.length > 10 || /[^\d\s-]/.test($('accNum').value)) return fail($('accNum'), 'Add your account number (5 to 10 digits).' + opt);
+    }
   }
   if (s === 1) {
     if (!$('agree').checked) return fail($('c-agree'), 'Tick to agree to the service agreement.');
@@ -569,20 +623,23 @@ function validate(s) {
 
 /* ── Submit ── */
 function details() {
-  return {
-    legal_name: clean($('legalName').value),
-    business_name: clean($('bizName').value),
-    abn: digits($('abn').value),
-    gst_registered: (document.querySelector('input[name=gst]:checked') || {}).value === 'yes',
-    email: $('email').value.trim(),
-    phone: $('phone').value.trim(),
-    suburb: clean($('suburb').value),
-    role: $('role').value,
-    account_name: clean($('accName').value),
-    bsb: digits($('bsb').value),
-    account_number: digits($('accNum').value),
-    agree: $('agree').checked
-  };
+  // Only the questions that were asked are sent.
+  const d = { legal_name: clean($('legalName').value) };
+  if (asked('business_name')) d.business_name = clean($('bizName').value);
+  if (asked('abn')) d.abn = digits($('abn').value);
+  const gst = document.querySelector('input[name=gst]:checked');
+  if (asked('gst_registered') && gst) d.gst_registered = gst.value === 'yes';
+  d.email = $('email').value.trim();
+  d.phone = $('phone').value.trim();
+  if (asked('suburb')) d.suburb = clean($('suburb').value);
+  if (asked('role')) d.role = $('role').value;
+  if (asked('bank')) {
+    d.account_name = clean($('accName').value);
+    d.bsb = digits($('bsb').value);
+    d.account_number = digits($('accNum').value);
+  }
+  d.agree = $('agree').checked;
+  return d;
 }
 
 async function submit() {
