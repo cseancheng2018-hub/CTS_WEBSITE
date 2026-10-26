@@ -134,6 +134,7 @@ nav.scrolled {
   position: relative;
 }
 .hero-tagline {
+  margin-top: 1.5rem;
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(1rem, 1.8vw, 1.4rem);
   font-weight: 300;
@@ -143,7 +144,7 @@ nav.scrolled {
   position: relative;
 }
 .hero-logline {
-  max-width: 440px;
+  max-width: 480px;
   font-size: 0.78rem;
   line-height: 2;
   color: rgba(255,255,255,0.42);
@@ -216,10 +217,10 @@ section { padding: 6.5rem 3.5rem; }
 }
 .stat-lbl { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-top: 0.25rem; line-height: 1.5; }
 .about-imgs {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
 }
 .about-img { width: 100%; object-fit: cover; }
-.about-img:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+.about-img:first-child { grid-column: 1 / -1; aspect-ratio: 16/9; }
 .about-img:not(:first-child) { aspect-ratio: 3/4; }
 
 /* ── SEASONS & EPISODES (Container 3) ── */
@@ -338,6 +339,38 @@ section { padding: 6.5rem 3.5rem; }
   font-size: 1.1rem; cursor: pointer; line-height: 1; transition: color 0.2s;
 }
 .modal-close:hover { color: var(--pink); }
+/* Racecourse photo gallery: wider single-column modal, photos above the blurb */
+.modal-box.has-gallery { max-width: 960px; grid-template-columns: 1fr; position: relative; }
+.modal-box.has-gallery .modal-img { display: none; }
+.modal-box.has-gallery .modal-body { position: static; padding-top: 1.25rem; }
+.modal-box.has-gallery .modal-close {
+  z-index: 2; width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(9,9,7,0.6); color: var(--cream);
+}
+.modal-gallery { min-width: 0; }
+.gal-stage { position: relative; background: #000; height: min(58vh, 540px); }
+.gal-stage img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.gal-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 44px; height: 44px; border: none; border-radius: 50%;
+  background: rgba(9,9,7,0.6); color: var(--cream); font-size: 1.6rem; line-height: 1;
+  cursor: pointer; transition: background 0.2s;
+}
+.gal-nav:hover, .gal-nav:focus-visible { background: var(--pink); outline: none; }
+.gal-prev { left: 0.75rem; } .gal-next { right: 0.75rem; }
+.gal-count {
+  position: absolute; bottom: 0.6rem; right: 0.9rem;
+  font-size: 0.58rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.7);
+}
+.gal-thumbs { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.6rem; scrollbar-width: none; }
+.gal-thumbs::-webkit-scrollbar { display: none; }
+.gal-thumbs button {
+  flex: 0 0 72px; height: 54px; padding: 0; border: 2px solid transparent;
+  background: none; cursor: pointer; opacity: 0.55; transition: opacity 0.2s, border-color 0.2s;
+}
+.gal-thumbs button.active { border-color: var(--pink); opacity: 1; }
+.gal-thumbs button:hover { opacity: 1; }
+.gal-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .modal-socials { display: flex; gap: 0.25rem; margin: 1.1rem 0 0 -0.5rem; }
 .modal-socials .social-icon { align-items: center; justify-content: center; width: 36px; height: 36px; }
 .modal-socials .social-icon svg { width: 20px; height: 20px; }
@@ -453,6 +486,8 @@ footer {
   .about-imgs .about-img:first-child { aspect-ratio: 16/9; }
   .modal-box { grid-template-columns: 1fr; max-height: 90vh; }
   .modal-img { max-height: 200px; }
+  .gal-stage { height: auto; aspect-ratio: 4/3; }
+  .gal-nav { width: 36px; height: 36px; font-size: 1.3rem; }
   .contact-cards { flex-direction: column; align-items: stretch; }
 }
 </style>
@@ -463,10 +498,10 @@ footer {
 <nav id="nav">
   <a href="#" class="nav-logo">Chasing the Sash</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#seasons">Seasons</a></li>
-    <li><a href="#interviewees">Interviewees</a></li>
-    <li><a href="#racecourses">Racecourses</a></li>
+    <li><a href="#about">The Story</a></li>
+    <li><a href="#seasons">Podcast</a></li>
+    <li><a href="#interviewees">Sash Sisterhood</a></li>
+    <li><a href="#racecourses">The Tracks</a></li>
     <li><a href="#instagram">Instagram</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -479,11 +514,11 @@ footer {
     <img src="images/hero.jpg" alt="Fashions on the Field">
   </div>
 
-  <p class="hero-eyebrow fade-up">An Australian Docuseries</p>
+  <p class="hero-eyebrow fade-up">Your front row seat to Fashions on the Field</p>
   <h1 class="hero-title fade-up">Chasing<em>the Sash</em></h1>
-  <div class="hero-sash-accent fade-up"></div>
   <p class="hero-tagline fade-up">Hats. Horses. High Heels. High Stakes.</p>
-  <p class="hero-logline fade-up">From regional racetracks to the grand finale, everyday Australians put their creativity and courage on the line in a high-stakes fashion competition where one sash can change everything.</p>
+  <p class="hero-logline fade-up">Behind the glamour, fabulous fashion and fierce competition lies a world of extraordinary personalities, passion and ambition.</p>
+  <p class="hero-logline fade-up">Join us as we travel Australia's Fashions on the Field circuit, from country racetracks to the biggest stages, going behind the scenes to discover the colourful characters, incredible creativity and captivating stories that prove there's so much more to winning than a sash.</p>
   <div class="hero-ctas fade-up">
     <a href="#seasons" class="btn-pink">&#9654;&nbsp; Watch on YouTube</a>
     <a href="#about" class="btn-ghost">Discover the Show</a>
@@ -499,18 +534,21 @@ footer {
 <section id="about">
   <div class="about-grid">
     <div class="about-copy fade-up">
-      <p class="eyebrow">About Us</p>
+      <p class="eyebrow">The Story Behind the Sash</p>
       <h2 class="section-h">Where fashion<br>is a competitive<br>sport</h2>
-      <p class="body-copy">Chasing the Sash follows Fashions on the Field — a passionate subculture held at Australian racetracks, where contestants showcase style, creativity, and individuality. Judged on originality, elegance, and attention to detail — the coveted winner's sash is everything.</p>
-      <p class="body-copy" style="margin-top:1rem;">More than a style contest, it's a world where women who feel unseen in everyday life become superstars on the stage. Bold characters, fierce rivalries, and moments of deep vulnerability and unexpected connection.</p>
+      <p class="body-copy">For some, it's a hobby. For others, it's an obsession.</p>
+      <p class="body-copy" style="margin-top:1rem;">Behind every perfectly coordinated outfit are months of planning, meticulous attention to detail and a burning desire to win.</p>
+      <p class="body-copy" style="margin-top:1rem;">But the competition doesn't end on the catwalk. There are friendships forged, rivalries ignited, triumphs celebrated and disappointments endured.</p>
+      <p class="body-copy" style="margin-top:1rem;">For these women, Fashions on the Field is more than a competition. It's a chance to shine, express themselves and, for a few glorious moments, take centre stage.</p>
+      <p class="body-copy" style="margin-top:1rem;">We bring you the stories behind the sash, celebrating the people, passion and connections at the heart of the Fashions on the Field community.</p>
       <div class="about-stats">
         <div>
           <div class="stat-num">400+</div>
           <div class="stat-lbl">Racetracks<br>across Australia</div>
         </div>
         <div>
-          <div class="stat-num">10</div>
-          <div class="stat-lbl">Episodes<br>of drama</div>
+          <div class="stat-num">3</div>
+          <div class="stat-lbl">Minutes<br>on the catwalk</div>
         </div>
         <div>
           <div class="stat-num">1</div>
@@ -519,9 +557,10 @@ footer {
       </div>
     </div>
     <div class="about-imgs fade-up">
-      <img src="https://picsum.photos/seed/fotf_wide/900/400" alt="Fashions on the Field" class="about-img">
-      <img src="https://picsum.photos/seed/fotf_p2/450/600" alt="Race day fashion" class="about-img">
-      <img src="https://picsum.photos/seed/fotf_p3/450/600" alt="Fashion contestant" class="about-img">
+      <img src="images/about-stage.jpg" alt="Walking down the straight at Nowra" class="about-img">
+      <img src="images/about-fashion.jpg" alt="A Fashions on the Field winner receiving her sash" class="about-img">
+      <img src="images/about-contestant.jpg" alt="A sash winner at Nowra" class="about-img">
+      <img src="images/about-feather.jpg" alt="Race day fashion at Nowra" class="about-img">
     </div>
   </div>
 </section>
@@ -529,7 +568,7 @@ footer {
 <!-- ═══════════ CONTAINER 3 — SEASONS & EPISODE BREAKDOWN (YouTube sync) ═══════════ -->
 <section id="seasons">
   <div class="seasons-head fade-up">
-    <p class="eyebrow">Seasons &amp; Episodes</p>
+    <p class="eyebrow">Chasing the Sash Podcast</p>
     <h2 class="section-h">Every episode.<br>Every racetrack.</h2>
     <p class="body-copy" style="color:rgba(0,0,0,0.55); margin-top:1rem;">Watch every episode right here, straight from our YouTube channel — click an episode to play it, or head to <a href="https://www.youtube.com/@ChasingtheSash" target="_blank" style="color:inherit;">@ChasingtheSash</a> to subscribe for new drops.</p>
   </div>
@@ -634,48 +673,43 @@ footer {
 <!-- ═══════════ CONTAINER 4 — MEET THE INTERVIEWEES ═══════════ -->
 <section id="interviewees">
   <div class="fade-up" style="margin-bottom:2.5rem;">
-    <p class="eyebrow">Bold Characters</p>
-    <h2 class="section-h">Meet the interviewees</h2>
-    <p class="body-copy" style="color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:520px;">Scroll sideways to browse the circuit's regulars, first-timers and community leaders. Click a card for their full story.</p>
+    <p class="eyebrow">The Sash Sisterhood</p>
+    <h2 class="section-h">The Women. The Wardrobes. The Stories.</h2>
+    <p class="body-copy" style="color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:520px;">Behind every sash is a story worth telling. Meet the women who bring Fashions on the Field to life, from seasoned competitors to newcomers finding their feet. Discover the friendships, the couture creations and shared passion that make this community so special.</p>
   </div>
 
   <div class="scroll-track fade-up" id="interviewee-track">
-    <div class="scroll-card" data-name="Interviewee Name" data-role="Circuit Regular" data-img="https://picsum.photos/seed/interviewee_1/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+    <div class="scroll-card" data-name="Interviewee Name" data-img="https://picsum.photos/seed/interviewee_1/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
       <img src="https://picsum.photos/seed/interviewee_1/600/800" alt="Interviewee">
       <div class="scroll-card-info">
-        <p class="scroll-card-role">Circuit Regular</p>
         <p class="scroll-card-name">Interviewee Name</p>
         <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
-    <div class="scroll-card" data-name="Interviewee Name" data-role="Circuit Regular" data-img="https://picsum.photos/seed/interviewee_2/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+    <div class="scroll-card" data-name="Interviewee Name" data-img="https://picsum.photos/seed/interviewee_2/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
       <img src="https://picsum.photos/seed/interviewee_2/600/800" alt="Interviewee">
       <div class="scroll-card-info">
-        <p class="scroll-card-role">Circuit Regular</p>
         <p class="scroll-card-name">Interviewee Name</p>
         <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
-    <div class="scroll-card" data-name="Interviewee Name" data-role="Community Leader" data-img="https://picsum.photos/seed/interviewee_3/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+    <div class="scroll-card" data-name="Interviewee Name" data-img="https://picsum.photos/seed/interviewee_3/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
       <img src="https://picsum.photos/seed/interviewee_3/600/800" alt="Interviewee">
       <div class="scroll-card-info">
-        <p class="scroll-card-role">Community Leader</p>
         <p class="scroll-card-name">Interviewee Name</p>
         <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
-    <div class="scroll-card" data-name="Interviewee Name" data-role="First-Timer" data-img="https://picsum.photos/seed/interviewee_4/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+    <div class="scroll-card" data-name="Interviewee Name" data-img="https://picsum.photos/seed/interviewee_4/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
       <img src="https://picsum.photos/seed/interviewee_4/600/800" alt="Interviewee">
       <div class="scroll-card-info">
-        <p class="scroll-card-role">First-Timer</p>
         <p class="scroll-card-name">Interviewee Name</p>
         <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
     </div>
-    <div class="scroll-card" data-name="Interviewee Name" data-role="Judge" data-img="https://picsum.photos/seed/interviewee_5/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
+    <div class="scroll-card" data-name="Interviewee Name" data-img="https://picsum.photos/seed/interviewee_5/600/800" data-bio="Placeholder bio — add a couple of sentences about who this person is, their connection to Fashions on the Field, and what they bring to the series.">
       <img src="https://picsum.photos/seed/interviewee_5/600/800" alt="Interviewee">
       <div class="scroll-card-info">
-        <p class="scroll-card-role">Judge</p>
         <p class="scroll-card-name">Interviewee Name</p>
         <p class="scroll-card-hint">Click for bio &rarr;</p>
       </div>
@@ -686,50 +720,18 @@ footer {
 <!-- ═══════════ CONTAINER 5 — RACECOURSES ═══════════ -->
 <section id="racecourses">
   <div class="fade-up" style="margin-bottom:2.5rem;">
-    <p class="eyebrow">Series One</p>
+    <p class="eyebrow">The Tracks</p>
     <h2 class="section-h">From red dust<br>to Royal Randwick</h2>
-    <p class="body-copy" style="color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:520px;">Australia is home to over 400 racetracks. Scroll sideways to explore the circuit and click a card for quick details on each course.</p>
+    <p class="body-copy" style="color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:520px;">Every racetrack has its own personality, its own community and its own stories to tell. From country courses to iconic racing venues, we travel the Fashions on the Field circuit, celebrating the people, places and traditions that make each destination unique, and bringing their stories to life right here.</p>
   </div>
 
   <div class="scroll-track fade-up">
-    <div class="scroll-card" data-name="Tropical Cairns" data-role="Episode 1" data-img="https://picsum.photos/seed/cairns_loc/480/720" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
-      <img src="https://picsum.photos/seed/cairns_loc/480/720" alt="Tropical Cairns">
+    <div class="scroll-card" data-name="Nowra" data-role="Shoalhaven City Turf Club" data-img="images/nowra/cover.jpg" data-gallery="images/nowra/nowra-01.jpg,images/nowra/nowra-02.jpg,images/nowra/nowra-03.jpg,images/nowra/nowra-04.jpg,images/nowra/nowra-05.jpg,images/nowra/nowra-06.jpg,images/nowra/nowra-07.jpg,images/nowra/nowra-12.jpg,images/nowra/nowra-08.jpg,images/nowra/nowra-09.jpg,images/nowra/nowra-10.jpg,images/nowra/nowra-11.jpg,images/nowra/nowra-14.jpg,images/nowra/nowra-13.jpg" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
+      <img src="images/nowra/cover.jpg" alt="Nowra">
       <div class="scroll-card-info">
-        <p class="scroll-card-role">Episode 1</p>
-        <p class="scroll-card-name">Tropical Cairns</p>
-        <p class="scroll-card-hint">Click for details &rarr;</p>
-      </div>
-    </div>
-    <div class="scroll-card" data-name="Outback Birdsville" data-role="Episode 2" data-img="https://picsum.photos/seed/birdsville_loc/480/720" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
-      <img src="https://picsum.photos/seed/birdsville_loc/480/720" alt="Outback Birdsville">
-      <div class="scroll-card-info">
-        <p class="scroll-card-role">Episode 2</p>
-        <p class="scroll-card-name">Outback Birdsville</p>
-        <p class="scroll-card-hint">Click for details &rarr;</p>
-      </div>
-    </div>
-    <div class="scroll-card" data-name="Genteel Scone" data-role="Episode 4" data-img="https://picsum.photos/seed/scone_loc/480/720" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
-      <img src="https://picsum.photos/seed/scone_loc/480/720" alt="Genteel Scone">
-      <div class="scroll-card-info">
-        <p class="scroll-card-role">Episode 4</p>
-        <p class="scroll-card-name">Genteel Scone</p>
-        <p class="scroll-card-hint">Click for details &rarr;</p>
-      </div>
-    </div>
-    <div class="scroll-card" data-name="Wild West Dubbo" data-role="Episode 7" data-img="https://picsum.photos/seed/dubbo_loc/480/720" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
-      <img src="https://picsum.photos/seed/dubbo_loc/480/720" alt="Wild West Dubbo">
-      <div class="scroll-card-info">
-        <p class="scroll-card-role">Episode 7</p>
-        <p class="scroll-card-name">Wild West Dubbo</p>
-        <p class="scroll-card-hint">Click for details &rarr;</p>
-      </div>
-    </div>
-    <div class="scroll-card finale" data-name="Royal Randwick" data-role="Finale — Melbourne Cup Day" data-img="https://picsum.photos/seed/randwick_loc/480/720" data-bio="Placeholder details — the grand finale racecourse. Location, race day date, and why it's the culmination of the series.">
-      <img src="https://picsum.photos/seed/randwick_loc/480/720" alt="Royal Randwick">
-      <div class="scroll-card-info">
-        <p class="scroll-card-role">Finale — Melbourne Cup Day</p>
-        <p class="scroll-card-name">Royal Randwick</p>
-        <p class="scroll-card-hint">Click for details &rarr;</p>
+        <p class="scroll-card-role">Shoalhaven City Turf Club</p>
+        <p class="scroll-card-name">Nowra</p>
+        <p class="scroll-card-hint">Click for photos &rarr;</p>
       </div>
     </div>
   </div>
@@ -739,6 +741,15 @@ footer {
 <div class="modal-overlay" id="bio-modal" onclick="if(event.target===this) closeModal()">
   <div class="modal-box">
     <img src="" alt="" class="modal-img" id="modal-img">
+    <div class="modal-gallery" id="modal-gallery" hidden>
+      <div class="gal-stage">
+        <img src="" alt="" id="gal-main">
+        <button class="gal-nav gal-prev" type="button" aria-label="Previous photo" onclick="galStep(-1)">&#8249;</button>
+        <button class="gal-nav gal-next" type="button" aria-label="Next photo" onclick="galStep(1)">&#8250;</button>
+        <p class="gal-count" id="gal-count"></p>
+      </div>
+      <div class="gal-thumbs" id="gal-thumbs"></div>
+    </div>
     <div class="modal-body">
       <button class="modal-close" onclick="closeModal()">&#10005;</button>
       <p class="modal-role" id="modal-role"></p>
@@ -810,10 +821,10 @@ footer {
     <div class="footer-col">
       <div class="footer-col-hd">Explore</div>
       <ul>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#seasons">Seasons &amp; Episodes</a></li>
-        <li><a href="#interviewees">Interviewees</a></li>
-        <li><a href="#racecourses">Racecourses</a></li>
+        <li><a href="#about">The Story Behind the Sash</a></li>
+        <li><a href="#seasons">Chasing the Sash Podcast</a></li>
+        <li><a href="#interviewees">The Sash Sisterhood</a></li>
+        <li><a href="#racecourses">The Tracks</a></li>
         <li><a href="#instagram">Social Media</a></li>
       </ul>
     </div>
@@ -913,11 +924,55 @@ footer {
     if (!card) return;
     document.getElementById('modal-img').src = card.dataset.img;
     document.getElementById('modal-img').alt = card.dataset.name;
-    document.getElementById('modal-role').textContent = card.dataset.role;
+    document.getElementById('modal-role').textContent = card.dataset.role || '';
+    document.getElementById('modal-role').hidden = !card.dataset.role;
     document.getElementById('modal-name').textContent = card.dataset.name;
     document.getElementById('modal-bio').textContent = card.dataset.bio;
     renderSocials(card.dataset);
+    renderGallery(card.dataset);
     bioModal.classList.add('open');
+  });
+
+  // Racecourse cards with data-gallery (comma-separated image paths) open a
+  // photo gallery above the blurb instead of the single side image.
+  let galImgs = [], galIdx = 0;
+  function renderGallery(data) {
+    const gal = document.getElementById('modal-gallery');
+    const thumbs = document.getElementById('gal-thumbs');
+    galImgs = (data.gallery || '').split(',').map(s => s.trim()).filter(Boolean);
+    bioModal.querySelector('.modal-box').classList.toggle('has-gallery', galImgs.length > 0);
+    gal.hidden = !galImgs.length;
+    thumbs.replaceChildren(...galImgs.map((src, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Photo ' + (i + 1));
+      b.onclick = () => galShow(i);
+      const t = document.createElement('img');
+      t.src = src; t.alt = ''; t.loading = 'lazy';
+      b.appendChild(t);
+      return b;
+    }));
+    if (galImgs.length) galShow(0);
+  }
+  function galShow(i) {
+    galIdx = (i + galImgs.length) % galImgs.length;
+    const main = document.getElementById('gal-main');
+    main.src = galImgs[galIdx];
+    main.alt = document.getElementById('modal-name').textContent + ' — photo ' + (galIdx + 1);
+    document.getElementById('gal-count').textContent = (galIdx + 1) + ' / ' + galImgs.length;
+    [...document.getElementById('gal-thumbs').children].forEach((b, k) => b.classList.toggle('active', k === galIdx));
+    document.getElementById('gal-thumbs').children[galIdx].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+  function galStep(d) { if (galImgs.length) galShow(galIdx + d); }
+  // Swipe left/right on the photo for phones.
+  let galTouchX = null;
+  const galStage = document.querySelector('.gal-stage');
+  galStage.addEventListener('touchstart', (e) => { galTouchX = e.touches[0].clientX; }, { passive: true });
+  galStage.addEventListener('touchend', (e) => {
+    if (galTouchX === null) return;
+    const dx = e.changedTouches[0].clientX - galTouchX;
+    galTouchX = null;
+    if (Math.abs(dx) > 40) galStep(dx < 0 ? 1 : -1);
   });
 
   // Meet the Interviewees — approved profiles from Supabase.
@@ -933,9 +988,7 @@ footer {
     const card = document.createElement('div');
     card.className = 'scroll-card';
     const img = iv.photo_url || PLACEHOLDER_IMG;
-    const role = iv.role_tag && iv.role_tag !== 'Other' ? iv.role_tag : 'Interviewee';
     card.dataset.name = iv.name;
-    card.dataset.role = role;
     card.dataset.img = img;
     card.dataset.bio = iv.bio || '';
     card.dataset.instagram = iv.instagram_url || '';
@@ -946,7 +999,7 @@ footer {
     pic.onerror = () => { pic.onerror = null; pic.src = PLACEHOLDER_IMG; card.dataset.img = PLACEHOLDER_IMG; };
     const info = document.createElement('div');
     info.className = 'scroll-card-info';
-    [['scroll-card-role', role], ['scroll-card-name', iv.name], ['scroll-card-hint', 'Click for bio \u2192']].forEach(([cls, text]) => {
+    [['scroll-card-name', iv.name], ['scroll-card-hint', 'Click for bio \u2192']].forEach(([cls, text]) => {
       const p = document.createElement('p'); p.className = cls; p.textContent = text; info.appendChild(p);
     });
     card.append(pic, info);
@@ -971,6 +1024,10 @@ footer {
   function closeModal() { bioModal.classList.remove('open'); }
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
+    if (bioModal.classList.contains('open') && galImgs.length) {
+      if (e.key === 'ArrowLeft') galStep(-1);
+      if (e.key === 'ArrowRight') galStep(1);
+    }
   });
 </script>
 </body>
