@@ -1025,7 +1025,7 @@ footer {
   // Locations tab. Photos are in the public location-photos bucket. Added after
   // the built-in cards; a location with the same name replaces its built-in card.
   const LOC_PHOTOS = SUPABASE_URL + '/storage/v1/object/public/location-photos/';
-  const locPhoto = (p) => LOC_PHOTOS + String(p).split('/').map(encodeURIComponent).join('/');
+  const locPhoto = (p) => /^https:\/\//.test(p) ? p : LOC_PHOTOS + String(p).split('/').map(encodeURIComponent).join('/');
   function locCard(loc) {
     const photos = (Array.isArray(loc.photos) ? loc.photos : []).filter(p => typeof p === 'string' && p).map(locPhoto);
     const card = document.createElement('div');
