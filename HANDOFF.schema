@@ -238,3 +238,17 @@ UPDATE 2026-10-06 f (appended)
                   Notice shown when person is published: edits to name/bio/photo/role/socials go live on save.
                   Photo changes logged in activity_log (field "photo"). Browser-tested with mocked Supabase.
   test_profile:   Sean archiving the "C.Sean Cheng" test profile himself.
+
+UPDATE 2026-11-04 (appended) - THE TRACKS SECTION READS LIVE LOCATIONS
+  asked_by:       Sean: location photos uploaded in the tracker's Locations tab should also be on the website.
+  built:          index.html "The Tracks" (#racecourses, track id racecourse-track) now loads public.locations
+                  (published = true, archived = false, order sort_order then name) with the anon key.
+                  Each becomes a card: cover = first photo, eyebrow = address, click opens the existing photo gallery
+                  (all photos) + bio. Photos: <supabase>/storage/v1/object/public/location-photos/<path>.
+                  Built-in Nowra card stays; a published location with the same name (any case) replaces it.
+                  No published locations or a network error = page unchanged. Text set with textContent only.
+  depends_on:     CTS_PRODUCTION-DASH migration 20261104000000_locations.sql (LIVE 2026-11-04) and tracker
+                  Locations tab "Show on website" button.
+  tested:         Chromium with mocked API: cards, Nowra replacement, gallery count, bio escaped, no page errors.
+                  Live check as anon role: query allowed, 0 published locations so far.
+  next_steps:     Sean merges PR; in the tracker add a location, upload photos, press "Show on website".

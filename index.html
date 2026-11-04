@@ -725,7 +725,7 @@ footer {
     <p class="body-copy" style="color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:520px;">Every racetrack has its own personality, its own community and its own stories to tell. From country courses to iconic racing venues, we travel the Fashions on the Field circuit, celebrating the people, places and traditions that make each destination unique, and bringing their stories to life right here.</p>
   </div>
 
-  <div class="scroll-track fade-up">
+  <div class="scroll-track fade-up" id="racecourse-track">
     <div class="scroll-card" data-name="Nowra" data-role="Shoalhaven City Turf Club" data-img="images/nowra/cover.jpg" data-gallery="images/nowra/nowra-01.jpg,images/nowra/nowra-02.jpg,images/nowra/nowra-03.jpg,images/nowra/nowra-04.jpg,images/nowra/nowra-05.jpg,images/nowra/nowra-06.jpg,images/nowra/nowra-07.jpg,images/nowra/nowra-12.jpg,images/nowra/nowra-08.jpg,images/nowra/nowra-09.jpg,images/nowra/nowra-10.jpg,images/nowra/nowra-11.jpg,images/nowra/nowra-14.jpg,images/nowra/nowra-13.jpg" data-bio="Placeholder details — location, race day date, and what makes this racecourse's Fashions on the Field crowd distinct.">
       <img src="images/nowra/cover.jpg" alt="Nowra">
       <div class="scroll-card-info">
@@ -1019,6 +1019,52 @@ footer {
       const track = document.getElementById('interviewee-track');
       track.replaceChildren(...rows.map(ivCard));
     } catch (_) { /* network issue: leave the existing cards in place */ }
+  })();
+
+  // The Tracks — locations the team has shown on the website from the tracker's
+  // Locations tab. Photos are in the public location-photos bucket. Added after
+  // the built-in cards; a location with the same name replaces its built-in card.
+  const LOC_PHOTOS = SUPABASE_URL + '/storage/v1/object/public/location-photos/';
+  const locPhoto = (p) => LOC_PHOTOS + String(p).split('/').map(encodeURIComponent).join('/');
+  function locCard(loc) {
+    const photos = (Array.isArray(loc.photos) ? loc.photos : []).filter(p => typeof p === 'string' && p).map(locPhoto);
+    const card = document.createElement('div');
+    card.className = 'scroll-card';
+    const img = photos[0] || PLACEHOLDER_IMG;
+    card.dataset.name = loc.name;
+    card.dataset.role = loc.address || '';
+    card.dataset.img = img;
+    card.dataset.bio = loc.bio || '';
+    card.dataset.gallery = photos.join(',');
+    const pic = document.createElement('img');
+    pic.src = img; pic.alt = loc.name; pic.loading = 'lazy';
+    pic.onerror = () => { pic.onerror = null; pic.src = PLACEHOLDER_IMG; };
+    const info = document.createElement('div');
+    info.className = 'scroll-card-info';
+    [['scroll-card-role', loc.address || ''], ['scroll-card-name', loc.name],
+     ['scroll-card-hint', photos.length ? 'Click for photos \u2192' : 'Click for more \u2192']].forEach(([cls, text]) => {
+      if (!text) return;
+      const p = document.createElement('p'); p.className = cls; p.textContent = text; info.appendChild(p);
+    });
+    card.append(pic, info);
+    return card;
+  }
+
+  (async function loadLocations() {
+    try {
+      const url = SUPABASE_URL + '/rest/v1/locations' +
+        '?select=id,name,address,bio,photos,sort_order' +
+        '&published=eq.true&archived=eq.false&order=sort_order.asc,name.asc';
+      const res = await fetch(url, { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY } });
+      if (!res.ok) return;
+      const rows = await res.json();
+      if (!Array.isArray(rows) || !rows.length) return;
+      const track = document.getElementById('racecourse-track');
+      const key = (n) => String(n || '').trim().toLowerCase();
+      const names = new Set(rows.map(r => key(r.name)));
+      [...track.children].forEach(c => { if (names.has(key(c.dataset.name))) c.remove(); });
+      track.append(...rows.map(locCard));
+    } catch (_) { /* network issue: leave the built-in cards in place */ }
   })();
 
   function closeModal() { bioModal.classList.remove('open'); }
