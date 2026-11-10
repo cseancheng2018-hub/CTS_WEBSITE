@@ -78,6 +78,9 @@ footer a { color: inherit; }
 .seg label { flex: 1 1 0; min-width: 0; display: flex; gap: 8px; align-items: center; border: 1px solid var(--line-str); background: var(--card); border-radius: 6px; padding: 10px 12px; font-size: 14px; font-weight: 500; cursor: pointer; }
 .seg input { width: 18px; height: 18px; accent-color: var(--pink); flex: none; }
 .seg.err label { border-color: var(--stop); }
+.prefilled { border: 1px solid var(--gold-bg); background: var(--gold-bg); color: var(--fg); border-radius: 8px; padding: 10px 12px; font-size: 13px; margin: -6px 0 16px; }
+.prefilled b { display: block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+.ff .pf { border-color: rgba(198,153,58,.55); background: #FFFCF4; }
 .privbox { border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 14px 14px 2px; margin-bottom: 14px; }
 .privacy-tag { display: inline-flex; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-bottom: 12px; color: var(--gold); background: var(--gold-bg); }
 .summary { border: 1px solid var(--line-str); border-radius: 10px; background: var(--card-up); padding: 14px 16px; margin-bottom: 16px; }
@@ -191,6 +194,7 @@ footer a { color: inherit; }
         <section class="step" data-step="0">
           <h2>Your details</h2>
           <p class="sub">For your agreement and invoices. Private to the production team.</p>
+          <div class="prefilled" id="prefilled" hidden role="note"><b>Please check</b>We've filled in what we already know. Check each detail and correct anything that isn't right.</div>
           <div class="f-grid">
             <div class="ff full"><label for="legalName">Full legal name <i>*</i></label><input id="legalName" maxlength="120" autocomplete="name"></div>
             <div class="ff full" data-q="business_name"><label for="bizName">Business or trading name <span data-qm="business_name"><span class="opt">Optional</span></span></label><input id="bizName" maxlength="120" autocomplete="organization"></div>
@@ -307,10 +311,39 @@ const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const token = (params.get('t') || '').trim().toLowerCase();
 
-let form = null;                // row from get_agreement_form2
+let form = null;                // row from get_agreement_form3 (or form2 before the database update)
 let step = 0;
 let busy = false;
 let uploadedSig = '';           // signature path already uploaded, so a retry doesn't upload it again
+
+const PREFILL_IDS = [['business_name', 'bizName'], ['abn', 'abn'], ['phone', 'phone'], ['suburb', 'suburb'], ['role', 'role']];
+const PREFILL_Q = { business_name: 'business_name', abn: 'abn', suburb: 'suburb', role: 'role' };
+// GST is a yes / no choice, not a box.
+const PREFILL_EXTRA = p => {
+  if (typeof p.gst_registered !== 'boolean' || !asked('gst_registered') || document.querySelector('input[name=gst]:checked')) return false;
+  const r = document.querySelector('input[name=gst][value=' + (p.gst_registered ? 'yes' : 'no') + ']');
+  if (r) r.checked = true;
+  return !!r;
+};
+// Pre-filled by the production team (get_agreement_form3 · prefill). Only fills empty boxes, marks them
+// so they stand out, and shows the "Please check" note. Whatever they submit is what counts.
+function setPf(id, v) {
+  const el = $(id);
+  if (!el || v === undefined || v === null || v === '' || String(el.value || '').trim()) return false;
+  if (el.tagName === 'SELECT' && !Array.from(el.options).some(o => o.value === String(v) || o.text === String(v))) return false;
+  el.value = String(v);
+  el.classList.add('pf');
+  el.addEventListener('input', () => el.classList.remove('pf'), { once: true });
+  el.addEventListener('change', () => el.classList.remove('pf'), { once: true });
+  return true;
+}
+function applyPrefill(p) {
+  if (!p || typeof p !== 'object') return;
+  let any = false;
+  PREFILL_IDS.forEach(([key, id]) => { if (asked(PREFILL_Q[key] || '') && setPf(id, p[key])) any = true; });
+  if (PREFILL_EXTRA(p)) any = true;
+  $('prefilled').hidden = !any;
+}
 
 function show(state) {
   document.querySelectorAll('.state').forEach(el => el.classList.toggle('on', el.id === 's-' + state));
@@ -430,7 +463,8 @@ async function load() {
   if (!UUID_RE.test(token)) return show('invalid');
   let rows;
   try {
-    rows = await rpc('get_agreement_form2', { p_token: token });
+    try { rows = await rpc('get_agreement_form3', { p_token: token }); }
+    catch (err) { if (err.status !== 404) throw err; rows = await rpc('get_agreement_form2', { p_token: token }); }
   } catch (err) {
     return show(err.status ? 'invalid' : 'offline');
   }
@@ -456,6 +490,7 @@ async function load() {
   $(NAME_ID).value = String(form.recipient_name || '').trim();
   $('email').value = String(form.recipient_email || '').trim();
   applyQuestions();
+  applyPrefill(form.prefill);
   renderJob();
   // Written by the production team in the dashboard; the only field set as HTML.
   $('legal').innerHTML = form.terms_html || '';
