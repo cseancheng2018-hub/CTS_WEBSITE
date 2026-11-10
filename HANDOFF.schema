@@ -252,3 +252,10 @@ UPDATE 2026-11-04 (appended) - THE TRACKS SECTION READS LIVE LOCATIONS
   tested:         Chromium with mocked API: cards, Nowra replacement, gallery count, bio escaped, no page errors.
                   Live check as anon role: query allowed, 0 published locations so far.
   next_steps:     Sean merges PR; in the tracker add a location, upload photos, press "Show on website".
+
+UPDATE 2026-11-11 (appended) - PRE-FILLED AGREEMENT FORMS
+  done:           location/ and crew/ load get_agreement_form3 (fallback get_agreement_form2 on 404) and fill empty
+                  boxes from prefill (team-entered in the CTS tracker). Filled boxes get a gold border until edited;
+                  a "Please check" note shows when anything was filled. Bank details are never pre-filled.
+  database:       CTS_PRODUCTION-DASH supabase/migrations/20261111000000_agreement_prefill.sql (applied live).
+  tested:         Chromium with a fake API, 14 checks pass.
