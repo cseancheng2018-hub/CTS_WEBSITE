@@ -259,3 +259,6 @@ UPDATE 2026-11-11 (appended) - PRE-FILLED AGREEMENT FORMS
                   a "Please check" note shows when anything was filled. Bank details are never pre-filled.
   database:       CTS_PRODUCTION-DASH supabase/migrations/20261111000000_agreement_prefill.sql (applied live).
   tested:         Chromium with a fake API, 14 checks pass.
+
+UPDATE 2026-11-11 (appended) - LOCATION PAGE FOOTER
+  done:           location/ footer: "Produced by Late Bloomer Productions and VisionHeads" (Sean). crew/ keeps Freestyle TV.
